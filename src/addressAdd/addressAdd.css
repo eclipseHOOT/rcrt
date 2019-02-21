@@ -1,0 +1,65 @@
+.my_from div {
+  padding: 4% 5%; }
+
+.my_from div .rightIcon {
+  transform: rotate(-90deg);
+  display: inline-block;
+  font-weight: 500;
+  color: #ededed;
+  font-size: 1rem; }
+
+.my_from div textarea {
+  min-height: 5rem;
+  padding: 1% 0;
+  border: none;
+  resize: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-appearance: none;
+  appearance: none; }
+
+.my_from div textarea::-webkit-input-placeholder {
+  color: #575F66; }
+
+.my_from div .address {
+  padding-right: 5%; }
+
+.my_from div img {
+  width: 60%;
+  padding-top: 12%; }
+
+.my_button {
+  margin: 10% 5%; }
+
+.my_button div {
+  padding: 3.5% 0;
+  border-radius: 3px; }
+
+.my_city {
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.5s; }
+
+.my_city .title {
+  padding: 3% 0 3% 0; }
+
+.my_city .title span {
+  padding-left: 15%; }
+
+.my_city .subTitle {
+  padding: 2% 0; }
+
+.my_city .close {
+  padding-top: 2.5%; }
+
+.my_city .close img {
+  width: 70%; }
+
+.my_city .my_list ul {
+  height: 15rem;
+  overflow-y: auto; }
+
+.my_city .my_list ul li {
+  margin: 6% 0; }

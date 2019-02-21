@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>我的订单</title>
+		  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		  <meta name="format-detection" content="telephone=no">
+		  <meta name="msapplication-tap-highlight" content="no">
+		  <meta http-equiv="Cache-Control" content="max-age=7200">
+          <meta http-equiv="expires" content="120">
+		  <meta name="theme-color" content="#282B3B">
+		  <meta name="apple-mobile-web-app-capable" content="yes">
+		  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/common.css"  >
+		<link rel="stylesheet" type="text/css" href="allOrder.css" inline >
+	</head>
+
+	<body class="backB">
+		<section id="index" class='indexPull ftA'  v-cloak>
+			<article class=" textC size000  my_head backBt" >
+			  <div class="my-col-100 wrapper ftF title" >
+			  	<p class="my-col-25"  :class="{'ftY banClick':goodState == 0}" @touchstart="getList(0)">{{spa_text.ALL}}</p>
+			  	<p class="my-col-25"  :class="{'ftY banClick':goodState == 1}" @touchstart="getList(1)">{{spa_text.OrderStatus1}}</p>
+			  	<p class="my-col-25"  :class="{'ftY banClick':goodState == 2}" @touchstart="getList(2)">{{spa_text.Status1}}</p>
+			  	<p class="my-col-25"  :class="{'ftY banClick':goodState == 3}" @touchstart="getList(3)">{{spa_text.Status2}}</p>
+			  </div>
+		      <i class="title_line"  :class="{'line1':goodState == 1,'line2':goodState == 2,'line3':goodState == 3}"></i>
+			</article>
+			<i  class="my_padding backB"></i> 
+			<loadmore @loadmore="getList(goodState)">
+				<ul  class="my_list listPull  size000 backB" v-for="(list,index) in dataList" :key="list.id" v-if="list.goods[0]" >
+					<li class="my-col-95 title borderb"   @click="goToOrderDetail(list.id)" >
+			    		<p class=" my-col-80 ">{{spa_text.ORDER_Id}}: {{list.order_number}}</p>
+			    		<p class=" my-col-20  textR" :class="{'ftG':list.status_id == 1,'ftG':list.status_id == 2,'ftG':list.status_id==3,'ftL':list.status_id == 4,'':list.status_id==5}" v-text="getStatus(list.status_id)"></p>
+			    	</li>
+			    	<li class="my-col-95 content borderb"  @click="goToOrderDetail(list.id)" >
+			    		<p class="my-col-90 nowrap"><span>{{spa_text.goodName}}:</span> <span class="ftF nowrap"  v-text="list.goods[0].goods_name"></span></p>
+				    	<p class="my-col-10">×{{list.goods[0].goods_number}}</p>
+				    	<p class="buyTime"><span>{{spa_text.goodBuyTime}}:</span> <span class="ftF">{{list.create_time | coverTimeStr('YYYY-MM-DD hh:mm:ss')}}</span></p>
+				    	<p>  
+				    		<span class="money_left">{{spa_text.goodAllPrice}}:</span>
+				    		<span class="money_right">
+				    			<a class="my-col-100 ftG">
+				    				￥{{list.total}}
+				    			</a>
+								<a class="my-col-100 size00 ftG">
+									≈{{ list.total  | computedNum(list.quotation,4)}} RCRT
+								</a>			    		
+		                 	</span>	    	
+				    	</p>
+			    	</li>
+			    	<li class="my-col-95 footer">
+			    		<template v-if="list.status_id == 1">
+			    				<p class="my-col-75 ftY"><span>{{spa_text.minuteCancel}}</span></p>
+			    		        <p class="my-col-25 ftF textR"><a class="cancelBtn" @click="openModel(list,index)">{{spa_text.cancelOrder}}</a></p>
+			    		</template>
+			    		
+			    		<p class="ftL textR" v-if="list.status_id == 2">{{spa_text.allOrderTip}}</p>
+			    		
+			    		<template v-if="list.status_id == 3">
+			    				<p class="ftY my-col-75">{{spa_text.collectGoodTip}}</p>
+			    	         	<p class="ft9 my-col-25 textR"><a class="delivery backD ftF" @click="showSH(list,index)">{{spa_text.DeliveryOrder}}</a></p>
+			    		</template>
+			    		
+			    		<p class="my-col-25 ftF textR noMsg" v-if="list.status_id == 4 || list.status_id == 5"><a class="cancelBtn" @click="goToOrderDetail(list.id,list.goods[0].id)" >{{spa_text.delOrder}}</a></p>
+			    	</li>
+				</ul>
+			</loadmore>
+			
+			<transition name="upCss">
+				<cancelorder v-if="showCancel" @cancelorder="domOrder();"  :show.sync="showCancel" ></cancelorder>
+	 	 	</transition>
+	 	 	 
+		</section>
+		<!--<script type="text/javascript">
+			function allgetss(response){
+				console.log(response.result);  
+			}
+		</script>
+		<script type="text/javascript" src="https://suggest.taobao.com/sug?callback=allgetss&code=utf-8&q=10"></script>-->
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="components/cancelorder.js"  ></script>
+		<script src="components/loadmore.js"  ></script>
+		<script src="modules/moment.js"  ></script>
+		<script src="allOrder.js" inline></script>
+	</body>
+
+</html>

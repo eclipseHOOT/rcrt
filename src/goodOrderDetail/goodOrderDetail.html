@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>确认订单</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#171A2C">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/common.css"   />
+		<link rel="stylesheet" type="text/css" href="goodOrderDetail.css" inline  >
+	</head>
+
+	<body class="backB">
+		<section  id="index"  class='size000'  v-cloak>
+		    <article class="my_head"  @click="location.href = 'addressList.html'">
+		    	<div class="my-col-90 hasAddress ftC size000"   >
+		    		<p>{{spa_text.aNAME}}: {{addrDetail.name}}</p>
+		    		<p>{{spa_text.aPHONE}}: {{addrDetail.tel}}</p>
+		    		<p>{{spa_text.aADDRESS}}: {{addrDetail.address}}</p>
+		    	</div>
+		    	
+		    </article>
+		    
+		    <article class="my-col-100 my_detail">
+		    	<goodinfo :imgs="myPic" :names="goodDetails.name"  :prices="goodDetails.price"></goodinfo>
+		    	
+		    	
+		    	<div  class="my-col-95  container borderb">
+		    		<p class="my-col-65 num_left ftA">{{spa_text.BuyNum}}</p>
+		    		<p class="my-col-35 ftC num_right">
+		    			<span class="less" @click='decNum()'>－</span>
+						<span class="num"  v-text="num"></span>
+						<span class="add" @click='incNum()'>＋</span>
+		    		</p>
+		    	</div>
+		    	
+		    	<div  class="my-col-95 container borderb">
+		    		<p class="my-col-20 ftA">{{spa_text.COMMENTS}}: </p>
+		    		<p class="my-col-70 ftC"><input type="text" maxlength="20" :placeholder="spa_text.inputMerchant" v-model="remark" class="size000 roW" /></p>
+		    	</div>
+		    	
+		    	<div  class="my-col-95 container borderb">
+		    		<p class="textR ftC my-col-95">{{spa_text.Has}}{{num}}{{spa_text.HasGood}}<span class="ftG">￥{{alltotal}} </span> ({{spa_text.freight}})</p>
+		    	    <p class="textR ftG my-col-95 size00">≈{{ alltotal |  computedNum(rdccmarket,4) }} RCRT </p>
+		    	    <p class="textR ftC my-col-95">{{spa_text.Balance}}: {{myInfo.available}} RCRT</p>
+		    	</div>
+		    	
+		    	<div class="my-col-80 button backY ft9 size1 textC" @click="openModel(parseFloat(alltotal / rdccmarket).toFixed(4))">
+		    	  		{{spa_text.submitOrder}}
+		    	</div>
+		    </article>
+		    
+		    
+		    <transition name="upCss">
+		        <!-- 显示金额 -->
+			    <article class="my-col-100 backF my_money_model"  v-if="submitModel" >
+					<div class="my-col-100 size000 ft2" >
+						<p class="title">
+							<span class="my-col-10 ft9 textC size5" @click="closeModel">×</span>
+							<span class="my-col-80 textC size1 bolds">{{spa_text.confirmPay}}</span>
+						</p>
+						
+						<p class="payMoney textC">
+							<span class="size6">{{ alltotal |  computedNum(rdccmarket,4) }}</span><span class="bolds size00"> RCRT</span>
+						</p>
+						
+						<p class="myBalance my-col-90">
+							<span class="my-col-50 ftA size1">
+								{{spa_text.MyBalance}} RCRT
+							</span>
+							<span class="my-col-50 size1 textR">
+								{{this.myInfo.available}}
+							</span>
+						</p>
+						
+						<p class="myPayButton backY ft9 my-col-80 size1" @click="openPasswordModel()">
+							{{spa_text.confirmPay}}
+						</p>
+						
+					</div>
+				</article>
+			</transition>
+			
+			<transition name="upCss" >
+			   <keyboard v-if="keyboardModel"   :show.sync="keyboardModel" @submit="payMoney"></keyboard>
+			</transition>
+		</section>
+
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="components/goodinfo.js" ></script>
+		<script src="components/keyboard.js"></script>
+		<script src="goodOrderDetail.js" inline></script>
+	</body>
+
+</html>

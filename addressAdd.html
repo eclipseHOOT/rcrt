@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>新增收货地址</title> 
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#282B3B">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+        
+		<link rel="stylesheet" type="text/css" href="css/common.css"  >
+		<style type="text/css">.my_from div{padding:4% 5%}.my_from div .rightIcon{transform:rotate(-90deg);display:inline-block;font-weight:500;color:#ededed;font-size:1rem}.my_from div textarea{min-height:5rem;padding:1% 0;border:0;resize:none;-webkit-tap-highlight-color:transparent;-webkit-appearance:none;appearance:none}.my_from div textarea::-webkit-input-placeholder{color:#575f66}.my_from div .address{padding-right:5%}.my_from div img{width:60%;padding-top:12%}.my_button{margin:10% 5%}.my_button div{padding:3.5% 0;border-radius:3px}.my_city{position:fixed;z-index:3;left:0;right:0;bottom:0;transition:.5s}.my_city .title{padding:3% 0}.my_city .title span{padding-left:15%}.my_city .subTitle{padding:2% 0}.my_city .close{padding-top:2.5%}.my_city .close img{width:70%}.my_city .my_list ul{height:15rem;overflow-y:auto}.my_city .my_list ul li{margin:6% 0}</style>
+	</head>
+
+	<body class="backB" >
+		<section  id="index"  class='ftC size1'  v-cloak>
+			<article class="my_from">
+				<div class="my-col-90 borderb">
+				 	 <p class="my-col-25">{{spa_text.aNAME}}:</p>
+				 	 <p class="my-col-75 ftF"><input type="text" maxlength="10" autofocus v-model="name" /></p>
+				</div>
+				<div class="my-col-90 borderb">
+				 	 <p class="my-col-25">{{spa_text.aPHONE}}:</p>
+				 	 <p class="my-col-75 ftF"><input type="number" maxlength="11"  v-model="phone" /></p>
+				</div>
+				<div class="my-col-90 borderb" v-if="showAddress">	
+				 	 <p class="my-col-25">{{spa_text.region}}:</p>
+				 	 <p class="my-col-65 textR address ftF nowrap"  @touchstart="showAddrSelect">
+				 	 	  <template v-if="proName == '请选择'">
+                                <span v-text="proName"></span>
+				 	 	  </template>
+				 	 	  <template v-else>
+				 	 	    	<span v-show="proName" v-text="proName"></span><span v-show="cityName" v-text="cityName"></span><span v-show="countyName" v-text="countyName"></span>
+				 	 	  </template>
+				 	 </p>
+				 	 <p class="my-col-5"><span class="size2 rightIcon" @touchstart="showAddrSelect" >﹀</span></p>
+				</div>
+				<div class="my-col-90 borderb">
+				 	 <textarea class="roW size2 ftF backB" maxlength="100" v-model="daddr"   :placeholder="spa_text.ADDRESS_PLAC" ></textarea>
+				</div>
+			</article>
+			
+			<article class="my_button my-col-90">
+				 <div class="my-col-100 textC backY  ft9" @click="domAddress">
+				         {{spa_text.SAVE}}
+				 </div>
+			</article>
+			
+			<transition name="upCss">
+			 <!--城市选择三级联动-->
+		 	 	<article class="my_city backF ft3  textC size000"  v-if="showPsd">
+		 	 	 	  <div class="my-col-100">
+		 	 	 	  	<p class="title my-col-90">
+		 	 	 	  		<span class="my-col-80">{{spa_text.region}}</span>
+		 	 	 	  	</p>
+		 	 	 	  	<p class="my-col-5 close ftC size5" @click="close">×</p>
+		 	 	 	  </div>
+		 	 	 	  <div class="my-col-100 subTitle ft9">
+		 	 	 	  	<p class="my-col-33 nowrap">{{proName}}</p>
+		 	 	 	    <p class="my-col-33 nowrap">{{cityName}}</p>
+		 	 	 	    <p class="my-col-33 nowrap">{{countyName}}</li>
+		 	 	 	  </div>
+		 	 	 	  <div class="my-col-100 my_list">
+		 	 	 	  	<ul class="my-col-33">
+		 	 	 	  		<li  v-for="(list,index) of proList" :key="list.id"  :class="{'banClick':list.name == proName}"  @click="changeProvince(list.id,list.name)" v-text="list.name" ></li>
+		 	 	 	  	</ul>
+		 	 	 	  	<ul class="my-col-33">
+		 	 	 	  		<li  v-for="(list,index) of cityList" :key="list.id"  :class="{'banClick':list.name == cityName}"  @click="changeCity(list.id,list.name)"   v-text="list.name"></li>
+		 	 	 	  	</ul>
+		 	 	 	  	<ul class="my-col-33">
+		 	 	 	  		<li  v-for="(list,index) of countyList" :key="list.id" :class="{'banClick':list.name == countyName}"  @click="changeCounty(list.id,list.name)" v-text="list.name"></li>
+		 	 	 	  	</ul>
+		 	 	 	  </div>
+		 	 	</article>
+	 	 	</transition>
+		</section>
+
+
+
+        <script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script>"use strict";var vm=new Vue({el:"#index",data:{addressInfo:{},name:"",phone:"",daddr:"",proList:[],cityList:[],countyList:[],proName:"请选择",cityName:"请选择",countyName:"请选择",addrDetail:"请选择",showPsd:!1,proId:0,cityId:0,spa_text:{},province_id:0,city_id:0,area_id:0,showAddress:!0,addrId:""},created:function(){this.spa_text=language._text(),document.title=this.spa_text.ADD_ADDRESS_Title,stroage.read("lang")&&"zh-cn"!=stroage.read("lang")&&(this.showAddress=!1),this.addrId=common._parseUrl("id"),this.addrId?this.getAddress():this.getProvince()},methods:{getAddress:function(){var t=this,i={id:this.addrId};this.$axios.post("address/info",i).then(function(i){var e,o,a;0==i.code?(e=[i.data.name,i.data.tel,i.data.address],t.name=(a=(o=e[Symbol.iterator]()).next()).done?void 0:a.value,t.phone=(a=o.next()).done?void 0:a.value,t.daddr=(a=o.next()).done?void 0:a.value,stroage.read("lang")&&"zh-cn"!=stroage.read("lang")||(t.proId=i.data.province_id,t.getProvince(),t.changeProvince(t.proId),t.cityId=i.data.city_id,t.changeCity(t.cityId),t.area_id=t.countyId=i.data.area_id)):myalert._msg(i.msg,1)})},domAddress:function(){},showAddrSelect:function(){document.activeElement.blur(),common._formMask(),this.showPsd=!0},close:function(){common._removeMask(),this.showPsd=!1},getProvince:function(){var t=this;this.$axios.post("common/area",{pid:0}).then(function(i){if(0==i.code)if(t.proList=i.data,t.proId){for(var e in t.proList)if(t.proList[e].id==t.proId)return void(t.proName=t.proList[e].name)}else t.countyName="请选择"})},changeProvince:function(t,i){var e=this;this.province_id=t,i&&(this.cityName="请选择",this.cityList=[],this.countyName="请选择",this.countyList=[],this.proName=i);var o={pid:t};this.$axios.post("common/area",o).then(function(t){if(0==t.code&&(e.cityList=t.data,e.cityId))for(var i in e.cityList)if(e.cityList[i].id==e.cityId)return void(e.cityName=e.cityList[i].name)})},changeCity:function(t,i){var e=this;this.city_id=t,i&&(this.countyName="请选择",this.countyList=[],this.cityName=i);var o={pid:t};this.$axios.post("common/area",o).then(function(t){if(0==t.code&&(e.countyList=t.data,e.countyId))for(var i in e.countyList)if(e.countyList[i].id==e.countyId)return void(e.countyName=e.countyList[i].name)})},changeCounty:function(t,i){this.area_id=t,this.countyName=i,common._removeMask(),this.showPsd=!1}}});</script>
+
+	</body>
+
+</html>

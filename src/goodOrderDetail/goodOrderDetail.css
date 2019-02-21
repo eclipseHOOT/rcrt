@@ -1,0 +1,97 @@
+@charset "UTF-8";
+.my_head {
+  border-bottom: 8px solid #171A2C; }
+
+.my_head .noAddress {
+  margin: 12% 0; }
+
+.my_head .noAddress p {
+  padding: 0 30%; }
+
+.my_head .noAddress .addIcon {
+  padding: 2% 1%;
+  border: 1px solid #92A0AC; }
+
+.my_head .noAddress .addText {
+  padding-top: 3%; }
+
+.my_head .hasAddress {
+  position: relative;
+  padding: 1% 5% 4% 5%; }
+
+.my_head .hasAddress p {
+  padding-top: 3%; }
+
+.my_head .hasAddress::after {
+  content: '〉';
+  position: absolute;
+  background-size: 100% 100%;
+  width: 1rem;
+  height: 1rem;
+  font-size: 1rem;
+  color: #c6c6c6;
+  transform: translate(-100%, 240%); }
+
+.my_detail {
+  margin-bottom: 15%;
+  /*输入表单的placeholder字体样式*/ }
+
+.my_detail .title {
+  padding: 2% 0 2% 5%; }
+
+.my_detail .container {
+  padding: 3% 0 3% 5%; }
+
+.my_detail input:-webkit-input-placeholder {
+  color: #575F66; }
+
+.my_detail .num_left {
+  padding-top: 1%; }
+
+.my_detail .num_right span {
+  float: left;
+  padding: 2% 4%;
+  border: 1px solid #92A0AC; }
+
+.my_detail .num_right .num {
+  padding: 2% 15%; }
+
+.my_detail .num_right .less {
+  border-radius: 2pt 0 0 2pt;
+  border-right: 0; }
+
+.my_detail .num_right .add {
+  border-radius: 0  2pt 2pt 0;
+  border-left: 0; }
+
+.my_detail .button {
+  padding: 3% 0;
+  margin: 20% 10% 5%;
+  border-radius: 2pt; }
+
+.my_money_model {
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #777;
+  transition: 0.5s; }
+
+.my_money_model .title {
+  padding: 3% 0;
+  border-bottom: 1pt solid #D4D4D4; }
+
+.my_money_model .payMoney {
+  padding: 6% 0; }
+
+.my_money_model .myBalance {
+  margin: 0 5%;
+  padding-bottom: 2%;
+  border-bottom: 0.5px solid #D4D4D4; }
+
+.my_money_model .myPayButton {
+  margin: 25% 10% 8%;
+  padding: 3% 0;
+  border-radius: 2pt;
+  text-align: center; }

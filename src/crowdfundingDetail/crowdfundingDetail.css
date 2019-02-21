@@ -1,0 +1,97 @@
+.my_head {
+  margin: 4% 0; }
+
+.my_head .myPic {
+  margin: 0 2.5%; }
+
+.my_head .myPic .child {
+  position: absolute;
+  text-shadow: 0.5px 0.5px 1px #fff;
+  padding: .4% 2.5%;
+  display: inline-block;
+  color: #fff;
+  border-radius: 4pt;
+  transform: translate(215%, 35%); }
+
+.my_head .detail {
+  border-radius: 0 0 4pt 4pt;
+  margin: 0 2.5%;
+  padding: 0 2.5%; }
+
+.my_head .detail .one {
+  padding: 7% 0 2%; }
+
+.my_head .detail .schedule {
+  border-bottom: 2pt solid #1F212B;
+  padding: 2% 0 5% 0; }
+
+.my_head .detail .boxshell {
+  display: inline-block;
+  width: 100%;
+  height: 0.6rem;
+  border-radius: 50px;
+  background: #EFBB53;
+  border: 1px solid rgba(146, 146, 251, 0.2); }
+
+.my_head .detail .boxBar {
+  background: #E79E40;
+  float: left;
+  height: 100%;
+  border-radius: 50px; }
+
+.my_head .detail .firstContent {
+  padding-top: 5.5%; }
+
+.my_head .detail .contentMsg {
+  padding-top: 3%; }
+
+.my_head .detail .lastp {
+  padding-bottom: 4%; }
+
+.my_head .detail .footer {
+  padding: 4% 0 3%; }
+
+.coinTitle {
+  margin: 3% 20% 5%; }
+
+.coinContent {
+  margin: 0 2.5%;
+  border-radius: 4pt;
+  padding: 5% 2.5%; }
+
+.coinContent p {
+  padding-top: 2%; }
+
+.crowdTitle {
+  margin: 7% 20% 5%; }
+
+.crowdContent {
+  margin: 0 2.5% 0;
+  border-radius: 4pt;
+  padding: 8% 2.5% 5%; }
+
+.crowdContent p {
+  word-wrap: break-word; }
+
+.crowdContent span {
+  word-wrap: break-word; }
+
+.crowdContent img {
+  width: 100%;
+  float: left; }
+
+.paddingBottom {
+  padding-bottom: 25%;
+  opacity: 0; }
+
+.my_footer {
+  padding: 3% 0;
+  position: fixed;
+  bottom: 0;
+  background: #21252A; }
+
+.my_footer div {
+  padding: 3% 0;
+  margin: 0 10%;
+  text-align: center;
+  border-radius: 4pt; }

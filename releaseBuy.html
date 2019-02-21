@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>发布购买</title>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#4e8ef7">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="Cache-Control" content="max-age=7200">
+    <meta http-equiv="expires" content="120">
+    <meta name="theme-color" content="#171A2C">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" type="text/css" href="css/common.css"  />
+    <style type="text/css">.my_head{padding:11% 0;background:-webkit-linear-gradient(top,#c2a066,#dbc594);background:-o-linear-gradient(top,#c2a066,#dbc594);background:-moz-linear-gradient(top,#c2a066,#dbc594);background:linear-gradient(to top,#c2a066,#dbc594)}.my_head .left{border-right:1px dashed #7a7ae9;box-sizing:border-box}.my_head .title{padding-bottom:10%}.my_info{margin:5% 2.5%;padding:8% 2.5% 0;border-radius:4pt}.my_info div{margin:0 0 3%;padding:0 0 1%}.my_info .saleNumBorder{border-bottom:1pt solid #1f212b}.my_info .saleNum{width:70%}.my_info .button{margin:45% 5% 8%;border-radius:1pt;padding:3.5% 0}</style>
+</head>
+
+<body class="backB">
+    <section id="index" class="size000 ftA" v-cloak>
+		<myassets :available="myInfo.available" :freezing="myInfo.freezing"></myassets>
+		
+		<article class="my_info my-col-90 backBt">
+			<div class="my-col-100">
+				<p class="my-col-50"><span v-text="spa_text.CurrentPrice+'：'">当前价格：</span></p>
+				<p class="my-col-50 textR ftY bolds">
+					<span class="size000">{{currentMoney| symbolCoin(symbol,dollar) }}</span>
+					<!--<input type="number" v-model="currentMoney" readonly class=" size1 textR roW canClick" />-->
+				</p>
+			</div>
+			<div class="my-col-100">
+				<p class="my-col-30 ">
+					<span v-text="spa_text.BuyPrice + '：'">购买价格：</span>
+				</p>
+				<p class="my-col-70  saleBorder textR bolds">
+					<span class="size000 ftY" >{{money| symbolCoin(symbol,dollar) }}</span>
+					<!--<input type="number" v-model="money" readonly  class="size1 textR roW canClick" />-->
+				</p>
+				<!--<p class="size00 textR ftQ">{{spa_text.twoBetween}} ({{spa_text.PUBLISHED_RULE}})</p>-->
+			</div>
+			<div  class="my-col-100">
+				<p class="my-col-30">
+					<span v-text="spa_text.BuyNum + '：'">购买数量：</span>
+				</p>
+				<p class="my-col-70 saleNumBorder"> 
+					<span class="my-col-100   textR">
+						<input type="number" autofocus v-model="num"  @keyup="getNum" class="size2 ftY bolds textR saleNum" />
+						<a class="b5 size00 ft6">rcrt</a>
+					</span>
+				</p>
+			</div>
+			<div class="my-col-100">
+				<p class="my-col-30 "><span v-text="spa_text.payMoney + '：'">支付金额：</span></p>
+				<p class="my-col-70 ftY textR size2 bolds">
+				    <span >{{money*num| symbolCoin(symbol,dollar) }}</span>
+				</p>
+			</div>
+            <div class="button backY ft9 my-col-90 size1 textC" @click="openModel" v-text="spa_text.Buyrdcc">购买RDCC</div>
+		</article>
+		
+		
+		<transition name="upCss" >
+		   <keyboard  v-if="keyboardModel" :show.sync="keyboardModel"  @submit="submit"></keyboard>
+		</transition>
+			
+    </section>
+    <script src="modules/vue.js" ></script> 
+    <script src="modules/axios.js"  ></script>
+	<script src="js/base.js"  ></script>
+	<script src="components/keyboard.js" ></script>
+	<script src="components/myassets.js" ></script>
+    <script>"use strict";var vm=new Vue({el:"#index",components:{keyboard:Keyboard,myassets:Myassets},data:{currentMoney:0,currentService:{},num:100,money:10,pay_pwd:"",spa_text:{},myInfo:{available:0,freezing:0},minNum:0,dollar:1,symbol:"￥",keyboardModel:!1,init:!1},created:function(){this.spa_text=language._text(),document.title=this.spa_text.Buy,this.getIndexInfo(),this.getMyInfo(),this.getServiceData(),this.getHL()},methods:{getNum:function(t,e){var n=this.num+"";if(n.includes(".")){var o=n.split(".");if(o.length>1)(o[1]+"").length>2&&(this.num=Math.floor(100*this.num)/100)}},getMyInfo:function(){var t=this;this.$axios.post("user/getBalance",{currency_id:1}).then(function(e){0==e.code&&(t.myInfo=e.data)})},getIndexInfo:function(){var t=this;this.$axios.post("common/get_quotation",{id:1}).then(function(e){0==e.code&&(t.money=t.currentMoney=e.data)})},openModel:function(){if(this.num-0<this.minNum-0)return myalert._msg(this.spa_text.PUBLISHED_RULE5+this.minNum,2),!1;this.keyboardModel=!this.keyboardModel},submit:function(t){console.log(t),this.pay_pwd=t;var e={type:1,num:this.num,pay_pwd:this.pay_pwd};this.$axios.post("c2c/add",e).then(function(t){0==t.code?myalert._msg(t.msg,1,function(){webview._goBack()}):myalert._msg(t.msg,1,function(){common._formMask()})})},getServiceData:function(){var t=this;this.$axios.post("common/getConfig").then(function(e){0==e.code?t.minNum=e.data.min_charge_key:myalert._msg(e.msg,1)})},getHL:function(){var t=this,e=common._parseUrl("hlId");e&&this.$axios.post("common/getTenderCategory").then(function(n){var o,i,a;if(0==n.code){var s=n.data.data;for(var m in s)if(s[m].id==e){o=[s[m].short,s[m].quotation],t.symbol=(a=(i=o[Symbol.iterator]()).next()).done?void 0:a.value,t.dollar=(a=i.next()).done?void 0:a.value;break}}})}}});</script>
+</body>
+
+</html>

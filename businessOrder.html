@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>商家订单</title>
+		  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		  <meta name="format-detection" content="telephone=no">
+		  <meta name="msapplication-tap-highlight" content="no">
+		  <meta http-equiv="Cache-Control" content="max-age=7200">
+	      <meta http-equiv="expires" content="120">
+	      <meta name="theme-color" content="#282B3B">
+		
+		  <meta name="apple-mobile-web-app-capable" content="yes">
+		  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<style type="text/css">.my_head{position:fixed;z-index:1}.my_head .title{margin:3% 0}.my_head .title_line{transition:.5s;width:12%;float:left;margin-left:6.5%;border-bottom:3px solid #efbb53}.my_head .line1{margin-left:31.5%}.my_head .line2{margin-left:56.5%}.my_head .line3{margin-left:81.5%}.my_padding{padding:7% 0;float:left;width:100%;border-bottom:1px solid #efbb53}ul{border-bottom:10px solid #21252a}ul .content,ul .footer,ul .title{padding:3% 2.5%}ul .content .buyTime{padding:2% 0}ul .content .money_left{width:21%;float:left}ul .content .money_right{width:79%;float:left}ul .footer .noMsg{margin-left:75%}ul .footer .delivery{text-align:center;border-radius:3px;padding:6% 12%}</style>
+	</head>
+
+	<body class="backB">
+		<section id="index" class='indexPull'  v-cloak>
+			<article class=" textC size000  my_head backB" >
+			  <div class="my-col-100 wrapper ftC title" >
+			  	<p class="my-col-25"  :class="{'ftY banClick':goodState == 0}" @touchstart="getList(0)">{{spa_text.ALL}}</p>
+			  	<p class="my-col-25"  :class="{'ftY banClick':goodState == 1}" @touchstart="getList(1)">{{spa_text.OrderStatus1}}</p>
+			  	<p class="my-col-25"  :class="{'ftY banClick':goodState == 2}" @touchstart="getList(2)">{{spa_text.Status1}}</p>
+			  	<p class="my-col-25"  :class="{'ftY banClick':goodState == 3}" @touchstart="getList(3)">{{spa_text.Status2}}</p>
+			  </div>
+		      <i class="title_line"  :class="{'line1':goodState == 1,'line2':goodState == 2,'line3':goodState == 3}"></i>
+			</article>
+			<i  class="my_padding"></i>
+		    <loadmore class="listPull size000" @loadmore="getList(goodState)">
+				<ul  v-for="(list,index) in dataList" :key="list.id" v-if="list.goods[0]" class="backBt">
+					<li class="my-col-95 title borderb"   @click="goToOrderDetail(list.id,list.goods[0].id)" >
+			    		<p class=" my-col-80 ft6">{{spa_text.ORDER_Id}}: {{list.order_number}}</p>
+			    		<p class=" my-col-20  textR" :class="{'ftY':list.status_id == 1,'ftR':list.status_id == 2,'ft9':list.status_id==3,'ftG':list.status_id == 4,'ftA':list.status_id==5}" v-text="getStatus(list.status_id)"></p>
+			       </li> 
+			    	<li class="my-col-95 content borderb"  @click="goToOrderDetail(list.id,list.goods[0].id)" >
+			    		<p class="my-col-90 nowrap"><span class="ftA">{{spa_text.goodName}}:</span> <span class="ftC nowrap"  v-text="list.goods[0].goods_name"></span></p>
+				    	<p class="my-col-10 ftC">×{{list.goods[0].goods_number}}</p>
+				    	<p class="buyTime ftA"><span>{{spa_text.goodBuyTime}}:</span> <span class="ftC">{{list.create_time | coverTimeStr('YYYY-MM-DD hh:mm:ss')}}</span></p>
+				    	<p>  
+				    		<span class="money_left ftA">{{spa_text.goodAllPrice}}:</span>
+				    		<span class="money_right ftC">
+				    			<a class="ftG my-col-100">
+				    				￥{{list.total}}
+				    			</a>
+								<a class="my-col-100 ftG size00">
+									≈{{list.total | computedNum(list.quotation,4)}} RCRT
+								</a>			    		
+		                 	</span>	    	
+				    	</p>
+			    	</li>
+			    	
+			    	<li class="my-col-95 footer">
+			    		<template v-if="list.status_id == 1">
+			    		    <p class="my-col-75 ftY"  ><span>{{spa_text.minuteCancel}}</span></p>
+			    		</template>
+			    		
+			    		<template v-if="list.status_id == 2">
+			    			<p class="my-col-75 ftL">{{spa_text.waitBusinessSend}}</p>
+			    		    <p class="my-col-25 textR"><a class="delivery backD ftF" @click="goToOrderDetail(list.id,list.goods[0].id)" >{{spa_text.goToSendGood}}</a></p>
+			    		</template>
+			    		
+			    		<template v-if="list.status_id == 3">
+			    		    <p class="ftE textR" >{{spa_text.collectGoodTip}}</p>
+			    		</template>
+
+			    		<template v-if="list.status_id == 5">
+			    			<p class="ftA textR" >{{spa_text.buyCancelOrder}}</p>
+			    		</template>
+			    	</li>
+				</ul>
+			</loadmore>
+		</section>
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="modules/moment.js"  ></script>
+		<script src="components/loadmore.js"  ></script>
+		<script>"use strict";var vm=new Vue({el:"#index",components:{loadmore:Loadmore},data:{dataList:[],page:1,orderid:-1,goodState:0,spa_text:{}},created:function(){this.spa_text=language._text(),document.title=this.spa_text.BusinessOrder,this.getList(0)},mounted:function(){this.pullUp()},filters:{coverTimeStr:function(t,e){return moment(1e3*t).format(e)}},methods:{getList:function(){var t=void 0!==arguments[0]?arguments[0]:0,e=this;t!=this.goodState&&(this.dataList=[],this.page=1,window.scrollTo(0,0)),this.goodState=t;var a={page:this.page,list_rows:"10",status:t};this.$axios.postList("shoporder/shop_index",a,this.page,function(t){t&&0==t.code&&(e.dataList=1==e.page?t.data.data:e.dataList.concat(t.data.data),e.page++)})},getStatus:function(){var t=void 0!==arguments[0]?arguments[0]:5;return{1:this.spa_text.OrderStatus1,2:this.spa_text.OrderStatus2,3:this.spa_text.OrderStatus3,4:this.spa_text.OrderStatus4,5:this.spa_text.OrderStatus0}[t]},goodPic:function(t){return"background: url('"+t+"') 50% 50% / contain no-repeat;border:1px solid #f1f1f1;height:7rem;box-sizing: border-box;"},goToOrderDetail:function(t){location.href="businessGoodOrderDetail.html?orderid="+t},pullUp:function(){var t=this;plugin.pullUpRefresh(document.querySelector("#list"),40,function(){var e=this,a=setTimeout(function(){0==window.scrollY&&(e.back.call(),t.page=1,clearTimeout(a),t.getList(t.goodState))},1e3)})}}});</script>
+	</body>
+
+</html>

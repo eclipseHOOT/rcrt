@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html> 
+	<head>
+		<meta charset="utf-8" />
+		<title>RCRT交易区</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta name="theme-color" content="#171A2C">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-afgpp-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/common.css"  >
+		<style type="text/css">.my_head{padding:7% 0}.my_head .text{padding:3% 0}.my_newPrice{padding:2% 0}.my_newPrice .hight,.my_newPrice .low{width:29.5%;float:left}.my_newPrice .current{width:41%;float:left}.my_dom{padding:5% 0}.my_dom img{width:45%}.my_market,.my_tran{border-top:10px solid #2e3237}.my_market .label{padding:4% 0 0}.my_market .label a,.my_tran .label p{border:1pt solid #676b6f;box-sizing:border-box;color:#fff}.my_market .label a{display:inline-block;border-radius:4pt;padding:.5% 16%}.my_market .label .selectTabCss{border:1pt solid #efbb53;background:#efbb53;pointer-events:none}.my_market .canvascontainer{margin-left:5%;width:95%;float:left;height:230px}.my_tran .label{padding:4% 0}.my_tran .label p{padding:1% 0}.my_tran .label .left{margin-left:5%;border-radius:5px 0 0 5px}.my_tran .label .right{border-radius:0 5px 5px 0}.my_tran .label .tranTabCss{border:1pt solid #efbb53;background:#efbb53}.my_list li{padding:4% 0 5%;margin:0 5%}.my_list li img{border-radius:100px;width:2rem;height:2rem}.my_list li .name{padding-top:2%;padding-left:3%}.my_list li .number{margin-left:15%;padding-left:1%}.my_list li .money{padding-top:2%}.my_list li .limit{padding-left:11%;padding-top:1%}.my_list li .buy,.my_list li .sale{border-radius:2pt;padding:1% 2%;margin-left:5%}.my_list li .buy{background:#19aa89}.my_list li .sale{background:#265fad}.my_get_password,.my_layer{position:fixed;margin:auto;left:0;right:0;top:0;bottom:0}.my_layer{padding:3% 0 0;z-index:3;width:90%;border-radius:4pt 4pt 0 0}.my_layer .subtitle{padding-top:1%}.my_layer p{padding:0 5% 3%;width:90%;float:left}.my_layer .layerbottom{border-bottom:1px solid #e4e4e4;padding-bottom:5%}.my_layer .button,.my_layer .cancel{width:50%;padding:4% 0;float:left;border:0}.my_layer .cancel{background:#fff}.my_get_password{z-index:5;width:80%;background:#fff;border-radius:5px;height:13rem}.my_get_password .top{padding:3% 0;border-bottom:1px solid #d4d4d4;text-align:center}.my_get_password .input_pwd{margin:13% 0}.my_get_password .input_pwd input{width:75%;letter-spacing:1.25rem;margin:0 7.5%;padding:2% 0;border:1px solid #e4e4e4;text-indent:10%}.my_get_password .domButton{border-top:1pt solid #d4d4d4}.my_get_password .domButton .ensure{padding:4% 0}.my_get_password .domButton .cancel{box-sizing:border-box;border-right:1px solid #d4d4d4;padding:4% 0}</style>
+	</head>
+
+	<body class="backBody">
+		<section id="index" class="ftA"   v-cloak>
+		    <article class="my_head backB textC"> 
+		      <div class="my-col-50 left"> 
+		        	<li @click="launchFullScreen()">全屏</li>
+		          <p class="size000 text" >RCRT</p>
+		          <p class="size2 ftY"><strong v-text="myInfo.available">0.00</strong></p>
+		      </div>
+		      <div class="my-col-50">
+		      	<li @click="exitFullscreen()">退屏</li>
+		          <p class="size000 text" v-text="spa_text.indexFrozen +'RCRT'">冻结RCRT</p>
+		          <p class="size2 ftY"><strong v-text="myInfo.freezing"></strong></p>
+		      </div>
+		    </article>
+		    
+		    <article>
+		    	  <div class="my-col-100 my_newPrice backBt">
+			            <p class="textC size00 ftC">
+			                <span class="hight" >{{spa_text.High}}{{ newMarket.high | symbolCoin(symbol,dollar) }}</span>
+			                <span class="low" >{{spa_text.Low}}{{newMarket.low | symbolCoin(symbol,dollar) }}</span>
+			                <strong class="current ftG" >{{spa_text.CurrentPrice}}{{newMarket.close | symbolCoin(symbol,dollar) }}</strong>
+			            </p>
+			      </div>
+		    </article>
+		    <article class="ft6 size000 textC my_dom backB">
+		        <div class="my-col-25" @click="goToPage('releaseSale.html')">
+		            <img src="img/tranIcon1.png"   />
+		            <p v-text="spa_text.Sell">发布出售</p>
+		        </div>
+		         <div class="my-col-25" @click="goToPage('releaseBuy.html')" @drop='drop($event)' @dragover='allowDrop($event)'>
+		            <img src="img/tranIcon2.png"  />
+		            <p v-text="spa_text.Buy">发布购买</p>
+		        </div>
+		         <div class="my-col-25"  @click="goToPage('depute.html')">
+		            <img src="img/tranIcon3.png" />
+		            <p v-text="spa_text.Order">订单</p>
+		        </div>
+		         <div class="my-col-25"  @click="goToPage('trade.html')">
+		            <img src="img/tranIcon4.png" />
+		            <p v-text="spa_text.TradeLog">交易记录</p>
+		        </div>
+		    </article>
+		    
+		    <article class="size000 textC my_market backB">
+		        <div class="label my-col-100 ftF">
+		           <p class="my-col-33"><a :class="{'selectTabCss':day == 7}" @click="getKLineData(7);" v-text="spa_text.Weekly">周线</a></p>
+		           <p class="my-col-33"><a :class="{'selectTabCss':day == 30}" @click="getKLineData(30);" v-text="spa_text.Monthly">月线</a></p>
+		           <p class="my-col-33"><a :class="{'selectTabCss':day == 100}" @click="getKLineData(100);" v-text="spa_text.All">全部</a></p>
+		        </div>
+		        
+		        <div class="roH canvascontainer my-col-100">
+		        	 <p ref="chart" class="roH"></p>
+		        </div>
+		    </article>
+		    
+		    
+		    
+		    <article class="size000 textC my_tran  backB">
+		        <div class="label my-col-100">
+		           <p class="my-col-45  left" :class="{'tranTabCss banClick':tranTab == 2}" @click="getList(2)" v-text="spa_text.CashBuy"></p>
+		           <p class="my-col-45  right" :class="{'m tranTabCss banClick':tranTab == 1}" @click="getList(1)" v-text="spa_text.CashSell"></p>
+		        </div>
+		    </article>
+		    
+		    <loadmore @loadmore="getList(tranTab)" >
+			    <ul class="my_list backB">
+			      <li class=" my-col-90"  v-for="(list,index) of dataList" :key="list.id">
+			         <p>
+				        <span  class="my-col-70 size000">
+					        <img :src="list.head"  class="my-col-15" />
+					        <a class="my-col-75 name nowrap ftA size1" v-text="list.name"></a>
+					        <a class="my-col-75 number ft6" v-text="spa_text.Number +' : '+list.num + coinName ">数量 : 0.00</a>
+				        </span>
+				        <strong class="my-col-30 textR ftC size1 dollar money">
+				        	<a>{{list.money | symbolCoin(symbol,dollar) }}</a>
+				        </strong>
+			         </p>
+			         <p>
+			         	<span class="my-col-60 limit ft6 size000" ><a v-text="spa_text.ALL_PRICE + ' : '"></a><a>{{list.total_money | symbolCoin(symbol,dollar) }}</a></span>
+			            <span class="my-col-20 ftF textC buy size1" @click="buy(list.id,list.uid)" v-show="tranTab == 2" v-text="spa_text.BuyMarket">买入</span>
+			            <span class="my-col-20  ftF textC sale size1" @click="buy(list.id,list.uid)" v-show="tranTab == 1" v-text="spa_text.SellMarket">卖出</span>
+			         </p>
+			      </li>
+			    </ul>  
+		    </loadmore>
+		    
+		    <article class="my_get_password wrapper ft6 textC size1" v-if="passwordModel" >
+				<div class="my-col-100 top">
+					  <span v-text="spa_text.PUBLISHED_TITLE">请输入交易密码</span>
+				</div>
+				<div  class="my-col-100  size4  input_pwd">
+						<input type="password" autofocus  v-model="pay_pwd" maxlength="6"  />
+				</div>
+				<div  class="my-col-100 domButton">
+					<p class="my-col-50 cancel" @click="closeModel" v-text="spa_text.no">取消</p>
+					<p class="my-col-50 ensure " @click="receiptOrder" v-text="spa_text.yes">确定</p>
+				</div>
+			</article>
+			
+		</section>
+ 
+        <script src="modules/vue.js" ></script> 
+	    <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="components/loadmore.js" ></script>	
+		<script src="modules/echarts.js"  ></script>
+		<script src="register-ws.js"></script>
+		<script>"use strict";function loadingInfo(){var t=void 0!==arguments[0]?arguments[0]:"zh-cn",e=void 0!==arguments[1]&&arguments[1];vm.getMyInfo(),vm.checkCanTran(),vm.page=1,vm.getList(vm.tranTab),stroage.write("lang",t),vm.spa_text=language._text(),document.title="RCRT"+vm.spa_text.TradeSector,e&&(vm.hlId=e,vm.getHuiLv(e)),vm.kline||vm.getKLineData()}var vm=new Vue({el:"#index",components:{loadmore:Loadmore},data:{tranTab:2,indexInfo:{},dataList:[],canTran:0,page:1,hlId:"",marketPage:1,passwordModel:!1,pay_pwd:"",newMarket:{high:0,low:0,close:0},orderId:-1,day:7,chart:null,kline:[],dollar:1,spa_text:{},myInfo:{balance:"0.0000",freezing:"0.0000",available:"0.0000"},oneCreate:!0,userInfo:{},canTranMsg:"",coinName:"RCRT",symbol:"￥"},beforeCreate:function(){stroage.remove("serviceData"),stroage.remove("labelLayer")},created:function(){this.spa_text=language._text(),document.title="RCRT"+this.spa_text.TradeSector,this.checkCanTran(),this.getMyInfo(),this.getList(2),common._parseUrl("currency")&&this.getHuiLv()},mounted:function(){var t=this;this.$nextTick(function(){t.chart=echarts.init(t.$refs.chart),t.getKLineData(7)})},methods:{getMyInfo:function(){var t=this;this.$axios.post("user/getBalance",{currency_id:1}).then(function(e){e&&0==e.code&&e.data&&(t.myInfo=e.data)}),this.$axios.post("user/getUserInfo").then(function(e){e&&0==e.code&&e.data&&(t.userInfo=e.data)})},getKLineData:function(){var t=void 0!==arguments[0]?arguments[0]:7,e=this;this.day=t,this.$axios.post("c2c/getLine",{list_rows:this.day}).then(function(t){if(t&&0==t.code){e.kline=t.data.data;var a=e.initChartOption();e.newMarket=t.data.data[t.data.data.length-1],e.chart.clear(),e.chart.setOption(a)}else myalert._msg(t.msg,1)}).catch(function(t){console.log(t),e.$axios.delloading()})},initChartOption:function(){var t=this,e=this.kline.length;return{tooltip:{trigger:"axis",axisPointer:{type:"none",lineStyle:{color:"#676B6F",type:"dashed"},crossStyle:{color:"#676B6F",type:"dashed"},label:{backgroundColor:"#C8BEAF"}}},xAxis:{type:"category",show:!0,axisLabel:{color:"#92A0AC"},axisTick:{show:!1},axisLine:{show:!0,lineStyle:{type:"solid",opacity:1,color:"#92A0AC"}},nameTextStyle:{fontSize:10},splitLine:{show:!1},boundaryGap:!1,data:function(){for(var t=[],a=new Date;e--;){var o=a.getMonth()+1,i=a.getDate();t.unshift((o<10?"0":"")+o+"/"+(i<10?"0":"")+i),a.setDate(a.getDate()-1)}return t}()},yAxis:{type:"value",scale:!0,axisLabel:{color:"#92A0AC"},axisTick:{show:!1},axisLine:{show:!1,lineStyle:{type:"solid",opacity:1,color:"#92A0AC"}},boundaryGap:!0,axisLabel:{interval:0,margin:2},splitLine:{show:!1}},series:[{type:"line",showSymbol:!0,areaStyle:{color:"#FFF2B5",opacity:.1},smooth:!0,symbol:"image://data:image/png;base64,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",lineStyle:{width:1,color:"#FFB71D"},data:this.kline.map(function(e){return parseFloat(e.close*t.dollar).toFixed(2)}).reverse()}]}},getList:function(t){var e=this;this.tranTab!=t&&(this.page=1,this.tranTab=t);var a={type:t,page:this.page,list_rows:6};this.$axios.postList("c2c/getList",a,this.page,function(t){t&&0==t.code?(e.dataList=1==e.page?t.data.data:e.dataList.concat(t.data.data),e.page++):console.log(t.msg)})},checkCanTran:function(){var t=this;this.$axios.post("c2c/allowPay").then(function(e){e&&0==e.code?t.canTran=0:(t.canTran=1,t.canTranMsg=e.msg)})},obtainTran:function(){return!0},launchFullScreen:function(){var t=t||document.documentElement;t.requestFullscreen?t.requestFullscreen():t.mozRequestFullScreen?t.mozRequestFullScreen():t.webkitRequestFullscreen?t.webkitRequestFullscreen():t.msRequestFullscreen&&t.msRequestFullscreen()},exitFullscreen:function(){document.exitFullscreen?document.exitFullscreen():document.mozExitFullScreen?document.mozExitFullScreen():document.webkitExitFullscreen&&document.webkitExitFullscreen()},buy:function(t,e){if(this.pay_pwd="",!this.obtainTran())return!1;this.orderId=t,myalert._confirm({myClass:"backF wrapper my_layer ft2 size000",content:"<p class='size2 bolds textC'>"+this.spa_text.ACCEPT_ORDER+"</p>\n\t\t\t    <p class='size1 ft9 subtitle' ><strong>"+this.spa_text.KNOWLEDGE+"</strong></p>\n\t\t\t\t<p>"+this.spa_text.RULE1+"</p>\n\t\t\t\t<p>"+this.spa_text.RULE2+"</p>\n\t\t\t\t<p>"+this.spa_text.RULE3+"</p>\n\t\t\t\t<p>"+this.spa_text.RULE4+"</p>\n\t\t\t\t<p class='layerbottom' >"+this.spa_text.RULE5+"</p>\n\t\t\t\t<p class='textC cancel size1  my-col-50' id='_confirmClose'>"+this.spa_text.Cancel+"</p>\n\t\t\t\t<p class='textC my-col-50 size1  ftF backL button' onclick='vm.openModel()'>"+this.spa_text.Accept+"</p>"})},openModel:function(){myalert._closeConfirm(),common._formMask(),this.passwordModel=!0},closeModel:function(){common._removeMask(),this.passwordModel=!1,this.pay_pwd=""},receiptOrder:function(){var t=this;if(!this.pay_pwd)return myalert._msg(this.spa_text.haspayPassword,2,function(){common._formMask()}),!1;if(this.obtainTran()){var e={id:this.orderId,pay_pwd:this.pay_pwd};this.$axios.post("c2c/get",e).then(function(e){e&&0==e.code?(t.passwordModel=!1,myalert._msg(e.msg,2,function(){webview._goOther("orderdetail.html?id="+t.orderId+"&hlId="+t.hlId+"'")})):myalert._msg(e.msg,2,function(){common._formMask()})})}},goToPage:function(t){webview._goOther(t+"?hlId="+this.hlId)},getHuiLv:function(t){var e,a=this;e=t||common._parseUrl("currency"),this.$axios.post("common/getTenderCategory").then(function(t){var o,i,n;if(0==t.code){var s=t.data.data;for(var r in s)if(s[r].id==e){o=[s[r].short,s[r].quotation],a.symbol=(n=(i=o[Symbol.iterator]()).next()).done?void 0:n.value,a.dollar=(n=i.next()).done?void 0:n.value;break}}})}}});</script>
+	</body>
+
+</html>

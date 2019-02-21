@@ -1,0 +1,42 @@
+ul {
+  margin: 0 2.5%;
+  padding: 2% 2.5% 2%; }
+
+ul li {
+  margin: 2% 0;
+  border-radius: 4pt; }
+
+ul li .header {
+  padding: 1% 0 0 5%; }
+
+ul li .label {
+  text-align: center;
+  height: 2.6rem;
+  line-height: 2.55rem; }
+
+ul li .caption {
+  padding-top: 3%; }
+
+ul li .name {
+  padding: 5% 0 0 0;
+  border-top: 2pt solid #1F212B;
+  margin: 4% 5% 1%; }
+
+ul li .content {
+  padding: 1% 5%; }
+
+ul li .footer {
+  margin: 4% 5% 1%;
+  border-top: 1pt solid #22284D; }
+
+ul li .crowd_bottom {
+  margin: 3% 0; }
+
+ul li .color1 {
+  color: #00A8EC; }
+
+ul li .color2 {
+  color: #ff934B; }
+
+ul li .color3 {
+  color: #b5b5c3; }

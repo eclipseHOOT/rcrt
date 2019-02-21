@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>订单详情</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#282B3B">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<style type="text/css">.my_orderType{background:-webkit-linear-gradient(top,#c2a066,#dbc594);background:-o-linear-gradient(top,#c2a066,#dbc594);background:-moz-linear-gradient(top,#c2a066,#dbc594);background:linear-gradient(to top,#c2a066,#dbc594);padding:5% 0}.my_orderType img{width:25%}.my_orderType .status{vertical-align:1.5rem}.my_head{border-bottom:8px solid #111321}.my_head .hasAddress{padding:1% 5% 4%}.my_head .hasAddress p{padding-top:3%}.my_detail{padding-bottom:20%}.my_detail .title{padding:2% 0 2% 5%}.my_detail .container{padding:3% 0 3% 5%}.my_detail .remainTime{margin:10% 0 5%}.my_detail .tip{margin:5% 0 0}.my_detail .colorR{color:#ea3c3c}.my_detail .my_express{padding:2.5%;background:#171a2c}.my_detail .my_express .title{margin:1% 20% 8%;padding:2% 0}.my_detail .my_express .name,.my_detail .my_express .number{border-bottom:1px solid #464b67;padding-bottom:3%;margin:5% 7.5% 3%}.my_detail .my_express .number{margin:5% 7.5% 9%}.my_detail .my_express .my_express_button{padding:3% 0;margin:0 10% 4%;border-radius:2pt}.my_detail .my_express input{padding-left:5%}.my_detail .contactImg{padding:5% 0}.my_detail .contactImg .buyerphone{width:6%;vertical-align:-.5rem}.my_button{position:fixed;z-index:1;bottom:0}.my_button div{padding:1% 0}.my_button div .contactBuy{padding:0 25% 0 20%}.my_button div .logo{padding-top:5%}.my_button div img{vertical-align:bottom;width:10%}</style>
+	</head>
+
+	<body class="backB">
+		<section  id="index"  class='size000'  v-cloak>
+			<article class="my_orderType" >
+		    	<div class="my-col-100 textC">
+		    		<p class="size2 ft9">
+		    		    <img :src="getTypePic(myInfoDetails.status_id)"/>
+		    			<span class="status" v-text="getStatus(myInfoDetails.status_id)"></span>
+		    		</p>
+		    	</div>
+		    </article>
+		    <article class="my_head" >
+		    	<div class="my-col-90 hasAddress ftC size000">
+		    		<p>{{spa_text.aNAME}}: {{myAddressDetails.name}}</p>
+		    		<p>{{spa_text.aPHONE}}: {{myAddressDetails.mobile_number}}</p>
+		    		<p>{{spa_text.aADDRESS}}: {{myAddressDetails.address}}</p>
+		    	</div>
+		    </article>
+		     
+		    <article class="my_detail">
+		    	<div class="my-col-95 title borderb size00 ft6">
+		    		<p class="my-col-65">{{spa_text.ORDER_Id}}: {{myInfoDetails.order_number}}</p>
+		    		<p class="my-col-30 textR">{{myInfoDetails.create_time | coverTimeStr('YYYY-MM-DD')}}</p>
+		    	</div> 
+		    	<goodinfo :imgs="myPic" :names="myGoodDetails.goods_name"  :prices="myGoodDetails.goods_price"></goodinfo>
+		    	<div class="my-col-95 title borderb">
+		    		<p class="my-col-65 ftA">{{spa_text.BuyNum}}</p>
+		    		<p class="my-col-30  textR ftA">{{myGoodDetails.goods_number}}</p>
+		    	</div> 
+		    	<div  class="my-col-95 container borderb ftA">
+		    		<p>{{spa_text.COMMENTS}}:  {{myInfoDetails.remark || spa_text.noComment}} </p>
+		    	</div>
+		    	<div  class="my-col-95  container borderb"  v-if="myGoodDetails">
+		    		<p class="textR my-col-95 ftF" >{{spa_text.Has}}{{myGoodDetails.goods_number}}{{spa_text.HasGood}}<span class="ftG">￥{{parseFloat(myGoodDetails.goods_price * myGoodDetails.goods_number).toFixed(2)}} </span> ({{spa_text.freight}})</p>
+		    	    <p class="textR ftG my-col-95">≈{{ myGoodDetails.goods_price * myGoodDetails.goods_number | computedNum(myInfoDetails.quotation,4) }} RCRT </p>
+		    	</div>
+		    	
+		    	<div class="my-col-95 title" v-if="myInfoDetails.status_id == 3">
+		    		<p class="my-col-30 ftA">{{spa_text.expressName}}</p>
+		    		<p class="my-col-65  textR ft6">{{expressInfo.express_company}}</p>
+		    	</div> 
+		    	<div class="my-col-95 title borderb" v-if="myInfoDetails.status_id == 3">
+		    		<p class="my-col-30 ftA">{{spa_text.expressNumber}}</p>
+		    		<p class="my-col-65  textR ft6">{{expressInfo.express_no}}</p>
+		    	</div> 
+		    	
+		    	
+		    	<div class="my-col-100  textC remainTime"  v-if="myInfoDetails.status_id == 1 && cancelTime == true">
+						<p class="ftF size6 ">{{remainTime}}</p>
+						<p class="tip colorR  size000">
+							{{spa_text.minuteCancel}}
+						</p>
+				</div>
+				
+				
+				<div class="my-col-95 my_express"  v-if="myInfoDetails.status_id == 2">
+						<div class="my-col-100 backB">
+							<p class="textC my-col-60 title size1 ftF">
+							{{spa_text.expressInfo}}
+							</p>
+							<p  class="my-col-85 name">
+								<span class="ftA">{{spa_text.expressName}}</span>
+								<span>
+									<input type="text" maxlength="30" class="ft6 size1" v-model="express_company" :placeholder="spa_text.entercourier" />
+								</span>
+							</p>
+							<p  class="my-col-85 number">
+								<span class="ftA">{{spa_text.expressNumber}}</span>
+								<span>
+									<input type="text" maxlength="30"  class="ft6 size1" v-model="express_no" :placeholder="spa_text.enternumber" />
+								</span>
+							</p>
+							<p  class="textC ft9 size1 backY my_express_button my-col-80" @click="goToSendGood">
+								{{spa_text.ConfirmationDelivery}}
+							</p>
+							
+							<p class="textC contactImg" @click="showPhone=true">
+								<img src="img/phone.png" class="buyerphone"  />
+								<span class="size00 ftG">
+									{{spa_text.ContactBuyer}}
+								</span>
+							</p>
+						</div>
+				</div>
+				
+				
+				
+		    	<div class="my-col-100  textC remainTime"  v-if="myInfoDetails.status_id == 3">
+						<p class="ftA size6 ">{{remainDelliveryTime}}</p>
+						<p class="tip ftR  size000">
+							{{spa_text.Automatic}}
+						</p>
+						<p class="my-col-100 textC contactImg" @click="showPhone=true">
+								<img src="img/phone.png" class="buyerphone"  />
+								<span class="size00 ftY">
+									{{spa_text.ContactBuyer}}
+								</span>
+						</p>
+				</div>
+		    </article>
+		    
+		    
+		    
+		    
+		    <!--不同状态的按钮-->
+			<article class="my_button  ftA textC size1" v-if="myInfoDetails.status_id != 2 && myInfoDetails.status_id != 3" >
+				<div class="my-col-100" >
+					<p class="my-col-60 contactBuy backBt" >
+						<span class="my-col-100 logo" @click="showPhone=true">
+							<img src="img/phone.png"  />
+						</span>
+						<span class="my-col-100 size00 ftY" @click="showPhone=true">
+							{{spa_text.ContactBuyer}}
+						</span>
+					</p>
+				
+				</div>
+			</article>
+			
+			
+			<transition name="upCss">
+				   <callphone  v-if="showPhone" :phone="myAddressDetails.mobile_number"  :show.sync="showPhone"></callphone>
+			</transition>
+			    
+		</section>
+
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="modules/moment.js"  ></script>
+		<script src="components/callphone.js"  ></script>
+		<script src="components/goodinfo.js"  ></script>
+		<script>"use strict";var vm=new Vue({el:"#index",components:{callphone:Callphone,goodinfo:Goodinfo},data:{id:0,myInfoDetails:{goods:[]},myGoodDetails:{},myAddressDetails:{},expressInfo:{},myPic:"",spa_text:{},showPhone:!1,cancelTime:!0,deliveryTime:!0,remainTime:"",remainDelliveryTime:"",express_company:"",express_no:"",intervalid:""},created:function(){this.spa_text=language._text(),document.title=this.spa_text.GoodOrderDetail,this.id=common._parseUrl("orderid")-0,this.getmyGoodDetail()},filters:{coverTimeStr:function(e,t){return moment(1e3*e).format(t)}},beforeDestory:function(){clearInterval(this.intervalid)},methods:{getmyGoodDetail:function(){var e=this,t={id:this.id};this.$axios.post("shoporder/detail",t).then(function(t){var i,o,a;if(t&&0==t.code){if(i=[t.data,t.data.userinfo,t.data.goods[0],t.data.express_info[0]],e.myInfoDetails=(a=(o=i[Symbol.iterator]()).next()).done?void 0:a.value,e.myAddressDetails=(a=o.next()).done?void 0:a.value,e.myGoodDetails=(a=o.next()).done?void 0:a.value,e.expressInfo=(a=o.next()).done?void 0:a.value,e.myPic="background: url('"+e.myGoodDetails.goods_cover_id+"') 50% 50% / cover no-repeat;border:1px solid #2A2F50;box-sizing: border-box;height: 6.5rem;",1==e.myInfoDetails.status_id&&e.getCancelTime(1e3*t.data.cancel_time-(new Date).getTime()),3==e.myInfoDetails.status_id){var s=1e3*t.data.receive_time-(new Date).getTime();e.remainDelliveryTime=Math.ceil((s/864e5>7?7:s)/864e5)+e.spa_text.day}}else myalert._msg(t.msg,1,function(){history.back()})})},getTypePic:function(){return{1:"img/tradPaying.png",2:"img/tradSendGood.png",3:"img/tradCollectGood.png",4:"img/tradSuccess.png",5:"img/tradClose.png"}[void 0!==arguments[0]?arguments[0]:5]},getStatus:function(){var e=void 0!==arguments[0]?arguments[0]:5;return{1:this.spa_text.OrderStatus1,2:this.spa_text.OrderStatus2,3:this.spa_text.OrderStatus3,4:this.spa_text.OrderStatus4,5:this.spa_text.OrderStatus0}[e]},getCancelTime:function(){var e=void 0!==arguments[0]?arguments[0]:0,t=this;this.intervalid=setInterval(function(){if(e<=0)return t.cancelTime=!1,clearInterval(t.intervalid),!1;var i=e/6e4,o=Math.floor(i),a=Math.floor(60*(i-o));t.remainTime=o<10?a<10?"0"+o+" : 0"+a:"0"+o+" : "+a:a<10?o+" : 0"+a:o+" : "+a,e-=1e3},1e3)},goToSendGood:function(){var e={id:this.id,status_id:3,express_company:this.express_company,express_no:this.express_no};this.$axios.post("shoporder/shop_up_status",e).then(function(e){e&&0==e.code?myalert._msg(e.msg,1,function(){location.reload()}):myalert._msg(e.msg,1)})}}});</script>
+	</body>
+
+</html>

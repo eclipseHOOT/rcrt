@@ -1,0 +1,39 @@
+ul {
+  border-bottom: 8px solid #171A2C; }
+
+ul li {
+  padding: 2% 2.5%; }
+
+ul li .name {
+  padding-top: 2%; }
+
+ul li .phone {
+  padding-top: 2%; }
+
+ul li .addr {
+  padding: 2% 0 1% 0; }
+
+ul li .checkIcon {
+  width: 8%; }
+
+ul li .checkIcon img {
+  width: 80%; }
+
+ul li img {
+  width: 65%; }
+
+ul li .blackPD {
+  margin-left: 20%; }
+
+.my_button {
+  margin: 10% 0; }
+
+.my_button div {
+  position: fixed;
+  bottom: 5%;
+  margin-left: 5%;
+  padding: 3.5% 0;
+  border-radius: 5px; }
+
+.layui-m-layerbtn span {
+  padding-top: 10px !important; }

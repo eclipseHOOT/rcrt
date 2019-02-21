@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>申诉</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#111321">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/common.css"  />
+		<style type="text/css">.my_from{margin:6% 5% 1%;padding:3% 5%;border-radius:4pt}.my_from textarea{height:10rem;width:100%;padding:2% 0;border:0}.my_from textarea::-webkit-input-placeholder{color:#fff}.my_button{text-align:center;margin:30% 10% 10%;padding:2.5% 0}</style>
+	</head>
+
+	<body class="backB">	
+		<section  id="index" class="size000"  v-cloak>
+	        <article class="my-col-80 my_from backBt">
+	        	<div class="my-col-100 ftA  bolds">{{spa_text.AppealReason}}:</div>
+	        	<div class="my-col-100">
+				   <textarea class="ftC backBt" maxlength="200" autofocus  :placeholder="spa_text.AppealPlac"  v-model="content"></textarea>
+	        	</div>
+	        </article>
+	        
+	        <!--<article class="my-col-80 my_from backB">
+	        	<div  class="my-col-100">
+					<p class="my-col-25 ft9  bolds">{{spa_text.CONTACT}}:</p>
+					<p class="my-col-75">
+						<input class="name ft9 roW"  type="text" v-model="phone">
+					</p>
+				</div>
+	        </article>-->
+	        
+	         <article class="my-col-80 my_from backBt">
+	        	<div  class="my-col-100">
+					<p class="my-col-25 ftA  bolds">{{spa_text.ORDER_Id}}:</p>
+					<p class="my-col-75 ftC">
+						<span>{{oid}}</span>
+					</p>
+				</div>
+	        </article>
+	        
+	        
+			<article class="my-col-80 my_button backY ft9 size1">
+				<p @click="submitConfig">{{spa_text.SUBMIT}}</p>
+			</article>
+		</section>
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script>"use strict";var vm=new Vue({el:"#index",data:{phone:"",content:"",orderId:"",spa_text:{},oid:""},created:function(){this.spa_text=language._text(),this.orderId=common._parseUrl("id"),this.oid=common._parseUrl("oid"),http.delloading()},methods:{submitConfig:function(){var t=this,e={id:this.orderId,tip:this.content};this.$axios.post("c2c/frozen",e).then(function(e){e&&0==e.code?myalert._confirm({myClass:"confirmLayer ft2 wrapper",content:"<p class='size1 title'><strong id='_confirmClose'>"+t.spa_text.tip+"</strong></p>\n\t\t\t\t\t        <p class='size1 subtitle'>"+t.spa_text.AppealMsg+"</p>\n\t\t\t\t\t        <p class='ft9 button size1'  onclick='window.history.back();'>"+t.spa_text.yes+"</p>"}):myalert._msg(e.msg,1)})}}});</script>
+	</body>
+</html>

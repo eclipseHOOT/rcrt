@@ -1,0 +1,676 @@
+@charset "UTF-8";
+html {
+  font-family: "Microsoft YaHei","微软雅黑","MicrosoftJhengHei","华文细黑","STHeiti","MingLiu";
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  font-size: 62.5%;
+  letter-spacing: 1px; }
+
+@media screen and (max-width: 1921px) {
+  /*PC*/
+  html {
+    font-size: 512.26667% !important; } }
+
+@media screen and (max-width: 1601px) {
+  /*PC*/
+  html {
+    font-size: 426.93333% !important; } }
+
+@media screen and (max-width: 1367px) {
+  /*IPad */
+  html {
+    font-size: 364.53333% !important; } }
+
+@media screen and (max-width: 1081px) {
+  /*IPad */
+  html {
+    font-size: 288.26667% !important; } }
+
+@media screen and (max-width: 1025px) {
+  /*IPad */
+  html {
+    font-size: 273.33333% !important; } }
+
+@media screen and (max-width: 903px) {
+  /*IPad */
+  html {
+    font-size: 240.8% !important; } }
+
+@media screen and (max-width: 876px) {
+  /*IPad*/
+  html {
+    font-size: 233.6% !important; } }
+
+@media screen and (max-width: 769px) {
+  /*IPad*/
+  html {
+    font-size: 205.06667% !important; } }
+
+@media screen and (max-width: 720px) {
+  /*IPhone6(濡拷*/
+  html {
+    font-size: 192% !important; } }
+
+@media screen and (max-width: 670px) {
+  /*IPhone6(濡拷*/
+  html {
+    font-size: 178.66667% !important; } }
+
+@media screen and (max-width: 570px) {
+  /*HuaWei(濡拷*/
+  html {
+    font-size: 152% !important; } }
+
+@media screen and (max-width: 481px) {
+  /*G*/
+  html {
+    font-size: 128.26667% !important; } }
+
+@media screen and (max-width: 415px) {
+  /*IPhone8 Plus*/
+  html {
+    font-size: 110.66667% !important; } }
+
+@media screen and (max-width: 375px) {
+  /*Iphone6*/
+  html {
+    font-size: 100% !important; } }
+
+@media screen and (max-width: 361px) {
+  /*Iphone6*/
+  html {
+    font-size: 96.26667% !important; } }
+
+@media screen and (max-width: 344px) {
+  /*三星s8*/
+  html {
+    font-size: 91.73333% !important; } }
+
+@media screen and (max-width: 321px) {
+  /*HTC  phone5/4s*/
+  html {
+    font-size: 85.6% !important; } }
+
+html {
+  touch-action: manipulation; }
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%; }
+
+ul {
+  list-style-type: none; }
+
+/*需要上拉刷新的页面 ,对应index和list*/
+.indexPull, .listPull {
+  height: 90%; }
+
+header, section, footer, article, figure, p, ul, li {
+  width: 100%;
+  float: left; }
+
+header, section, footer, article, figure, p, span, div, strong, ul, li {
+  line-height: 1.5rem; }
+
+[v-cloak] {
+  display: none !important; }
+
+.overflow {
+  overflow: hidden; }
+
+.size0 {
+  font-size: 0.625rem;
+  /*9pt—||—12px*/ }
+
+.size00 {
+  font-size: 0.75rem;
+  /*9pt—||—12px*/ }
+
+.size000 {
+  font-size: 0.875rem;
+  /*14px*/ }
+
+.size1 {
+  font-size: 1rem;
+  /*12pt—||—16px*/ }
+
+.size2 {
+  font-size: 1.125rem;
+  /*14pt—||—18px*/ }
+
+.size3 {
+  font-size: 1.25rem;
+  /*15pt—||—20px*/ }
+
+.size4 {
+  font-size: 1.375rem;
+  /*17pt—||—22px*/ }
+
+.size5 {
+  font-size: 1.5rem;
+  /*18pt—||—24px*/ }
+
+.size6 {
+  font-size: 2rem;
+  /*32px*/ }
+
+/*重置*/
+.reset0 {
+  padding: 0;
+  margin: 0; }
+
+body {
+  background: #21252A; }
+
+.backY {
+  background: #EFBB53; }
+
+.backG {
+  background: #19AA89; }
+
+.backL {
+  background: #265FAD; }
+
+.backB {
+  background: #21252A; }
+
+.backD {
+  background: #DC5235; }
+
+.backF {
+  background: #fff; }
+
+.backBt {
+  background: #2E3237; }
+
+.ftA {
+  color: #A4ABAD; }
+
+.ftC {
+  color: #CFD0D1; }
+
+.ftF {
+  color: #fff; }
+
+.ftG {
+  color: #19AA89; }
+
+.ftY {
+  color: #EFBB53; }
+
+.ftR {
+  color: #E14F4F; }
+
+.ftL {
+  color: #265FAD; }
+
+.ftE {
+  color: #E57328; }
+
+.ft2 {
+  color: #2A2A2A; }
+
+.ft3 {
+  color: #333; }
+
+.ft5 {
+  color: #575F66; }
+
+.ft6 {
+  color: #676B6F; }
+
+.ft9 {
+  color: #906533; }
+
+.textC {
+  text-align: center; }
+
+.textL {
+  text-align: left; }
+
+.textR {
+  text-align: right; }
+
+.fL {
+  float: left; }
+
+.fR {
+  float: right; }
+
+.bolds {
+  font-weight: bold; }
+
+.myHide {
+  display: none; }
+
+/*隐藏*/
+.b5 {
+  font-weight: 500; }
+
+* {
+  padding: 0;
+  margin: 0; }
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0px; }
+
+/*隐藏滚轮*/
+a {
+  text-decoration: none;
+  color: inherit; }
+
+/*去掉下划线*/
+input:-ms-input-placeholder {
+  color: #fff; }
+
+/*输入表单的placeholder字体样式*/
+textarea::-webkit-input-placeholder {
+  color: #fff; }
+
+.zindex {
+  z-index: 4 !important; }
+
+.layerZindex {
+  z-index: 14 !important; }
+
+input {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  line-height: inherit;
+  border: none;
+  font-size: inherit;
+  color: inherit;
+  background: inherit; }
+
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none; }
+
+.roW {
+  width: 100%; }
+
+.roH {
+  height: 100%; }
+
+.borderb {
+  border-bottom: 1px solid #2E3237; }
+
+.my-col-5 {
+  width: 5%;
+  float: left; }
+
+.my-col-10 {
+  width: 10%;
+  float: left; }
+
+.my-col-15 {
+  width: 15%;
+  float: left; }
+
+.my-col-20 {
+  width: 20%;
+  float: left; }
+
+.my-col-25 {
+  width: 25%;
+  float: left; }
+
+.my-col-30 {
+  width: 30%;
+  float: left; }
+
+.my-col-35 {
+  width: 35%;
+  float: left; }
+
+.my-col-40 {
+  width: 40%;
+  float: left; }
+
+.my-col-45 {
+  width: 45%;
+  float: left; }
+
+.my-col-50 {
+  width: 50%;
+  float: left; }
+
+.my-col-55 {
+  width: 55%;
+  float: left; }
+
+.my-col-60 {
+  width: 60%;
+  float: left; }
+
+.my-col-65 {
+  width: 65%;
+  float: left; }
+
+.my-col-70 {
+  width: 70%;
+  float: left; }
+
+.my-col-75 {
+  width: 75%;
+  float: left; }
+
+.my-col-80 {
+  width: 80%;
+  float: left; }
+
+.my-col-85 {
+  width: 85%;
+  float: left; }
+
+.my-col-90 {
+  width: 90%;
+  float: left; }
+
+.my-col-95 {
+  width: 95%;
+  float: left; }
+
+.my-col-100 {
+  width: 100%;
+  float: left; }
+
+.my-col-33 {
+  width: 33.33333%;
+  float: left; }
+
+::-webkit-scrollbar {
+  display: none; }
+
+.fixedextend, .loading, .loadingMore, ._openImg, .confirmLayer, .pluginDown, #_msg {
+  position: fixed;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center; }
+
+/*加载进度条位置*/
+.loading {
+  z-index: 2000;
+  bottom: 70%;
+  width: 100%;
+  -webkit-animation: rotateImg 1s infinite linear;
+  animation: rotateImg 1s infinite linear; }
+
+.loadingMore {
+  z-index: 2000;
+  top: 60%;
+  width: 100%;
+  -webkit-animation: rotateImg 1s infinite linear;
+  animation: rotateImg 1s infinite linear; }
+
+@-webkit-keyframes rotateImg {
+  to {
+    -webkit-transform: rotate(1turn); } }
+
+@keyframes rotateImg {
+  to {
+    transform: rotate(1turn); } }
+
+/*上阴影*/
+.boxShad {
+  -webkit-box-shadow: 0 -3px 3px rgba(5, 3, 3, 0.1);
+  -moz-box-shadow: 0 -3px 3px rgba(5, 3, 3, 0.1);
+  box-shadow: 0 -3px 3px rgba(5, 3, 3, 0.1); }
+
+/*下阴影*/
+.boxShadDown {
+  -webkit-box-shadow: 0 6px 10px rgba(5, 3, 3, 0.2);
+  -moz-box-shadow: 0 6px 10px rgba(5, 3, 3, 0.2);
+  box-shadow: 0 6px 10px rgba(5, 3, 3, 0.2); }
+
+/*全阴影*/
+.allShadDown {
+  -webkit-box-shadow: 0px 0px 8px rgba(5, 3, 3, 0.1);
+  -moz-box-shadow: 0px 0px 8px rgba(5, 3, 3, 0.1);
+  box-shadow: 0px 0px 8px rgba(3, 3, 3, 0.1); }
+
+/*省略号，禁止换行*/
+.nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+.nowraps {
+  display: -webkit-box !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; }
+
+/*遮罩层*/
+.bg {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2; }
+
+/*暂无更多数据css*/
+.nodatalist {
+  margin: 5% 10%; }
+
+/*图片预览*/
+._openImg {
+  z-index: 2000;
+  transition: 0.5s;
+  width: 90%; }
+
+@-webkit-keyframes fade-in {
+  /*针对webkit内核*/
+  0% {
+    opacity: 0; }
+  40% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@keyframes fade-in {
+  0% {
+    opacity: 0; }
+  /*初始状态 透明度为0*/
+  40% {
+    opacity: 0; }
+  /*过渡状态 透明度为0*/
+  100% {
+    opacity: 1; }
+  /*结束状态 透明度为1*/ }
+
+.opacity {
+  opacity: 0; }
+
+.wrapper {
+  -webkit-animation: fade-in .5s;
+  /*针对webkit内核*/
+  -moz-animation: fade-in .5s;
+  /*针对火狐内核*/
+  animation: fade-in .5s;
+  /*动画名称*/ }
+
+/*统一使用index作为页面的渲染节点*/
+#index {
+  -webkit-animation: fade-in .5s;
+  /*针对webkit内核*/
+  -moz-animation: fade-in .5s;
+  /*针对火狐内核*/
+  animation: fade-in .5s;
+  /*动画名称*/ }
+
+.banClick {
+  pointer-events: none; }
+
+.confirmLayer {
+  z-index: 10;
+  width: 90%;
+  color: #2A2A2A;
+  border-radius: 4pt;
+  background: #ffffff;
+  animation: scaleAlert 0.5s; }
+  .confirmLayer .title {
+    padding: 3% 0;
+    margin-bottom: 7%; }
+  .confirmLayer .subtitle {
+    padding-top: 5%;
+    padding-bottom: 15%; }
+  .confirmLayer .button {
+    box-sizing: border-box;
+    padding: 3% 0;
+    border-top: 1px solid #D4D4D4; }
+  .confirmLayer .no {
+    border-right: 1px solid #D4D4D4; }
+
+.pluginDown {
+  z-index: 2000;
+  width: 3rem;
+  height: 3rem;
+  background: url("../img/loading.png") 50% 50%/45px 45px no-repeat; }
+
+#_msg {
+  z-index: 15;
+  padding: 3% 3% 4%;
+  border: 1px solid #EDEDED;
+  border-radius: 8px;
+  background: #fff;
+  color: #534334;
+  font-size: 0.95rem;
+  animation: scaleAlert 0.5s; }
+
+@-moz-keyframes scaleAlert {
+  /*针对火狐内核*/
+  0% {
+    transform: scale(0, 0); }
+  50% {
+    transform: scale(0, 0); }
+  100% {
+    transform: scale(1, 1); } }
+
+@-webkit-keyframes scaleAlert {
+  /*针对webkit内核*/
+  0% {
+    transform: scale(0, 0); }
+  50% {
+    transform: scale(0, 0); }
+  100% {
+    transform: scale(1, 1); } }
+
+.my_call_phone {
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  bottom: 0;
+  transition: 0.5s; }
+  .my_call_phone .phone {
+    border-bottom: 5pt solid #D4D4D4;
+    padding: 4.5% 0; }
+  .my_call_phone .my_layer_button {
+    padding: 4.5% 0;
+    letter-spacing: 2px; }
+  .my_call_phone .left {
+    padding-left: 15%; }
+  .my_call_phone .right img {
+    width: 40%; }
+
+.my_cancel_order {
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.5s; }
+  .my_cancel_order .title {
+    background: #E6E6E6;
+    padding: 3% 0; }
+  .my_cancel_order .my_reason {
+    padding: 2% 0; }
+    .my_cancel_order .my_reason li {
+      padding-bottom: 4%; }
+
+.upCss-enter-active, .upCss-leave-active {
+  -webkit-transform: translateY(0);
+  /* Safari 和 Chanke */
+  transform: translateY(0); }
+
+.upCss-enter, .upCss-leave-to {
+  -webkit-transform: translateY(2400px);
+  /* Safari 和 Chrome */
+  transform: translateY(2400px); }
+
+.my_good_info {
+  padding: 3% 2.5% 3% 4.5%; }
+  .my_good_info .right {
+    padding-left: 3%; }
+    .my_good_info .right .number {
+      padding: 7% 0; }
+
+.my_model {
+  background: #fff;
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #777;
+  transition: 0.5s; }
+  .my_model .close {
+    color: #D4D4D4; }
+  .my_model .title {
+    padding: 3% 0;
+    border-bottom: 1pt solid #D4D4D4; }
+  .my_model .password {
+    font-size: 4rem;
+    padding: 10% 0;
+    margin-left: 5%;
+    color: #f3a214;
+    width: 95%; }
+    .my_model .password span {
+      text-align: center;
+      width: 14%;
+      float: left;
+      margin: 0 1%;
+      border-bottom: 1pt solid rgba(42, 42, 42, 0.5);
+      height: 2rem; }
+    .my_model .password i {
+      height: 2rem;
+      width: 14%;
+      float: left; }
+  .my_model .keyupCss {
+    -webkit-tap-highlight-color: transparent;
+    border-top: 1pt solid rgba(0, 0, 0, 0.5); }
+    .my_model .keyupCss span {
+      width: 100%;
+      float: left; }
+    .my_model .keyupCss a {
+      text-align: center;
+      border: 1pt solid rgba(212, 212, 212, 0.7);
+      padding: 4% 0;
+      box-sizing: border-box; }
+      .my_model .keyupCss a:active {
+        background: #d1d5da;
+        color: #fff; }
+    .my_model .keyupCss i {
+      text-align: center;
+      border: 1pt solid rgba(212, 212, 212, 0.7);
+      padding: 4% 0;
+      box-sizing: border-box; }
+      .my_model .keyupCss i:active {
+        background: #fff; }
+    .my_model .keyupCss img {
+      width: 20%; }
+  .my_model .delBack {
+    background: #d1d5da; }

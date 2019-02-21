@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html> 
+	<head>
+		<meta charset="utf-8" />
+		<title>RCRT交易区</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta name="theme-color" content="#171A2C">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-afgpp-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/common.css"  >
+		<link rel="stylesheet" type="text/css" href="tranMarket.css" inline >
+	</head>
+
+	<body class="backBody">
+		<section id="index" class="ftA"   v-cloak>
+		    <article class="my_head backB textC"> 
+		      <div class="my-col-50 left"> 
+		        	<li @click="launchFullScreen()">全屏</li>
+		          <p class="size000 text" >RCRT</p>
+		          <p class="size2 ftY"><strong v-text="myInfo.available">0.00</strong></p>
+		      </div>
+		      <div class="my-col-50">
+		      	<li @click="exitFullscreen()">退屏</li>
+		          <p class="size000 text" v-text="spa_text.indexFrozen +'RCRT'">冻结RCRT</p>
+		          <p class="size2 ftY"><strong v-text="myInfo.freezing"></strong></p>
+		      </div>
+		    </article>
+		    
+		    <article>
+		    	  <div class="my-col-100 my_newPrice backBt">
+			            <p class="textC size00 ftC">
+			                <span class="hight" >{{spa_text.High}}{{ newMarket.high | symbolCoin(symbol,dollar) }}</span>
+			                <span class="low" >{{spa_text.Low}}{{newMarket.low | symbolCoin(symbol,dollar) }}</span>
+			                <strong class="current ftG" >{{spa_text.CurrentPrice}}{{newMarket.close | symbolCoin(symbol,dollar) }}</strong>
+			            </p>
+			      </div>
+		    </article>
+		    <article class="ft6 size000 textC my_dom backB">
+		        <div class="my-col-25" @click="goToPage('releaseSale.html')">
+		            <img src="img/tranIcon1.png"   />
+		            <p v-text="spa_text.Sell">发布出售</p>
+		        </div>
+		         <div class="my-col-25" @click="goToPage('releaseBuy.html')" @drop='drop($event)' @dragover='allowDrop($event)'>
+		            <img src="img/tranIcon2.png"  />
+		            <p v-text="spa_text.Buy">发布购买</p>
+		        </div>
+		         <div class="my-col-25"  @click="goToPage('depute.html')">
+		            <img src="img/tranIcon3.png" />
+		            <p v-text="spa_text.Order">订单</p>
+		        </div>
+		         <div class="my-col-25"  @click="goToPage('trade.html')">
+		            <img src="img/tranIcon4.png" />
+		            <p v-text="spa_text.TradeLog">交易记录</p>
+		        </div>
+		    </article>
+		    
+		    <article class="size000 textC my_market backB">
+		        <div class="label my-col-100 ftF">
+		           <p class="my-col-33"><a :class="{'selectTabCss':day == 7}" @click="getKLineData(7);" v-text="spa_text.Weekly">周线</a></p>
+		           <p class="my-col-33"><a :class="{'selectTabCss':day == 30}" @click="getKLineData(30);" v-text="spa_text.Monthly">月线</a></p>
+		           <p class="my-col-33"><a :class="{'selectTabCss':day == 100}" @click="getKLineData(100);" v-text="spa_text.All">全部</a></p>
+		        </div>
+		        
+		        <div class="roH canvascontainer my-col-100">
+		        	 <p ref="chart" class="roH"></p>
+		        </div>
+		    </article>
+		    
+		    
+		    
+		    <article class="size000 textC my_tran  backB">
+		        <div class="label my-col-100">
+		           <p class="my-col-45  left" :class="{'tranTabCss banClick':tranTab == 2}" @click="getList(2)" v-text="spa_text.CashBuy"></p>
+		           <p class="my-col-45  right" :class="{'m tranTabCss banClick':tranTab == 1}" @click="getList(1)" v-text="spa_text.CashSell"></p>
+		        </div>
+		    </article>
+		    
+		    <loadmore @loadmore="getList(tranTab)" >
+			    <ul class="my_list backB">
+			      <li class=" my-col-90"  v-for="(list,index) of dataList" :key="list.id">
+			         <p>
+				        <span  class="my-col-70 size000">
+					        <img :src="list.head"  class="my-col-15" />
+					        <a class="my-col-75 name nowrap ftA size1" v-text="list.name"></a>
+					        <a class="my-col-75 number ft6" v-text="spa_text.Number +' : '+list.num + coinName ">数量 : 0.00</a>
+				        </span>
+				        <strong class="my-col-30 textR ftC size1 dollar money">
+				        	<a>{{list.money | symbolCoin(symbol,dollar) }}</a>
+				        </strong>
+			         </p>
+			         <p>
+			         	<span class="my-col-60 limit ft6 size000" ><a v-text="spa_text.ALL_PRICE + ' : '"></a><a>{{list.total_money | symbolCoin(symbol,dollar) }}</a></span>
+			            <span class="my-col-20 ftF textC buy size1" @click="buy(list.id,list.uid)" v-show="tranTab == 2" v-text="spa_text.BuyMarket">买入</span>
+			            <span class="my-col-20  ftF textC sale size1" @click="buy(list.id,list.uid)" v-show="tranTab == 1" v-text="spa_text.SellMarket">卖出</span>
+			         </p>
+			      </li>
+			    </ul>  
+		    </loadmore>
+		    
+		    <article class="my_get_password wrapper ft6 textC size1" v-if="passwordModel" >
+				<div class="my-col-100 top">
+					  <span v-text="spa_text.PUBLISHED_TITLE">请输入交易密码</span>
+				</div>
+				<div  class="my-col-100  size4  input_pwd">
+						<input type="password" autofocus  v-model="pay_pwd" maxlength="6"  />
+				</div>
+				<div  class="my-col-100 domButton">
+					<p class="my-col-50 cancel" @click="closeModel" v-text="spa_text.no">取消</p>
+					<p class="my-col-50 ensure " @click="receiptOrder" v-text="spa_text.yes">确定</p>
+				</div>
+			</article>
+			
+		</section>
+ 
+        <script src="modules/vue.js" ></script> 
+	    <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="components/loadmore.js" ></script>	
+		<script src="modules/echarts.js"  ></script>
+		<script src="register-ws.js"></script>
+		<script src="tranMarket.js" inline></script>
+	</body>
+
+</html>

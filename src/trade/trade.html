@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>交易记录</title>
+		  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		  <meta name="format-detection" content="telephone=no">
+		  <meta name="msapplication-tap-highlight" content="no">
+		  <meta http-equiv="Cache-Control" content="max-age=7200">
+	      <meta http-equiv="expires" content="120">
+		  <meta name="theme-color" content="#171A2C">
+		  <meta name="apple-mobile-web-app-capable" content="yes">
+		  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="Trade.css" inline >
+	</head>
+
+	<body>
+		<section id="index" class='indexPull ftD'  v-cloak>
+			<article class="textC size1  my_head" >
+			  <div>
+			  	<p class="my-col-50 left"  :class='{"subTitle ftY": odType == 1}' @touchstart="getList(1)">{{spa_text.SellOrder}}</p>
+			  	<p class="my-col-50"  :class='{"subTitle ftY": odType == 2}' @touchstart="getList(2)">{{spa_text.BuyOrder}}</p>
+			  </div>
+		      <i class="my-col-15" :class='{"line-left": odType == 1,"line-right": odType == 2}'></i>
+			</article>
+			<i  class="my_line"></i>
+			<loadmore @loadmore="getList(odType)">
+				<ul class="listPull">
+					<li  class="my-col-90   size000" v-for="(list,index) of dataList" :key="list.id" >
+						<p class="my-col-10" v-if="langShowPic">
+							<img :src="list.type==1?'img/eacSell.png':'img/eacBuy.png'" class="roW" />
+						</p>
+						<p class="my-col-10" v-else>
+							<img :src="list.type==1?'img/engeacSell.png':'img/engeacBuy.png'" class="roW" />
+						</p>
+						<p class="my-col-65 title">
+							<span class="my-col-100 size1">EAC</span>
+							<span class="my-col-100 ft8 priceType">{{spa_text.priceType}}: {{spa_text.tradeLimit}}</span>
+						</p>
+						<p class="my-col-20 textC cancelButton" @click="openKeyboard(list.id,index)" v-if="list.status == 1">
+							{{spa_text.Cancel}}
+						</p>
+						<p>
+							<span class="my-col-50">
+							{{spa_text.entrusPrice}} 
+							</span>
+	                        <span class="my-col-50 textR">
+						     {{list.money}} USDT
+	                        </span>
+						</p>
+						<p>
+							<span class="my-col-50">
+							{{spa_text.entrustment}} 
+							</span>
+	                        <span class="my-col-50 textR">
+						     {{list.num}} EAC
+	                        </span>
+						</p>
+						<p>
+							<span class="my-col-50">
+								{{spa_text.orderstatus}}
+							</span>
+							<span class="my-col-50 textR">
+								{{getOrderStatus(list.status)}}
+							</span>
+						</p>
+						<p  class="time">
+							<span class="my-col-50">
+								{{spa_text.transaction}}
+							</span>
+							<span class="my-col-50 size2 ftY textR">
+								{{ list.money * list.num | computedFloat }} USDT
+							</span>
+						</p>
+						
+						<p>
+							<span class="my-col-50">
+								{{spa_text.trandTime}}
+							</span>
+							<span class="my-col-50 textR">
+								{{ list.create_time | coverTimeStr('YYYY/MM/DD hh:mm:ss') }}
+							</span>
+						</p>
+					</li>
+				</ul>
+			</loadmore >
+			<transition name="upCss" >
+			   <keyboard v-if="keyboardModel"  :show.sync="keyboardModel"  @submit="cancelOrder"></keyboard>
+			</transition>
+		</section>
+	    <script src="modules/vue.js" ></script> 
+	    <script src="modules/axios.js"  ></script>
+	    <script src="modules/moment.js"  ></script>
+	    <script src="components/keyboard.js" ></script>
+	    <script src="components/loadmore.js" ></script>
+		<script src="js/base.js"  ></script>
+		<script src="trade.js" inline></script>
+	</body>
+
+</html>

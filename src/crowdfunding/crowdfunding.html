@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>众筹</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#111321">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="crowdfunding.css"  inline>
+	</head>
+
+	<body class="backB">
+		<section class="crowdlist" id="index"  v-cloak>
+			<loadmore @loadmore="getList">
+				<ul class="my_list" v-for="(list,index) of dataList"  :key="list.id" @click="webview._goOther('crowdfundingDetail.html?id='+list.id)" >
+					 <li class="my-col-95 myPic">
+					 	<p class="parent" :style="getPic(list.cover)">
+						 	<span class="child size1 ftF" :style="getClass(list.end_time,list.start_time)" >
+						 		{{getStatus(list.end_time,list.start_time)}}
+						 	</span>
+					 	</p>
+					 </li>
+					 <li class="my-col-90 detail backBt">
+					 	<p class="size1 bolds title ftA">{{list.name}}</p>
+					 	<p class="size1 ft6 nowraps">{{list.description}}</p>
+					 	<p class="size000  Contentborder"></p>
+					 	<p class="size000 ftF one">
+					 		<span class="my-col-50 ftA">{{spa_text.tta}}：</span>
+					 		<strong class="my-col-50 ftColor textR">{{list.target}}</strong>
+					 	</p>
+					 	<p class="size000">
+					 		<span class="my-col-50 ftA">{{spa_text.schedule}}: {{getLoading(list.raised,list.target)}}%</span>
+					 		<strong class="my-col-50 textR ft6">{{list.raised}}RCRT</strong>
+					 	</p>
+					 	<p class="schedule">
+					 		<b class="boxshell">
+						            <b class="boxBar" :style="getPadding((parseFloat(list.raised/list.target) * 100).toFixed(2))"></b>
+						    </b>
+					 	</p>
+					 	<p class="time">
+					 		<span class="my-col-100 size1 ftA textR">{{getDayTime(list.end_time,list.start_time)}}</span>
+					 	</p>
+					 </li>
+				</ul>
+			</loadmore>
+		</section>
+		
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+        <script src="components/loadmore.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="crowdfunding.js" inline></script>
+	</body>
+
+</html>

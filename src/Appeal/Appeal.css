@@ -1,0 +1,18 @@
+.my_from {
+  margin: 6% 5% 1%;
+  padding: 3% 5%;
+  border-radius: 4pt; }
+
+.my_from textarea {
+  height: 10rem;
+  width: 100%;
+  padding: 2% 0;
+  border: none; }
+
+.my_from textarea::-webkit-input-placeholder {
+  color: #fff; }
+
+.my_button {
+  text-align: center;
+  margin: 30% 10% 10%;
+  padding: 2.5% 0; }

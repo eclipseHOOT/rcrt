@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>发布出售</title>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#4e8ef7">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="Cache-Control" content="max-age=7200">
+    <meta http-equiv="expires" content="120">
+    <meta name="theme-color" content="#171A2C">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <link rel="stylesheet" type="text/css" href="releaseSale.css" inline >
+</head>
+
+<body class="backB">
+    <section id="index" class="size000 ftA"  v-cloak>
+    	 <myassets :available="myInfo.available" :freezing="myInfo.freezing"></myassets>
+		 
+		<article class="my_info my-col-90 backBt">
+			<div class="my-col-100">
+				<p class="my-col-50"><span>{{spa_text.CurrentPrice}} :</span></p>
+				<p class="my-col-50 textR">
+					<strong class="size000 ftY">
+						{{currentMoney| symbolCoin(symbol,dollar) }}
+					</strong>
+				</p>
+			</div>
+			<div class="my-col-100">
+				<p class="my-col-30">
+					<span>{{spa_text.SellPrice}} :</span>
+				</p>
+				<p class="my-col-70 textR">
+					<strong class="size000 ftY" >{{money| symbolCoin(symbol,dollar) }}</strong>
+				</p>
+			</div>
+			<div class="my-col-100">
+				<p class="my-col-25">
+					<span>{{spa_text.SellNum}} :</span>
+				</p>
+				<p class="my-col-75  numBorder">
+					<span class="my-col-65 textR">
+						<input type="number" autofocus v-model="num" @keyup="getNum()"  class="size1 bolds textR ftY  saleNum" />
+						<a class="b5 size00 ft6" >RCRT</a>
+					</span>
+					<span class="my-col-35 ftR textR">{{spa_text.poundage}}: {{(currentService)*100 || 0}}%</span>
+				</p>
+			</div>
+			
+			<div class="my-col-100">
+				<p class="my-col-50"><span>{{spa_text.SellAll}} :</span></p>
+				<p class="my-col-50  textR bolds ftY size1">
+					<span>{{money*num| symbolCoin(symbol,dollar) }}</span>
+				</p>
+			</div>
+			
+			<div class="payInfo my-col-100">
+				<p class="my-col-20"><span>{{spa_text.PAYMENT}}{{spa_text.METHOD}}</span></p>
+				<p class="my-col-80 textR size00">
+					<span class="my-col-100" v-if="gatherAddr.zhifu_id" @click="selectGather('alipay')">
+						<a class="my-col-90 ft6">{{spa_text.ALIPAY}}: {{gatherAddr.zhifu_id}}</a>
+						<a class="my-col-10">
+							<i class="checkButton" :class="{'checkCss': pay.includes('alipay')}"></i>
+						</a>
+					</span>
+					<span class="my-col-100" v-if="gatherAddr.yh_id" @click="selectGather('credit')">
+						<a class="my-col-90 ft6">{{spa_text.bankCard}}: {{gatherAddr.yh_id}}</a>
+						<a class="my-col-10">
+							<i class="checkButton" :class="{'checkCss': pay.includes('credit')}"></i>
+						</a>
+					</span>
+				</p>
+			</div>
+			
+			<div class="my-col-100"> 
+				<p class="my-col-50"><span>{{spa_text.CONTACT}}</span></p>
+				<p class="my-col-50 ft6 textR"><span>{{gatherAddr.mobile_number}}</span></p>
+			</div>
+			
+            <div class="button size1 my-col-90 ft9 backY textC" @click="openModel">{{spa_text.SellPublished}}</div>
+			
+		</article>
+		
+		
+		<transition name="upCss" >
+		   <keyboard v-if="keyboardModel"   :show.sync="keyboardModel" @submit="submit"></keyboard>
+		</transition>
+    </section>
+    <script src="modules/vue.js" ></script> 
+    <script src="modules/axios.js"  ></script>
+	<script src="js/base.js"  ></script>
+	<script src="components/keyboard.js" async="true" ></script>
+	<script src="components/myassets.js" ></script>
+    <script src="releaseSale.js" inline></script>
+</body>
+
+</html>

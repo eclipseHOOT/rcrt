@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html> 
+
+	<head>
+		<meta charset="utf-8" />
+		<title>订单详情</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#171A2C">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/common.css"  />
+		<style type="text/css">.my_orderType{background:-webkit-linear-gradient(top,#c2a066,#dbc594);background:-o-linear-gradient(top,#c2a066,#dbc594);background:-moz-linear-gradient(top,#c2a066,#dbc594);background:linear-gradient(to top,#c2a066,#dbc594);padding:5% 0}.my_orderType img{width:25%}.my_orderType .status{vertical-align:1.5rem}.my_head{border-bottom:8px solid #111321}.my_head .hasAddress{padding:1% 5% 4%}.my_head .hasAddress p{padding-top:3%}.my_detail{padding-bottom:20%}.my_detail .title{padding:2% 0 2% 5%}.my_detail .container{padding:3% 0 3% 5%}.my_detail .call{margin:10% 0}.my_detail .call .contact{padding:2% 0 1%;border-radius:100px 100px 100px 0;min-width:75%;margin-left:15%}.my_detail .call img{width:8%;padding-left:6%;padding-top:1%}.my_detail .call .text{padding-left:2%;vertical-align:.3rem}.my_detail .remainTime{margin:10% 0 5%}.my_detail .tip{margin:5% 0 0}.my_button{position:fixed;z-index:1;bottom:0}.my_button div{padding:1% 0}.my_button div .left{padding-left:10%}.my_button div .logo{padding-top:5%}.my_button div img{vertical-align:bottom;width:23%}.my_button .cancel{background:#8d8d8d;padding:4% 8%;border-radius:4pt;margin:7% 0 0;display:inline-block;float:right}.my_button .payCancelButton{background:#8d8d8d;border-radius:4pt;padding:2% 0;margin:2% 3%}.my_button .payMountButton{border-radius:4pt;padding:2% 0;margin-top:2%}.my_button .deliver{background:#f65b3b;padding:4% 8%;border-radius:4pt;margin:7% 0 0;display:inline-block;float:right}</style>
+	</head>
+
+	<body class="backB">
+		<section  id="index"  class='size000 ft9'  v-cloak>
+			<article class="my_orderType backL" >
+		    	<div class="my-col-100 textC">
+		    		<p class="size2 ft9">
+		    		    <img :src="getTypePic(myInfoDetails.status_id)"/>
+		    			<span class="status" v-text="getStatus(myInfoDetails.status_id)"></span>
+		    		</p>
+		    	</div>
+		    </article>
+		    <article class="my_head" >
+		    	<div class="my-col-90 hasAddress ftC size000">
+		    		<p>{{spa_text.aNAME}}: {{myAddressDetails.name}}</p>
+		    		<p>{{spa_text.aPHONE}}: {{myAddressDetails.mobile_number}}</p>
+		    		<p>{{spa_text.aADDRESS}}: {{myAddressDetails.address}}</p>
+		    	</div>
+		    </article>
+		    
+		    <article class="my_detail">
+		    	<div class="my-col-95 title ft6 borderb size00">
+		    		<p class="my-col-65 ">{{spa_text.ORDER_Id}}: {{myInfoDetails.order_number}}</p>
+		    		<p class="my-col-30 textR">{{myInfoDetails.create_time | coverTimeStr('YYYY-MM-DD')}}</p>
+		    	</div>
+		    	
+		    	<goodinfo :imgs="myPic" :names="myGoodDetails.goods_name"  :prices="myGoodDetails.goods_price"></goodinfo>
+		    	
+		    	<div class="my-col-95 title borderb">
+		    		<p class="my-col-65 ftA">{{spa_text.BuyNum}}</p>
+		    		<p class="my-col-30  textR ftC">{{myGoodDetails.goods_number}}</p>
+		    	</div> 
+		    	<div  class="my-col-95 container borderb ftA">
+		    		<p>{{spa_text.COMMENTS}}:  {{myInfoDetails.remark || spa_text.noComment}} </p>
+		    	</div>
+		    	<div  class="my-col-95  container borderb"  v-if="myGoodDetails">
+		    		<p class="textR my-col-95 ftC" >{{spa_text.Has}}{{myGoodDetails.goods_number}}{{spa_text.HasGood}}<span class="ftG">￥{{parseFloat(myGoodDetails.goods_price * myGoodDetails.goods_number).toFixed(2)}} </span> ({{spa_text.freight}})</p>
+		    	    <p class="textR ftG my-col-95">≈{{ myGoodDetails.goods_price * myGoodDetails.goods_number | computedNum(myInfoDetails.quotation,4) }} RCRT </p>
+		    	</div>
+		    	
+		    	
+		    	<div class="my-col-100  textC remainTime"  v-if="myInfoDetails.status_id == 1 && cancelTime == true">
+						<p class="ftF size6 ">{{remainTime}}</p>
+						<p class="tip ftR  size000">
+							{{spa_text.minuteCancel}}
+						</p>
+				</div>
+				
+		    	<div class="my-col-100  textC remainTime"  v-if="myInfoDetails.status_id == 3">
+						<p class="ftF size6 ">{{remainDelliveryTime}}</p>
+						<p class="tip ftR  size000">
+							{{spa_text.Automatic}}
+						</p>
+				</div>
+		    </article>
+		    
+		    
+		    
+		    
+		    <!--不同状态的按钮-->
+			<article class="my_button backBt ftC textC size1" >
+				<div class="my-col-100" v-if="myInfoDetails.status_id == 1">
+					<p class="my-col-20" @click="location.href = 'businessInfo.html?sid='+myInfoDetails.publisher"> 
+						<span class="my-col-100 logo">
+							<img src="img/business.png" />
+						</span>
+						<span class="my-col-100 size00">
+							{{spa_text.Shop}}
+						</span>
+					</p>
+					<p class="my-col-20">
+						<span class="my-col-100 logo" @touchstart="showPhone=true">
+							<img src="img/phone.png"  />
+						</span>
+						<span class="my-col-100 size00">
+							{{spa_text.Contact_Business}}
+						</span>
+					</p>
+					<p class="my-col-25 payCancelButton">
+						<a   @click="showCancel = !showCancel">
+							{{spa_text.cancelOrder}}
+						</a>
+					</p> 
+					<p class="my-col-25 payMountButton backY ft9">
+						<a  @click="openModel">
+							{{spa_text.PayMent}}
+						</a>
+					</p>
+				</div>
+				<div class="my-col-100" v-else>
+					<p class="my-col-25 left" @click="location.href ='businessInfo.html?sid='+myInfoDetails.publisher"> 
+						<span class="my-col-100 logo">
+							<img src="img/business.png"  />
+						</span>
+						<span class="my-col-100 size00">
+							{{spa_text.Shop}}
+						</span>
+					</p>
+					<p class="my-col-25">
+						<span class="my-col-100 logo" @touchstart="showPhone=true">
+							<img src="img/phone.png"  />
+						</span>
+						<span class="my-col-100 size00">
+							{{spa_text.Contact_Business}}
+						</span>
+					</p>
+					<p class="my-col-35">
+						<a class="deliver ftF"  @click="domOrder('shouhuo')" v-if="myInfoDetails.status_id == 3">
+							{{spa_text.DeliveryOrder}}
+						</a>
+						<a class="cancel ftF" @click="domOrder('del')"  v-if="myInfoDetails.status_id == 4 || myInfoDetails.status_id == 5">
+							{{spa_text.delOrder}}
+						</a>
+					</p>
+				</div>
+			</article>
+			
+			
+			<transition name="upCss">
+				<cancelorder v-if="showCancel" @cancelorder="domOrder('cancel')"   :show.sync="showCancel" ></cancelorder>
+	 	 	</transition>
+	 	 	 
+	 	 	 <!--联系商家-->
+			<transition name="upCss">
+				   <callphone  v-if="showPhone" :phone="myInfoDetails.mobile"  :show.sync="showPhone" ></callphone>
+			</transition>
+			
+			<transition  name="upCss">
+			   <keyboard v-if="keyboardModel"   :show.sync="keyboardModel" @submit="submit"></keyboard>
+			</transition>
+		</section>
+
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="modules/moment.js"  ></script>
+		<script src="components/keyboard.js"></script>
+		<script src="components/callphone.js"  ></script>
+		<script src="components/goodinfo.js"  ></script>
+		<script src="components/cancelorder.js"  ></script>
+		<script>"use strict";var vm=new Vue({el:"#index",components:{keyboard:Keyboard,callphone:Callphone,cancelorder:Cancelorder,goodinfo:Goodinfo},data:{id:0,myInfoDetails:{goods:[]},myGoodDetails:{},myAddressDetails:{},myPic:"",showCancel:!1,password:"",spa_text:{},showPhone:!1,cancelTime:!0,deliveryTime:!0,remainTime:"",remainDelliveryTime:"",pay_pwd:"",keyboardModel:!1,intervalid:""},created:function(){this.spa_text=language._text(),document.title=this.spa_text.GoodOrderDetail,this.id=common._parseUrl("orderid")-0,this.getmyGoodDetail()},filters:{coverTimeStr:function(t,e){return moment(1e3*t).format(e)}},methods:{getmyGoodDetail:function(){var t=this,e={id:this.id};this.$axios.post("shoporder/detail",e).then(function(e){var o,i,s;e&&0==e.code?(o=[e.data,e.data.userinfo,e.data.goods[0]],t.myInfoDetails=(s=(i=o[Symbol.iterator]()).next()).done?void 0:s.value,t.myAddressDetails=(s=i.next()).done?void 0:s.value,t.myGoodDetails=(s=i.next()).done?void 0:s.value,t.myPic="background: url('"+t.myGoodDetails.goods_cover_id+"') 50% 50% / cover no-repeat;border:1px solid #2A2F50;box-sizing: border-box;height: 6.5rem;",1==t.myInfoDetails.status_id&&t.getCancelTime(1e3*e.data.cancel_time-(new Date).getTime()),3==t.myInfoDetails.status_id&&(t.remainDelliveryTime=Math.ceil((1e3*e.data.receive_time-(new Date).getTime())/864e5)+t.spa_text.day)):myalert._msg(e.msg,1,function(){history.back()})})},getTypePic:function(){return{1:"img/tradPaying.png",2:"img/tradSendGood.png",3:"img/tradCollectGood.png",4:"img/tradSuccess.png",5:"img/tradClose.png"}[void 0!==arguments[0]?arguments[0]:5]},getStatus:function(){var t=void 0!==arguments[0]?arguments[0]:5;return{1:this.spa_text.OrderStatus1,2:this.spa_text.OrderStatus2,3:this.spa_text.OrderStatus3,4:this.spa_text.OrderStatus4,5:this.spa_text.OrderStatus0}[t]},domOrder:function(t){var e=this;if("cancel"==t){var o={id:this.id,status_id:5};this.$axios.post("shoporder/up_status",o).then(function(t){t&&0==t.code?myalert._msg(t.msg,1,function(){e.showCancel=!1,e.myInfoDetails.status_id=5}):myalert._msg(t.msg,1,function(){history.back()})})}else{var i=this.spa_text.tip,s=this.spa_text.subCancelOrder,a=this.spa_text.collectConform,r=this.spa_text.no,n=this.spa_text.yes;"del"==t?myalert._confirm({myClass:"confirmLayer ftF wrapper size1",content:"<p class='title'><strong>"+i+"</strong></p>\n\t\t\t\t\t\t\t      <p class='subtitle'>"+s+"</p>\n\t\t\t\t\t\t\t      <p class='my-col-50  button no' id='_confirmClose'>"+r+"</p>\n\t\t\t\t\t\t\t      <p class='my-col-50  button' onclick='vm.handleOrder(0)'>"+n+"</p>"}):"shouhuo"==t&&myalert._confirm({myClass:"confirmLayer ftF wrapper size1",content:"<p class='title'><strong>"+i+"</strong></p>\n\t\t\t\t\t\t      <p class='subtitle'>"+a+"</p>\n\t\t\t\t\t\t      <p class='my-col-50  button no' id='_confirmClose'>"+r+"</p>\n\t\t\t\t\t\t      <p class='my-col-50  button' onclick='vm.handleOrder(1)'>"+n+"</p>"})}},handleOrder:function(t){var e=this,o={id:this.id},i="";0==t?i="shoporder/del_order":1==t&&(o.status_id=4,i="shoporder/up_status"),this.$axios.post(i,o).then(function(o){o&&0==o.code?myalert._msg(o.msg,1,function(){0==t?history.back():1==t&&(myalert._closeConfirm(),e.myInfoDetails.status_id=4)}):myalert._msg(o.msg,1,function(){history.back()})})},getCancelTime:function(){var t=void 0!==arguments[0]?arguments[0]:0,e=this;this.intervalid=setInterval(function(){if(t<=0)return e.cancelTime=!1,clearInterval(e.intervalid),!1;var o=t/6e4,i=Math.floor(o),s=Math.floor(60*(o-i));e.remainTime=i<10?s<10?"0"+i+" : 0"+s:"0"+i+" : "+s:s<10?i+" : 0"+s:i+" : "+s,t-=1e3},1e3)},openModel:function(){this.keyboardModel=!this.keyboardModel},submit:function(t){this.pay_pwd=t;var e={id:this.id,pay_pwd:this.pay_pwd};this.$axios.post("shoporder/pay_order",e).then(function(t){t&&0==t.code?myalert._msg(t.msg,2,function(){location.href="myGoodOrderDetail.html?&orderid="+t.data.id}):myalert._msg(t.msg,2,function(){common._formMask()})})}}});</script>
+	</body>
+
+</html>

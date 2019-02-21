@@ -1,0 +1,69 @@
+.my_head {
+  position: fixed;
+  z-index: 1; }
+
+.my_head .title {
+  margin: 3% 0; }
+
+.my_head .title_line {
+  transition: .5s;
+  width: 12%;
+  float: left;
+  margin-left: 6.5%;
+  border-bottom: 3px solid #EFBB53; }
+
+.my_head .line1 {
+  margin-left: 31.5%; }
+
+.my_head .line2 {
+  margin-left: 56.5%; }
+
+.my_head .line3 {
+  margin-left: 81.5%; }
+
+.my_padding {
+  padding: 7% 0;
+  float: left;
+  width: 100%; }
+
+.my_list {
+  border-bottom: 10px solid #111321; }
+
+.my_list .title {
+  padding: 3% 2.5%; }
+
+.my_list .content {
+  padding: 3% 2.5%; }
+
+.my_list .content .buyTime {
+  padding: 2% 0; }
+
+.my_list .content .money_left {
+  width: 21%;
+  float: left; }
+
+.my_list .content .money_right {
+  width: 79%;
+  float: left; }
+
+.my_list .footer {
+  padding: 3% 2.5%; }
+
+.my_list .footer .noMsg {
+  margin-left: 75%; }
+
+.my_list .footer .delivery {
+  text-align: center;
+  border-radius: 3px;
+  padding: 6% 12%; }
+
+.my_list .footer .cancelBtn {
+  background: #676B6F;
+  text-align: center;
+  border-radius: 3px;
+  padding: 6% 12%; }
+
+.my_list .footer .confirmBtn {
+  text-align: center;
+  border-radius: 3px;
+  padding: 6% 12%; }

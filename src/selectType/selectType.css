@@ -1,0 +1,25 @@
+.myOrder {
+  padding: 4% 5%;
+  border-bottom: 8px solid #1F212B; }
+
+.rightIcon {
+  transform: rotate(-90deg);
+  display: inline-block;
+  font-weight: bold;
+  font-size: 0.675rem; }
+
+ul {
+  padding: 5%; }
+
+.title {
+  padding: 4% 0; }
+
+.selectType {
+  background: #2E3237;
+  color: #fff;
+  padding: 1.5% 0;
+  margin: 2% 1.5%;
+  border-radius: 100px; }
+
+.selectType:nth-child(2) {
+  background: #EFBB53 !important; }

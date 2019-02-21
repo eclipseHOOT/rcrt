@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>我参与的</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#111321">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-afgpp-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/common.css" >
+		<style type="text/css">ul{margin:0 2.5%;padding:2% 2.5%}ul li{margin:2% 0;border-radius:4pt}ul li .header{padding:1% 0 0 5%}ul li .label{text-align:center;height:2.6rem;line-height:2.55rem}ul li .caption{padding-top:3%}ul li .name{padding:5% 0 0;border-top:2pt solid #1f212b;margin:4% 5% 1%}ul li .content{padding:1% 5%}ul li .footer{margin:4% 5% 1%;border-top:1pt solid #22284d}ul li .crowd_bottom{margin:3% 0}ul li .color1{color:#00a8ec}ul li .color2{color:#ff934b}ul li .color3{color:#b5b5c3}</style>
+	</head>
+
+	<body class="backB">
+		<section id="index" class="indexPull"  v-cloak>
+			<loadmore @loadmore="getList">
+				<ul class="my-col-90 size000 listPull">
+					<li class="backB" v-for="(list,index) of dataList"  :key="list.id">
+						<p class="my-col-95 header">
+							<span class="my-col-80  caption ftA">{{spa_text.CrowdfundingNum}}</span>
+							<span class="my-col-20  size1 label ftF" :style="getBack(list.end_time,list.start_time)">{{getStatus(list.raise_status)}}</span>
+							<span class="my-col-100 ftY"><a class="size5">{{list.raised}}</a><a class="ftA size00"> RCRT</a></span>
+						</p>
+						
+	
+						<p class="my-col-90 name">
+							<span class="my-col-50 ft6">
+	                			{{spa_text.TokenName}}:
+	                		</span>
+							<span class="my-col-50 textR ftF">
+	                			{{list.currency_name}}
+	                		</span>
+						</p>
+						<p class="my-col-90 content">
+							<span class="my-col-50 ft6">
+	                			{{spa_text.TokenSymbol}}:
+	                		</span>
+							<span class="my-col-50 textR ftF">
+	                			{{list.currency_symbol}}
+	                		</span>
+						</p>
+						<p class="my-col-90 content">
+							<span class="my-col-50 ft6">
+	                			{{spa_text.TotalTokens}}:
+	                		</span>
+							<span class="my-col-50 textR ftF">
+	                			{{list.currency_number}}
+	                		</span>
+						</p>
+						<p class="my-col-90 content">
+							<span class="my-col-50 ft6">
+	                			{{spa_text.schedule}}:
+	                		</span>
+							<span class="my-col-50 textR ftR">
+	                			{{(parseFloat(list.raised/list.target) * 100).toFixed(2)}}%
+	                		</span>
+						</p>
+	
+						<p class="my-col-90 footer size1">
+							<span class="my-col-50 crowd_bottom ftL" :class="{'color1':list.raise_status==0,'color2':list.raise_status==1,'color3':list.raise_status==2}">
+	                			{{getStatus(list.raise_status)}}
+	                		</span>
+							<span class="my-col-50 textR crowd_bottom ftA">
+	                			{{getDayTime(list.end_time)}}
+	                		</span>
+						</p>
+					</li>
+				</ul>
+			</loadmore>
+		</section>
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+        <script src="components/loadmore.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script>"use strict";var vm=new Vue({el:"#index",components:{loadmore:Loadmore},data:{dataList:[],page:1,spa_text:{}},created:function(){this.spa_text=language._text(),document.title=this.spa_text.IAmInvolved,this.getList()},mounted:function(){this.pullUp()},methods:{getList:function(){var t=this,e={page:this.page};this.$axios.postList("crowdfunding/mylist",e,this.page,function(e){e&&0==e.code&&(t.dataList=1==t.page?e.data.data:t.dataList.concat(e.data.data),t.page++)})},getBack:function(t,e){var a=new Date(1e3*t)-new Date;return Math.ceil(a/864e5)>0?"background: url(img/status1.png) no-repeat; background-size: 100% 100%;":1e3*e>(new Date).getTime()?"background: url(img/status4.png) no-repeat; background-size: 100% 100%;":1e3*t<(new Date).getTime()?"background: url(img/status3.png) no-repeat; background-size: 100% 100%;":void 0},getStatus:function(){var t=void 0!==arguments[0]?arguments[0]:2;return{0:this.spa_text.processing,1:this.spa_text.suover,2:this.spa_text.faover,3:this.spa_text.Willbegin}[t]||this.spa_text.Willbegin},getDayTime:function(t){var e=new Date(1e3*t)-new Date;return Math.ceil(e/864e5)>0?Math.ceil(e/864e5)+this.spa_text.EndDay:this.spa_text.CrowdfundEndTime},pullUp:function(){var t=this;plugin.pullUpRefresh(document.querySelector("#list"),40,function(){var e=this,a=setTimeout(function(){0==window.scrollY&&(e.back.call(),t.page=1,clearTimeout(a),t.getList(t.goodState))},1e3)})}}});</script>
+	</body>
+
+</html>

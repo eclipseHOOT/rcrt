@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>商品详情</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta name="format-detection" content="telephone=yes">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#282B3B">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+ 
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<style type="text/css">.my_content{border-top:1px solid #2a2f50}.my_content .goodPic{position:relative}.my_content .goodPic .title{position:absolute;left:35%;bottom:5%}.my_content .goodPic .myLogo{position:absolute;left:10%;bottom:-10%;width:4rem;height:4rem;border-radius:100px;border:5px solid #fff;-webkit-box-reflect:below -10px -webkit-linear-gradient(top,rgba(250,250,250,0),rgba(250,250,250,0) 70%,rgba(250,250,250,.5));box-reflect:below -10px -webkit-linear-gradient(top,rgba(250,250,250,0),rgba(250,250,250,0) 70%,rgba(250,250,250,.5))}.my_content .container{margin-bottom:8%}.my_content .container .content{padding:8% 5% 0}.my_content .container .pullDown{display:inline-block;transition:.5s}.my_content .container .pullDown img{width:50%}.my_content .container .tranDown{transform:rotateX(180deg)}.my_tab{border-bottom:7px solid #2e3237}.my_tab div{border-top:1px solid #21252a}.my_tab .label{display:inline-block;padding:5%}.my_tab .line{border-bottom:3px solid #efbb53}.content_address{padding:3% 5%}.content_address .left{height:4rem;padding:2% 0;border-right:1px solid #1f212b;box-sizing:border-box}.content_address .right{height:3.2rem;line-height:3.2rem;padding:2% 0}.content_address .right img{width:8%;vertical-align:-1px}.content_time{padding:5%}.content_time .call{width:15%}.content_time .callbs{vertical-align:.3rem;padding-left:10%}.my_goodPic{padding:0 5%}.my_goodPic .title{margin-right:65%;background:rgba(212,174,112,.4);text-align:center;border-radius:0 0 50% 50%;padding:1.5% 0 2.5%;margin-bottom:5%}.my_goodPic ul{width:47.5%;float:left;margin-bottom:5%}.my_goodPic ul img{-webkit-box-shadow:0 6px 10px rgba(5,3,3,.1);-moz-box-shadow:0 6px 10px rgba(5,3,3,.1);box-shadow:0 6px 10px rgba(5,3,3,.1);border-radius:8px;height:8.5rem}.my_goodPic ul:nth-of-type(2n){margin-left:5%}.allType{min-height:12rem;overflow-y:auto}.allType .goodLabel{border-bottom:1px solid #2e3237;border-right:1px solid #2e3237;padding:10% 0;box-sizing:border-box}.allType .selectType{background:#efbb53;color:#fff;transition:.5s;pointer-events:none}.goodList{height:22rem;overflow-y:auto;margin-left:2.5%;margin-top:3%}.goodList .list{margin-bottom:5%}.goodList .right{padding-left:4%}.goodList .right .title{padding-bottom:15%}</style>
+	</head>
+
+	<body class="backB">
+		<section id="index"  v-cloak>
+	   	    <article class="size00 my_content" >
+	   	    	<div class="my-col-100 goodPic" :style="businessPic" >
+	   	    		<strong class="ft9 size4 title nowrap" v-text="businessInfo.name"></strong>
+	   	    		<img  class="myLogo" :src="businessInfo.logo_image"  /> 
+	   	    	</div>
+	   	    	<div class="my-col-100 container size000">
+	   	    		<p class="my-col-90 content size000 ftA" :class="{'nowraps':nameLenCss == false}">{{businessInfo.introduction}}</p>
+	   	    		<p class="textR my-col-90">
+                     <span class="ftC pullDown"  @touchstart="nameLenCss = !nameLenCss;" :class="{'tranDown':nameLenCss == true}"><img  src="img/pullDown.png"  /></span>
+	   	    		</p>
+	   	    	</div>
+			</article>
+			
+			
+			<article class="textC my_tab ftC">
+				<div class="my-col-50"><span class="label" :class="{'bolds line ftY':type==1}" @click="type=1">{{spa_text.GOOD}}</span></div>
+				<div class="my-col-50"><span class="label" :class="{'bolds line ftY':type==2}" @click="type=2">{{spa_text.BUSINESS}}</span></div>
+			</article>
+			
+			
+			
+			<article class="size000" v-if="type == 2">
+				<div class="my-col-90 borderb content_address">
+					<p class=" address">
+                        <span class="my-col-75 left">
+                        	<a class="ftF my-col-100 ">{{businessInfo.address}}</a>
+                        </span>
+                        <span class="my-col-25  textR ftC  right" @click="goToMap(businessInfo.longitude,businessInfo.latitude)">
+                         	<a>{{spa_text.Navigation}}</a> <img  src="img/pullRight.png"  />
+                        </span>
+	   	    		</p>
+	   	    	</div>
+	   	    	<div class="my-col-90 borderb content_time">
+	   	    		<p class="my-col-70 ftF">
+	   	    			<span>{{spa_text.Business_Hours}}：&nbsp;&nbsp;</span><strong>{{businessInfo.working_time}}</strong>
+	   	    		</p>
+	   	    		<p class="my-col-30 textR " @touchstart="common._formMask();showPhone = true">
+	   	    			<img src="img/phone1.png" class="call" /><span class="ftC callbs textR">{{spa_text.Contact_Business}}</span>
+	   	    		</p>
+	   	    	</div>
+			</article>
+			
+			<article class="my_goodPic my-col-90" v-if="type == 2">
+				<h3 class="my-col-25 title b5 size000 ftC">{{spa_text.BusinessShop}}</h3>
+				<ul  v-for="(list,index) in imgList" :key="index">
+   	    			<img class="roW" :src="list" />
+   	    		</ul>
+			</article>
+			
+			<article v-if="type == 1">
+				<ul class="my-col-25 size000 textC ftF allType"  >
+					<li  class="goodLabel" :class="{'selectType':checkId == list.id}"  v-for="(list,index) of businessGoodList" @click="getGoodList(list.id)" :class="{'selectType':checkId == list.id}" :key="list.id" >
+						{{list.name}}
+					</li>
+					
+				</ul>
+				<ul class="my-col-70 goodList ftF">
+					<li class="my-col-100 list"  v-for="(list,index) of goodList" @click="goToDetail(list.id)" :key="list.id">
+						<span class="my-col-40 left" :style="getPic(list.cover)">
+						</span>
+						<span class="my-col-55 right">
+							<strong class="my-col-100 size1 title ftF nowrap">{{list.name}}</strong>
+							<strong class="my-col-100 ftY size1 textR">￥{{list.price}}</strong>
+							<span class="my-col-100 ft6 textR"><a class="size0">≈{{parseFloat(list.price / rdccMarket).toFixed(4)}}RCRT</a></span>
+						</span>
+					</li>
+				</ul>
+			</article>
+			
+			<transition name="upCss">
+				   <callphone  v-if="showPhone" :phone="businessInfo.mobile"   :show.sync="showPhone"></callphone>
+			</transition>
+			
+		</section>
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="components/callphone.js"  ></script>
+		<script>"use strict";var vm=new Vue({el:"#index",components:{callphone:Callphone},data:{businessInfo:{},goodDetails:{},businessGoodList:[],number:1,myPic:"",id:common._parseUrl("id"),sid:common._parseUrl("sid"),businessPic:"",type:2,checkId:-1,goodList:[],nameLenCss:!1,contentName:"",spa_text:{},showPhone:!1,imgList:[],rdccMarket:1},created:function(){var t=this;this.spa_text=language._text(),document.title=this.spa_text.GoodDetail,this.getBusinessInfo();var o=setTimeout(function(){t.getAllGood(),t.getGoodList(-1),clearTimeout(o)},500)},methods:{getBusinessInfo:function(){var t=this,o={id:this.sid};this.$axios.post("shop/detail",o).then(function(o){var s,i,e;o&&0==o.code?(s=[o.data,o.data.album_image],t.businessInfo=(e=(i=s[Symbol.iterator]()).next()).done?void 0:e.value,t.imgList=(e=i.next()).done?void 0:e.value,t.businessPic="background: url('"+t.imgList[0]+"') 50% 50% / cover no-repeat;border:none;height: 12rem;width:100%"):myalert._msg(o.msg,1,function(){history.back(-1)})})},getAllGood:function(){var t=this,o={shop_id:this.sid};this.$axios.post("shop/goods_cate",o).then(function(o){o&&0==o.code?(t.businessGoodList=o.data,t.businessGoodList.unshift({id:-1,name:"全部"})):myalert._msg(o.msg,1,function(){history.back(-1)})});this.$axios.post("common/get_quotation",{id:1}).then(function(o){o&&0==o.code?t.rdccMarket=o.data:myalert._msg(o.msg,1,function(){history.back(-1)})})},goToDetail:function(t){location.href="businessDetail.html?id="+t+"&sid="+this.sid},getGoodList:function(t){var o=this;this.checkId=t;var s={shop_id:this.sid};-1!=t&&(s.cid=t),this.$axios.post("shop/goods_list",s).then(function(t){t&&0==t.code&&(o.goodList=t.data.data||[])})},goToMap:function(t,o){stroage.read("lang")&&"zh-cn"!=stroage.read("lang")||webview._goToMap(t,o)},getPic:function(t){return"background: url('"+t+"') 50% 50% / cover no-repeat;height: 5.5rem;"}}});</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,55 @@
+article {
+  margin: 8% 2.5%;
+  border-radius: 4pt;
+  position: fixed; }
+
+.header {
+  border-radius: 4pt;
+  padding: 5% 0;
+  margin-bottom: 5%; }
+
+.header .title {
+  background-size: 100% 100%;
+  margin: 0 20% 6%; }
+
+.header .crowdText {
+  padding-left: 5%; }
+
+.header .crowdInput {
+  margin: 4% 0 0 5%;
+  padding-bottom: 2%;
+  border-bottom: 1pt solid #21252A; }
+
+.header .crowdBa {
+  padding: 5% 0 0 5%; }
+
+.header .colorBa {
+  color: #09FEED; }
+
+.header .crowdRe {
+  padding: 3% 0 0 5%; }
+
+.header .left {
+  box-sizing: border-box;
+  border-right: 2px solid #343C6C; }
+
+.content {
+  padding: 10% 2.5% 2%; }
+
+.content .crowdnumber {
+  padding-bottom: 3%;
+  border-bottom: 1px solid #2A2F50; }
+
+.content .password {
+  letter-spacing: 2rem;
+  width: 100%;
+  text-indent: 6%;
+  border-bottom: 0.5px solid #999;
+  padding-top: 5%;
+  padding-bottom: 4%;
+  width: 90%; }
+
+.content .footer {
+  margin: 30% 7.5% 4%;
+  padding: 3% 0;
+  border-radius: 4pt; }

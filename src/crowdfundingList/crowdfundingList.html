@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>我参与的</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#111321">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-afgpp-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/common.css" >
+		<link rel="stylesheet" type="text/css" href="crowdfundingList.css" inline>
+	</head>
+
+	<body class="backB">
+		<section id="index" class="indexPull"  v-cloak>
+			<loadmore @loadmore="getList">
+				<ul class="my-col-90 size000 listPull">
+					<li class="backB" v-for="(list,index) of dataList"  :key="list.id">
+						<p class="my-col-95 header">
+							<span class="my-col-80  caption ftA">{{spa_text.CrowdfundingNum}}</span>
+							<span class="my-col-20  size1 label ftF" :style="getBack(list.end_time,list.start_time)">{{getStatus(list.raise_status)}}</span>
+							<span class="my-col-100 ftY"><a class="size5">{{list.raised}}</a><a class="ftA size00"> RCRT</a></span>
+						</p>
+						
+	
+						<p class="my-col-90 name">
+							<span class="my-col-50 ft6">
+	                			{{spa_text.TokenName}}:
+	                		</span>
+							<span class="my-col-50 textR ftF">
+	                			{{list.currency_name}}
+	                		</span>
+						</p>
+						<p class="my-col-90 content">
+							<span class="my-col-50 ft6">
+	                			{{spa_text.TokenSymbol}}:
+	                		</span>
+							<span class="my-col-50 textR ftF">
+	                			{{list.currency_symbol}}
+	                		</span>
+						</p>
+						<p class="my-col-90 content">
+							<span class="my-col-50 ft6">
+	                			{{spa_text.TotalTokens}}:
+	                		</span>
+							<span class="my-col-50 textR ftF">
+	                			{{list.currency_number}}
+	                		</span>
+						</p>
+						<p class="my-col-90 content">
+							<span class="my-col-50 ft6">
+	                			{{spa_text.schedule}}:
+	                		</span>
+							<span class="my-col-50 textR ftR">
+	                			{{(parseFloat(list.raised/list.target) * 100).toFixed(2)}}%
+	                		</span>
+						</p>
+	
+						<p class="my-col-90 footer size1">
+							<span class="my-col-50 crowd_bottom ftL" :class="{'color1':list.raise_status==0,'color2':list.raise_status==1,'color3':list.raise_status==2}">
+	                			{{getStatus(list.raise_status)}}
+	                		</span>
+							<span class="my-col-50 textR crowd_bottom ftA">
+	                			{{getDayTime(list.end_time)}}
+	                		</span>
+						</p>
+					</li>
+				</ul>
+			</loadmore>
+		</section>
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+        <script src="components/loadmore.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="crowdfundingList.js" inline></script>
+	</body>
+
+</html>

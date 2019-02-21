@@ -1,0 +1,135 @@
+.my_content {
+  border-top: 1px solid #2A2F50; }
+
+.my_content .goodPic {
+  position: relative; }
+
+.my_content .goodPic .title {
+  position: absolute;
+  left: 35%;
+  bottom: 5%; }
+
+.my_content .goodPic .myLogo {
+  position: absolute;
+  left: 10%;
+  bottom: -10%;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 100px;
+  border: 5px solid #fff;
+  -webkit-box-reflect: below -10px -webkit-linear-gradient(top, rgba(250, 250, 250, 0), rgba(250, 250, 250, 0) 70%, rgba(250, 250, 250, 0.5));
+  box-reflect: below -10px -webkit-linear-gradient(top, rgba(250, 250, 250, 0), rgba(250, 250, 250, 0) 70%, rgba(250, 250, 250, 0.5)); }
+
+.my_content .container {
+  margin-bottom: 8%; }
+
+.my_content .container .content {
+  padding: 8% 5% 0; }
+
+.my_content .container .pullDown {
+  display: inline-block;
+  transition: 0.5s; }
+
+.my_content .container .pullDown img {
+  width: 50%; }
+
+.my_content .container .tranDown {
+  transform: rotateX(180deg); }
+
+.my_tab {
+  border-bottom: 7px solid #2E3237; }
+
+.my_tab div {
+  border-top: 1px solid #21252A; }
+
+.my_tab .label {
+  display: inline-block;
+  padding: 5%; }
+
+.my_tab .line {
+  border-bottom: 3px solid  #EFBB53; }
+
+.content_address {
+  padding: 3% 5%; }
+
+.content_address .left {
+  height: 4rem;
+  padding: 2% 0;
+  border-right: 1px solid #1F212B;
+  box-sizing: border-box; }
+
+.content_address .right {
+  height: 3.2rem;
+  line-height: 3.2rem;
+  padding: 2% 0; }
+
+.content_address .right img {
+  width: 8%;
+  vertical-align: -1px; }
+
+.content_time {
+  padding: 5%; }
+
+.content_time .call {
+  width: 15%; }
+
+.content_time .callbs {
+  vertical-align: .3rem;
+  padding-left: 10%; }
+
+.my_goodPic {
+  padding: 0 5%; }
+
+.my_goodPic .title {
+  margin-right: 65%;
+  background: rgba(212, 174, 112, 0.4);
+  text-align: center;
+  border-radius: 0 0 50% 50%;
+  padding: 1.5% 0 2.5% 0;
+  margin-bottom: 5%; }
+
+.my_goodPic ul {
+  width: 47.5%;
+  float: left;
+  margin-bottom: 5%; }
+
+.my_goodPic ul img {
+  -webkit-box-shadow: 0 6px 10px rgba(5, 3, 3, 0.1);
+  -moz-box-shadow: 0 6px 10px rgba(5, 3, 3, 0.1);
+  box-shadow: 0 6px 10px rgba(5, 3, 3, 0.1);
+  border-radius: 8px;
+  height: 8.5rem; }
+
+.my_goodPic ul:nth-of-type(2n) {
+  margin-left: 5%; }
+
+.allType {
+  min-height: 12rem;
+  overflow-y: auto; }
+
+.allType .goodLabel {
+  border-bottom: 1px solid #2E3237;
+  border-right: 1px solid #2E3237;
+  padding: 10% 0;
+  box-sizing: border-box; }
+
+.allType .selectType {
+  background: #EFBB53;
+  color: #fff;
+  transition: 0.5s;
+  pointer-events: none; }
+
+.goodList {
+  height: 22rem;
+  overflow-y: auto;
+  margin-left: 2.5%;
+  margin-top: 3%; }
+
+.goodList .list {
+  margin-bottom: 5%; }
+
+.goodList .right {
+  padding-left: 4%; }
+
+.goodList .right .title {
+  padding-bottom: 15%; }

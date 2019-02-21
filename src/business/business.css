@@ -1,0 +1,50 @@
+.container {
+  margin-left: 5%;
+  padding-top: 4%; }
+
+.container input {
+  width: 100%;
+  border-radius: 100px;
+  padding: 1.5% 0 1% 12%; }
+
+.container ::-webkit-input-placeholder {
+  color: #A4ABAD;
+  letter-spacing: 1px; }
+
+.container input[type=search]::-webkit-search-cancel-button {
+  -webkit-appearance: none; }
+
+.searchText {
+  position: relative; }
+
+.searchText::before {
+  content: '';
+  background: url(img/search.png) no-repeat;
+  background-size: 100% 100%;
+  height: 50%;
+  width: 5%;
+  position: absolute;
+  transform: translate(80%, 50%); }
+
+ul {
+  margin-bottom: 20%;
+  padding: 0 5%; }
+
+ul h3 {
+  margin: 5% 0; }
+
+ul li:nth-of-type(2n) {
+  margin-left: 3%; }
+
+ul li {
+  width: 48.5%;
+  float: left; }
+
+ul li .content {
+  padding: 3% 5%; }
+
+ul li .money {
+  padding: 0% 5% 12%; }
+
+ul .ftGreen {
+  color: #18D860; }

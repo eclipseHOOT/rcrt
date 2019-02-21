@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>申诉</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#111321">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/common.css"  />
+		<link rel="stylesheet" type="text/css" href="Appeal.css" inline >
+	</head>
+
+	<body class="backB">	
+		<section  id="index" class="size000"  v-cloak>
+	        <article class="my-col-80 my_from backBt">
+	        	<div class="my-col-100 ftA  bolds">{{spa_text.AppealReason}}:</div>
+	        	<div class="my-col-100">
+				   <textarea class="ftC backBt" maxlength="200" autofocus  :placeholder="spa_text.AppealPlac"  v-model="content"></textarea>
+	        	</div>
+	        </article>
+	        
+	        <!--<article class="my-col-80 my_from backB">
+	        	<div  class="my-col-100">
+					<p class="my-col-25 ft9  bolds">{{spa_text.CONTACT}}:</p>
+					<p class="my-col-75">
+						<input class="name ft9 roW"  type="text" v-model="phone">
+					</p>
+				</div>
+	        </article>-->
+	        
+	         <article class="my-col-80 my_from backBt">
+	        	<div  class="my-col-100">
+					<p class="my-col-25 ftA  bolds">{{spa_text.ORDER_Id}}:</p>
+					<p class="my-col-75 ftC">
+						<span>{{oid}}</span>
+					</p>
+				</div>
+	        </article>
+	        
+	        
+			<article class="my-col-80 my_button backY ft9 size1">
+				<p @click="submitConfig">{{spa_text.SUBMIT}}</p>
+			</article>
+		</section>
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="Appeal.js" inline></script>
+	</body>
+</html>

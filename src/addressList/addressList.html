@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>选择收货地址</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#282B3B">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/common.css"  >
+		<link rel="stylesheet" type="text/css" href="addressList.css"  inline>
+	</head>
+
+	<body class="backB">
+		<section  id="index" >
+			<ul class="size1"  v-cloak>
+				 <li class="my-col-95 borderb"  v-if="dataList&&dataList.length!=0"  v-for="(list,index) in dataList" @click="selectAddr(list)" :key="list.id" > 
+				 	<p class="my-col-70 size000 ftF">{{spa_text.aNAME}}： {{list.name}} <span v-if="list.is_auto == 1"  class="ftR size0">({{spa_text.defaultAddress}})</span></p>
+				 	<p class="my-col-30 size000 textR ftF">{{list.tel}}</p>
+				 	<p class="size00 ftC">
+				 		{{spa_text.aADDRESS}}： {{list.address}}
+				 	</p>
+				 </li>
+				 <li v-if="dataList.length==0" class="textC my-col-95 noAddress size1 ftC">
+				 	{{spa_text.noAddress}}
+				 </li>
+			</ul>
+			<article class="my_button">
+				 <div class="my-col-90 textC backY  size1 ft9" @click="addAddress">
+				             {{spa_text.ADD_ADDRESS}}
+				 </div>
+			</article>
+		</section>
+		
+		<script src="modules/vue.js"></script>
+		<script src="modules/axios.js"></script>
+		<script src="js/base.js" ></script>
+		<script src="addressList.js" inline></script>
+	</body>
+
+</html>

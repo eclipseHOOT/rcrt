@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>商品详情</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta name="format-detection" content="telephone=yes">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#282B3B">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+ 
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="businessInfo.css" inline >
+	</head>
+
+	<body class="backB">
+		<section id="index"  v-cloak>
+	   	    <article class="size00 my_content" >
+	   	    	<div class="my-col-100 goodPic" :style="businessPic" >
+	   	    		<strong class="ft9 size4 title nowrap" v-text="businessInfo.name"></strong>
+	   	    		<img  class="myLogo" :src="businessInfo.logo_image"  /> 
+	   	    	</div>
+	   	    	<div class="my-col-100 container size000">
+	   	    		<p class="my-col-90 content size000 ftA" :class="{'nowraps':nameLenCss == false}">{{businessInfo.introduction}}</p>
+	   	    		<p class="textR my-col-90">
+                     <span class="ftC pullDown"  @touchstart="nameLenCss = !nameLenCss;" :class="{'tranDown':nameLenCss == true}"><img  src="img/pullDown.png"  /></span>
+	   	    		</p>
+	   	    	</div>
+			</article>
+			
+			
+			<article class="textC my_tab ftC">
+				<div class="my-col-50"><span class="label" :class="{'bolds line ftY':type==1}" @click="type=1">{{spa_text.GOOD}}</span></div>
+				<div class="my-col-50"><span class="label" :class="{'bolds line ftY':type==2}" @click="type=2">{{spa_text.BUSINESS}}</span></div>
+			</article>
+			
+			
+			
+			<article class="size000" v-if="type == 2">
+				<div class="my-col-90 borderb content_address">
+					<p class=" address">
+                        <span class="my-col-75 left">
+                        	<a class="ftF my-col-100 ">{{businessInfo.address}}</a>
+                        </span>
+                        <span class="my-col-25  textR ftC  right" @click="goToMap(businessInfo.longitude,businessInfo.latitude)">
+                         	<a>{{spa_text.Navigation}}</a> <img  src="img/pullRight.png"  />
+                        </span>
+	   	    		</p>
+	   	    	</div>
+	   	    	<div class="my-col-90 borderb content_time">
+	   	    		<p class="my-col-70 ftF">
+	   	    			<span>{{spa_text.Business_Hours}}：&nbsp;&nbsp;</span><strong>{{businessInfo.working_time}}</strong>
+	   	    		</p>
+	   	    		<p class="my-col-30 textR " @touchstart="common._formMask();showPhone = true">
+	   	    			<img src="img/phone1.png" class="call" /><span class="ftC callbs textR">{{spa_text.Contact_Business}}</span>
+	   	    		</p>
+	   	    	</div>
+			</article>
+			
+			<article class="my_goodPic my-col-90" v-if="type == 2">
+				<h3 class="my-col-25 title b5 size000 ftC">{{spa_text.BusinessShop}}</h3>
+				<ul  v-for="(list,index) in imgList" :key="index">
+   	    			<img class="roW" :src="list" />
+   	    		</ul>
+			</article>
+			
+			<article v-if="type == 1">
+				<ul class="my-col-25 size000 textC ftF allType"  >
+					<li  class="goodLabel" :class="{'selectType':checkId == list.id}"  v-for="(list,index) of businessGoodList" @click="getGoodList(list.id)" :class="{'selectType':checkId == list.id}" :key="list.id" >
+						{{list.name}}
+					</li>
+					
+				</ul>
+				<ul class="my-col-70 goodList ftF">
+					<li class="my-col-100 list"  v-for="(list,index) of goodList" @click="goToDetail(list.id)" :key="list.id">
+						<span class="my-col-40 left" :style="getPic(list.cover)">
+						</span>
+						<span class="my-col-55 right">
+							<strong class="my-col-100 size1 title ftF nowrap">{{list.name}}</strong>
+							<strong class="my-col-100 ftY size1 textR">￥{{list.price}}</strong>
+							<span class="my-col-100 ft6 textR"><a class="size0">≈{{parseFloat(list.price / rdccMarket).toFixed(4)}}RCRT</a></span>
+						</span>
+					</li>
+				</ul>
+			</article>
+			
+			<transition name="upCss">
+				   <callphone  v-if="showPhone" :phone="businessInfo.mobile"   :show.sync="showPhone"></callphone>
+			</transition>
+			
+		</section>
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="components/callphone.js"  ></script>
+		<script src="businessInfo.js" inline></script>
+
+	</body>
+
+</html>

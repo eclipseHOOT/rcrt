@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>财商孵化园</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#171a2c">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+ 
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<style type="text/css">.container{margin-left:5%;padding-top:4%}.container input{width:100%;border-radius:100px;padding:1.5% 0 1% 12%}.container ::-webkit-input-placeholder{color:#a4abad;letter-spacing:1px}.container input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none}.searchText{position:relative}.searchText::before{content:'';background:url(img/search.png) no-repeat;background-size:100% 100%;height:50%;width:5%;position:absolute;transform:translate(80%,50%)}ul{margin-bottom:20%;padding:0 5%}ul h3{margin:5% 0}ul li:nth-of-type(2n){margin-left:3%}ul li{width:48.5%;float:left}ul li .content{padding:3% 5%}ul li .money{padding:0 5% 12%}ul .ftGreen{color:#18d860}</style>
+	</head>
+
+	<body class="backB">
+		<section id="index"   v-cloak>
+			<article class='textC  size00 '>
+		        <div class="my-col-90 container ftA">
+		        	<form action="javascript: window.onload=function(){return true};" :class="{'searchText':myFocus}">  
+		       	       <input   type="search"  maxlength="30"  @keyup.enter="page=1; getList()" class='backBt'  :placeholder="spa_text.SEARCH"  v-model="key"  />
+		        	</form>
+		        </div>
+		    </article>
+		    
+		    <loadmore @loadmore="getList">
+			    <ul class="my-col-90" >
+			    	<h3 class="size1 ftY b5" >{{spa_text.HOT_RECOMMENT}}</h3>
+			    	<li  v-for="(list,index) of dataList" :key="list.goodsid"  @click="goToDetail(list.id)" :key="list.goodsid">
+			    		<p>
+			    			<span class="my-col-100"  :style="getPic(list.cover)"></span>
+			    		</p>
+			    		<p class="ftF size1 my-col-90 content nowrap ftF">
+			    			{{list.name}}
+			    		</p>
+			    		<p class="my-col-90 money ftY">
+			    		   <strong class="my-col-100 size1">￥{{list.price}}</strong>
+			    		   <span class="my-col-100 size000">≈{{ list.price  | computedNum(list.quotation,4)}} <a class="ftGreen size00">RCRT</a></span>
+			    		</p>
+			    	</li>
+			    </ul>
+		    </loadmore>
+		    
+		    
+		</section>
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+        <script src="components/loadmore.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script>"use strict";function loadingInfo(){var t=void 0!==arguments[0]?arguments[0]:"zh-cn";document.querySelector("#noData").innerHTML={"zh-cn":"亲，已经没有更多数据啦~","en-us":"No more data.","ko-kr":"네, 이미 많은 데이터가 없습니다.","th-th":"โปรไม่มีข้อมูลเพิ่มเติม . . . . . . .","ja-jp":"親、もう多くのデータがありません。"}[t]||"亲，已经没有更多数据啦~",vm.page=1,vm.getList(),vm.getRdccMarket(),stroage.write("lang",t),vm.spa_text=language._text(),document.title=vm.spa_text.FinancialName}var vm=new Vue({el:"#index",components:{loadmore:Loadmore},data:{dataList:[],page:1,myFocus:!0,key:"",spa_text:{},rdccmarket:0},created:function(){this.spa_text=language._text(),document.title=this.spa_text.FinancialName,this.getList(),this.getRdccMarket()},mounted:function(){this.pullUp()},watch:{key:function(t,e){this.myFocus=!t}},methods:{getList:function(){var t=this,e={page:this.page,list_rows:8};this.key&&(e.keyword=this.key),this.$axios.postList("goods/index",e,this.page,function(e){e&&0==e.code&&(t.dataList=1==t.page?e.data.data:t.dataList.concat(e.data.data),t.page++)})},getRdccMarket:function(){var t=this;this.$axios.post("common/get_quotation",{id:1}).then(function(e){e&&0==e.code&&(t.rdccmarket=e.data)})},getPic:function(t){return"background: url('"+t+"') 50% 50% / cover no-repeat;height:6.5rem"},goToDetail:function(t){webview._goOther("businessDetail.html?id="+t)},pullUp:function(){var t=this;plugin.pullUpRefresh(document.querySelector("#list"),40,function(){var e=this,a=setTimeout(function(){0==window.scrollY&&(e.back.call(),t.page=1,clearTimeout(a),t.getList())},1e3)})}}});</script>
+
+	</body>
+
+</html>

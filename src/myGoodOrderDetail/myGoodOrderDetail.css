@@ -1,0 +1,102 @@
+.my_orderType {
+  background: -webkit-linear-gradient(top, #C2A066, #DBC594);
+  /* Safari 5.1 - 6 */
+  background: -o-linear-gradient(top, #C2A066, #DBC594);
+  /* Firefox 3.6 - 15*/
+  background: -moz-linear-gradient(top, #C2A066, #DBC594);
+  /* Firefox 3.6 - 15*/
+  background: linear-gradient(to top, #C2A066, #DBC594);
+  padding: 5% 0; }
+
+.my_orderType img {
+  width: 25%; }
+
+.my_orderType .status {
+  vertical-align: 1.5rem; }
+
+.my_head {
+  border-bottom: 8px solid #111321; }
+
+.my_head .hasAddress {
+  padding: 1% 5% 4% 5%; }
+
+.my_head .hasAddress p {
+  padding-top: 3%; }
+
+.my_detail {
+  padding-bottom: 20%; }
+
+.my_detail .title {
+  padding: 2% 0 2% 5%; }
+
+.my_detail .container {
+  padding: 3% 0 3% 5%; }
+
+.my_detail .call {
+  margin: 10% 0; }
+
+.my_detail .call .contact {
+  padding: 2% 0 1% 0;
+  border-radius: 100px 100px 100px 0px;
+  min-width: 75%;
+  margin-left: 15%; }
+
+.my_detail .call img {
+  width: 8%;
+  padding-left: 6%;
+  padding-top: 1%; }
+
+.my_detail .call .text {
+  padding-left: 2%;
+  vertical-align: 0.3rem; }
+
+.my_detail .remainTime {
+  margin: 10% 0 5%; }
+
+.my_detail .tip {
+  margin: 5% 0 0 0; }
+
+.my_button {
+  position: fixed;
+  z-index: 1;
+  bottom: 0; }
+
+.my_button div {
+  padding: 1% 0; }
+
+.my_button div .left {
+  padding-left: 10%; }
+
+.my_button div .logo {
+  padding-top: 5%; }
+
+.my_button div img {
+  vertical-align: bottom;
+  width: 23%; }
+
+.my_button .cancel {
+  background: #8D8D8D;
+  padding: 4% 8%;
+  border-radius: 4pt;
+  margin: 7% 0 0 0;
+  display: inline-block;
+  float: right; }
+
+.my_button .payCancelButton {
+  background: #8d8d8d;
+  border-radius: 4pt;
+  padding: 2% 0;
+  margin: 2% 3%; }
+
+.my_button .payMountButton {
+  border-radius: 4pt;
+  padding: 2% 0;
+  margin-top: 2%; }
+
+.my_button .deliver {
+  background: #F65B3B;
+  padding: 4% 8%;
+  border-radius: 4pt;
+  margin: 7% 0 0 0;
+  display: inline-block;
+  float: right; }

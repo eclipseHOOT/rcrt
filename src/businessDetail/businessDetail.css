@@ -1,0 +1,137 @@
+.my_container i {
+  padding: .8% 0; }
+
+.my_container .money {
+  color: #FF934B;
+  padding: 5% 0 0 5%; }
+
+.my_container .descri {
+  border-bottom: 8px solid #21252A;
+  padding: 1% 5% 4% 5%; }
+
+.my_container .remark {
+  padding-top: 4%; }
+
+.my_container .remark .label {
+  border-radius: 100px 0 0 100px;
+  padding: 4% 8% 4% 12%;
+  text-align: center; }
+
+.my_container .shiti_title {
+  padding: 2% 0; }
+
+.my_container .shiti_title .left_line {
+  margin: 3% 0 0 25%;
+  height: 0.75px;
+  background: #A4ABAD; }
+
+.my_container .shiti_title .right_line {
+  margin: 3% 15% 0 0;
+  height: 1px;
+  background: #A4ABAD; }
+
+.my_container .address {
+  padding: 5%; }
+
+.my_container .address .left img {
+  margin-top: 8%;
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 100px;
+  -webkit-box-reflect: below -5px -webkit-linear-gradient(top, rgba(250, 250, 250, 0), rgba(250, 250, 250, 0) 50%, rgba(250, 250, 250, 0.3));
+  box-reflect: below -5px -webkit-linear-gradient(top, rgba(250, 250, 250, 0), rgba(250, 250, 250, 0) 50%, rgba(250, 250, 250, 0.3)); }
+
+.my_container .address .middle {
+  border-right: 1px dashed #999;
+  box-sizing: border-box; }
+
+.my_container .address .middle .addressHeight {
+  height: 3rem; }
+
+.my_container .address .right {
+  padding-top: 6.5%;
+  padding-left: 5%; }
+
+.my_container .address .right img {
+  width: 70%; }
+
+.my_container .marginBottom {
+  margin-bottom: 20%; }
+
+.my_footer {
+  position: fixed;
+  bottom: 0;
+  height: 4rem;
+  letter-spacing: 1px; }
+
+.my_footer .callBusiness {
+  padding-top: 15%; }
+
+.my_footer .callBusiness img {
+  vertical-align: top;
+  width: 30%; }
+
+.my_footer div {
+  height: 4rem; }
+
+.my_footer .button {
+  line-height: 4rem;
+  vertical-align: middle; }
+
+.my_footer .button img {
+  width: 12%;
+  vertical-align: -0.4rem;
+  padding-right: 3%; }
+
+.my_buy_layer {
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  bottom: 0;
+  transition: 0.5s; }
+
+.my_buy_layer .my_stroe {
+  padding: 0% 5%; }
+
+.my_buy_layer .my_stroe .rightInfo {
+  padding-left: 5%;
+  padding-top: 2%; }
+
+.my_buy_layer .my_stroe .rightInfo .close {
+  padding-top: 2%;
+  font-size: 2rem; }
+
+.my_buy_layer .my_stroe .rightInfo .price {
+  padding-top: 8%; }
+
+.my_buy_layer .my_stroe .rightInfo .store {
+  padding-top: 3%; }
+
+.my_buy_layer .my_buyText {
+  border-bottom: 1px solid #1F212B;
+  border-top: 1px solid #1F212B;
+  padding: 3% 5%; }
+
+.my_buy_layer .my_buyText .leftText {
+  padding-top: 1%; }
+
+.my_buy_layer .my_buyText span {
+  float: left;
+  padding: 2% 4%;
+  border: 1pt solid #92A0AC; }
+
+.my_buy_layer .my_buyText .num {
+  padding: 2% 15%; }
+
+.my_buy_layer .my_buyText .less {
+  border-radius: 2pt 0 0 2pt;
+  border-right: 0; }
+
+.my_buy_layer .my_buyText .add {
+  border-radius: 0  2pt 2pt 0;
+  border-left: 0; }
+
+.my_buy_layer .layer_button {
+  margin-top: 30%;
+  padding: 3.5% 0;
+  letter-spacing: 2px; }

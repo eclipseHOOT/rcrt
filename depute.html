@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html  manifest="clock.manifest">
+
+	<head>
+		<meta charset="utf-8" />
+		<title>委托</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#171A2C">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<style type="text/css">li{padding:0 0 3%;margin:2.5%;border-radius:4px}li p{padding-top:2.5%}li .title{border-radius:3px;border-left:5px solid #efbb53;padding:1% 2.5% 1% 2%;border-bottom:1px solid #1f212b}li .time{padding:3.5% 0}li .delete img{width:40%;padding-right:7%;vertical-align:bottom}li .price{padding-left:2.5%}li .number{margin-left:2.5%}li .status{padding:3% 0 0;margin:5% 0 0 2.5%;border-top:1px solid #1f212b}li .status .text{padding-top:1.5%}</style>
+	</head>
+
+	<body class="backB"> 
+		<section id="index" class='indexPull ft6'  v-cloak>
+			<loadmore @loadmore="getList">
+			<ul class="listPull">
+				<li  class="my-col-95 backB size000" v-for="(list,index) of dataList" :key="list.id"    @click="goToDetail(list.type,list.code,list.id)">
+					<p class="size1 my-col-95 title">
+						<strong class="my-col-85 time">{{list.create_time | coverTimeStr('YYYY-MM-DD hh:mm:ss')}}</strong>
+						<span class="my-col-15 textR delete"  v-if="list.code == 1 || (list.code == 2 && list.type == 1)" @click="cancelOrder(list.id,index)" >
+							<img src="img/delete.png" class="roW" />
+						    <a class="my-col-100 textR size0 ftA">{{spa_text.REVOKE}}</a>
+						</span>
+					</p>
+					<p class="my-col-95 price">
+						<span class="my-col-50 ftA">{{spa_text.One_PRICE}}: </span>
+						<strong class="my-col-50 textR"> {{list.money | symbolCoin(symbol,dollar) }}</strong>
+					</p>
+					<p class="my-col-95 number">
+						<span class="my-col-50 ftA">{{spa_text.Number}}: </span>
+						<strong class="my-col-50 textR">{{list.num}} {{coinName}}</strong>
+					</p>
+					<p class="price my-col-95">
+						<span class="my-col-40 ftA">{{spa_text.ALL_PRICE}}:</span>
+						<strong class="my-col-60 textR">{{list.total_money | symbolCoin(symbol,dollar) }}</strong>
+					</p>
+					<p class="status  my-col-95">
+						<img :src="list.type==2?'img/saleIcon.png':'img/buyIcon.png'" class="my-col-10"  />
+						<strong class="my-col-90 ftC size2 textR text" v-text="getStatus(list.code)">
+						</strong>
+					</p>
+				</li>
+			</ul>
+			</loadmore>
+		</section>
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+        <script src="components/loadmore.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="modules/moment.js"  ></script>
+		<script>"use strict";var vm=new Vue({el:"#index",components:{loadmore:Loadmore},data:{dataList:[],page:1,tradType:1,dollar:1,spa_text:{},symbol:"￥",coinName:"RCRT"},created:function(){this.spa_text=language._text(),document.title=this.spa_text.depute,this.getList(),this.getHL()},mounted:function(){this.pullUp()},filters:{coverTimeStr:function(t,e){return moment(1e3*t).format(e)}},methods:{getList:function(){var t=this,e={page:this.page};this.$axios.postList("c2c/entrust",e,this.page,function(e){e&&0==e.code&&(t.dataList=1==t.page?e.data.data:t.dataList.concat(e.data.data),t.page++)})},getStatus:function(){var t=void 0!==arguments[0]?arguments[0]:0;return{1:this.spa_text.PUT_UP,2:this.spa_text.Wait_Pay,3:this.spa_text.Wait_Gather,5:this.spa_text.COMPLETED,6:this.spa_text.FROZEN,7:this.spa_text.underReview,0:this.spa_text.Order_Fail}[t]||this.spa_text.Order_Fail},cancelOrder:function(t,e){myalert._confirm({myClass:"confirmLayer wrapper ft2",content:"<p class='size1 title'><strong>"+this.spa_text.tip+"</strong></p>\n\t\t\t\t      <p class='subtitle'>"+this.spa_text.Cancel_Order+"</p>\n\t\t\t\t      <p class='my-col-50  button size000 no' id='_confirmClose'>"+this.spa_text.no+"</p>\n\t\t\t\t      <p class='my-col-50  button size000' onclick='vm.handleOrder("+t+","+e+")'>"+this.spa_text.yes+"</p>"})},handleOrder:function(t,e){var a=this;this.$axios.post("c2c/cancel",{id:t}).then(function(t){myalert._msg(t.msg,2,function(){a.dataList.splice(e,1),myalert._closeConfirm()})})},goToDetail:function(t,e,a){if(2==t&&(1==e||2==e))return!1;if(1==t&&1==e)return!1;var i=common._parseUrl("hlId");location.href="orderdetail.html?id="+a+"&hlId="+i},pullUp:function(){var t=this;plugin.pullUpRefresh(document.querySelector("#list"),40,function(){var e=this,a=setTimeout(function(){0==window.scrollY&&(e.back.call(),t.dataList=[],t.page=1,clearTimeout(a),t.getList())},1e3)})},getHL:function(){var t=this,e=common._parseUrl("hlId");e&&this.$axios.post("common/getTenderCategory").then(function(a){var i,s,o;if(0==a.code){var n=a.data.data;for(var r in n)if(n[r].id==e){i=[n[r].short,n[r].quotation],t.symbol=(o=(s=i[Symbol.iterator]()).next()).done?void 0:o.value,t.dollar=(o=s.next()).done?void 0:o.value;break}}})}}});</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>商品详情</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#282B3B">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+ 
+		<link rel="stylesheet" type="text/css" href="css/common.css"  />
+		<link rel="stylesheet" type="text/css" href="businessDetail.css" inline >
+	</head>
+
+	<body class="backB">
+		<section id="index"   v-cloak> 
+	   	    <article class="size00" >
+	   	    	<!--图片预加载，图片链接放在CSS里面-->
+	   	    	<div class="my-col-100" :style="myPic" style="height:20rem;background:#333"></div>
+	   	    	<div class="my-col-100 my_container size000">
+	   	    		<p class="money my-col-95 backBt">
+	   	    			<strong class="ftY"><a class="size1">￥</a>{{parseFloat(goodDetails.price).toFixed(2)}}</strong><span class="ftA size00">≈{{parseFloat(goodDetails.price / goodDetails.quotation).toFixed(4)}} rcrt</span>
+	   	    		</p>
+	   	    		
+	   	    		<p class="descri my-col-90 backBt"><strong class="ftC size1" v-text="goodDetails.description || goodDetails.name"></strong></p>
+	   	    		
+	   	    		<p class="my-col-90 address backBt" @click="goToMap(businessInfo.longitude,businessInfo.latitude)">
+                        <span class="my-col-15 left" v-html="businessInfo.logo">
+                        </span>
+                        <span class="my-col-70 middle">
+                        	<a class="ftC my-col-95 size1 nowrap">{{businessInfo.name}}</a>
+                        	<a class="ft5 my-col-95 size000 addressHeight">{{businessInfo.address}}</a>
+                        </span>
+                        <span class="my-col-10 right">
+                         	<img src="" lazyload="true"  data-original="img/position.png"    />
+                        </span>
+	   	    		</p>
+	   	    		
+	   	    		
+	   	    		<p class="textC size00 shiti_title ftA backB" >
+	   	    			<span class="left_line my-col-15"></span><span class="my-col-20">{{spa_text.GOOD_INTRODUCE}}</span><span class="right_line my-col-15"></span>
+	   	    		</p>
+	   	    		<div class="my-col-100 marginBottom">
+	   	    			<p class="nowrap" v-for="(list,index) in goodDetails.albumImage" :key="index">
+		   	    			<img class="roW" src="img/loading.png" lazyload="true"  :data-original="list"  />
+		   	    		</p>
+	   	    		</div>
+	   	    	</div>
+	   	    	
+			</article>
+			
+			<article class="my_footer textC">
+				<div class="backB size00 my-col-20"  @touchstart="goToBusiness(businessInfo.id)">
+	   	    		<p class="textC callBusiness"><img src="" lazyload="true"  data-original="img/business.png"    /></p>
+	   	    		<p><span class="ftA">{{spa_text.Shop}}</span></p>
+	   	    	</div>
+	   	    	<div class="backB size00 my-col-20"  @touchstart="callPhoneModel = true">
+	   	    		<p class="textC callBusiness"> <img src="" lazyload="true"  data-original="img/phone.png"    /></p>
+	   	    		<p><span class="ftA">{{spa_text.Contact_Business}}</span></p>
+	   	    	</div>
+	   	    	 <div class="backY button  size1 ft9 textC my-col-60" @click="openModel">
+	   	    	 	<span><img  src=""   lazyload="true"  data-original="img/buyCart.png"  /></span><span>{{spa_text.BuyShop}}</span>
+	   	    	 </div>
+			</article>
+			
+			<!--商品规格-->
+			<transition name="upCss">
+				<article class="my_buy_layer backB size000"  v-if="model">
+					<div class="my-col-90 my_stroe">
+						<p class="my-col-35" :style="layerPic"></p>
+						<p class="my-col-60 rightInfo">
+							<span class="my-col-100 textR ftC" ><a class="size6 ft9" @touchstart="closeModel">×</a></span>
+							<span class="my-col-100 ftC price size3">￥{{goodPrice}}</span>
+							<span class="my-col-100 ftA store size000">{{spa_text.STOCK}} {{store_count}} {{spa_text.Jian}}</span>
+						</p>
+					</div>
+					
+					<div class="my-col-90 my_buyText ftF">
+						<p class="my-col-65 leftText">{{spa_text.BuyNum}}</p>
+						<p class="my-col-35 textR">
+							<span class="less" @touchstart='decNum()'>－</span>
+							<span class="num"  v-text="num"></span>
+							<span class="add" @touchstart='incNum()'>＋</span>
+						</p>
+					</div>
+					<div class="my-col-100 size1 ft9 textC backY layer_button" @click="submitOrder">
+						{{spa_text.Confirm}}
+					</div>
+				</article>
+			</transition>
+			
+			<transition name="upCss">
+				   <callphone  v-if="callPhoneModel" :phone="businessInfo.tel" :show.sync="callPhoneModel" ></callphone>
+			</transition>
+			
+		</section>
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="components/callphone.js"  ></script>
+		<script src="businessDetail.js" inline></script>
+		<script src="modules/imgLoad.js"></script>
+
+	</body>
+
+</html>

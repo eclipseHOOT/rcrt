@@ -1,0 +1,190 @@
+.my_head {
+  padding: 7% 0; }
+
+.my_head .text {
+  padding: 3% 0; }
+
+.my_newPrice {
+  padding: 2% 0; }
+
+.my_newPrice .hight {
+  width: 29.5%;
+  float: left; }
+
+.my_newPrice .low {
+  width: 29.5%;
+  float: left; }
+
+.my_newPrice .current {
+  width: 41%;
+  float: left; }
+
+.my_dom {
+  padding: 5% 0; }
+
+.my_dom img {
+  width: 45%; }
+
+.my_market {
+  border-top: 10px solid #2E3237; }
+
+.my_market .label {
+  padding: 4% 0 0; }
+
+.my_market .label a {
+  box-sizing: border-box;
+  display: inline-block;
+  border-radius: 4pt;
+  border: 1pt solid #676B6F;
+  padding: 0.5% 16%;
+  color: #fff; }
+
+.my_market .label .selectTabCss {
+  border: 1pt solid #EFBB53;
+  background: #EFBB53;
+  pointer-events: none; }
+
+.my_market .canvascontainer {
+  margin-left: 5%;
+  width: 95%;
+  float: left;
+  height: 230px; }
+
+.my_tran {
+  border-top: 10px solid #2E3237; }
+
+.my_tran .label {
+  padding: 4% 0; }
+
+.my_tran .label p {
+  padding: 1% 0;
+  border: 1pt solid #676B6F;
+  box-sizing: border-box;
+  color: #FFF; }
+
+.my_tran .label .left {
+  margin-left: 5%;
+  border-radius: 5px 0 0 5px; }
+
+.my_tran .label .right {
+  border-radius: 0 5px 5px 0; }
+
+.my_tran .label .tranTabCss {
+  border: 1pt solid #EFBB53;
+  background: #EFBB53; }
+
+.my_list li {
+  padding: 4% 0 5%;
+  margin: 0 5%; }
+
+.my_list li img {
+  border-radius: 100px;
+  width: 2rem;
+  height: 2rem; }
+
+.my_list li .name {
+  padding-top: 2%;
+  padding-left: 3%; }
+
+.my_list li .number {
+  margin-left: 15%;
+  padding-left: 1%; }
+
+.my_list li .money {
+  padding-top: 2%; }
+
+.my_list li .limit {
+  padding-left: 11%;
+  padding-top: 1%; }
+
+.my_list li .buy {
+  background: #19AA89;
+  border-radius: 2pt;
+  padding: 1% 2%;
+  margin-left: 5%; }
+
+.my_list li .sale {
+  background: #265FAD;
+  border-radius: 2pt;
+  padding: 1% 2%;
+  margin-left: 5%; }
+
+/*layer-text*/
+.my_layer {
+  position: fixed;
+  z-index: 3;
+  padding: 3% 0 0;
+  width: 90%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 4pt 4pt 0 0; }
+
+.my_layer .subtitle {
+  padding-top: 1%; }
+
+.my_layer p {
+  padding-bottom: 3%;
+  padding: 0 5% 3%;
+  width: 90%;
+  float: left; }
+
+.my_layer .layerbottom {
+  border-bottom: 1px solid #e4e4e4;
+  padding-bottom: 5%; }
+
+.my_layer .button {
+  width: 50%;
+  padding: 4% 0;
+  float: left;
+  border: none; }
+
+.my_layer .cancel {
+  background: #fff;
+  padding-top: 3%;
+  width: 50%;
+  float: left;
+  padding: 4% 0;
+  border: none; }
+
+.my_get_password {
+  position: fixed;
+  z-index: 5;
+  width: 80%;
+  margin: auto;
+  background: #fff;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 5px;
+  height: 13rem; }
+
+.my_get_password .top {
+  padding: 3% 0;
+  border-bottom: 1px solid #D4D4D4;
+  text-align: center; }
+
+.my_get_password .input_pwd {
+  margin: 13% 0; }
+
+.my_get_password .input_pwd input {
+  width: 75%;
+  letter-spacing: 1.25rem;
+  margin: 0 7.5%;
+  padding: 2% 0;
+  border: 1px solid #e4e4e4;
+  text-indent: 10%; }
+
+.my_get_password .domButton {
+  border-top: 1pt solid #D4D4D4; }
+
+.my_get_password .domButton .ensure {
+  padding: 4% 0; }
+
+.my_get_password .domButton .cancel {
+  box-sizing: border-box;
+  border-right: 1px solid #D4D4D4;
+  padding: 4% 0; }

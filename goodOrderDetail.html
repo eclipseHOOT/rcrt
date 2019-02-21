@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>确认订单</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#171A2C">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/common.css"   />
+		<style type="text/css">@charset "UTF-8";.my_head{border-bottom:8px solid #171a2c}.my_head .noAddress{margin:12% 0}.my_head .noAddress p{padding:0 30%}.my_head .noAddress .addIcon{padding:2% 1%;border:1px solid #92a0ac}.my_head .hasAddress p,.my_head .noAddress .addText{padding-top:3%}.my_head .hasAddress{position:relative;padding:1% 5% 4%}.my_head .hasAddress::after{content:'〉';position:absolute;background-size:100% 100%;width:1rem;height:1rem;font-size:1rem;color:#c6c6c6;transform:translate(-100%,240%)}.my_detail{margin-bottom:15%}.my_detail .title{padding:2% 0 2% 5%}.my_detail .container{padding:3% 0 3% 5%}.my_detail input:-webkit-input-placeholder{color:#575f66}.my_detail .num_left{padding-top:1%}.my_detail .num_right span{float:left;padding:2% 4%;border:1px solid #92a0ac}.my_detail .num_right .num{padding:2% 15%}.my_detail .num_right .less{border-radius:2pt 0 0 2pt;border-right:0}.my_detail .num_right .add{border-radius:0 2pt 2pt 0;border-left:0}.my_detail .button{padding:3% 0;margin:20% 10% 5%;border-radius:2pt}.my_money_model{position:fixed;z-index:3;left:0;right:0;bottom:0;color:#777;transition:.5s}.my_money_model .title{padding:3% 0;border-bottom:1pt solid #d4d4d4}.my_money_model .payMoney{padding:6% 0}.my_money_model .myBalance{margin:0 5%;padding-bottom:2%;border-bottom:.5px solid #d4d4d4}.my_money_model .myPayButton{margin:25% 10% 8%;padding:3% 0;border-radius:2pt;text-align:center}</style>
+	</head>
+
+	<body class="backB">
+		<section  id="index"  class='size000'  v-cloak>
+		    <article class="my_head"  @click="location.href = 'addressList.html'">
+		    	<div class="my-col-90 hasAddress ftC size000"   >
+		    		<p>{{spa_text.aNAME}}: {{addrDetail.name}}</p>
+		    		<p>{{spa_text.aPHONE}}: {{addrDetail.tel}}</p>
+		    		<p>{{spa_text.aADDRESS}}: {{addrDetail.address}}</p>
+		    	</div>
+		    	
+		    </article>
+		    
+		    <article class="my-col-100 my_detail">
+		    	<goodinfo :imgs="myPic" :names="goodDetails.name"  :prices="goodDetails.price"></goodinfo>
+		    	
+		    	
+		    	<div  class="my-col-95  container borderb">
+		    		<p class="my-col-65 num_left ftA">{{spa_text.BuyNum}}</p>
+		    		<p class="my-col-35 ftC num_right">
+		    			<span class="less" @click='decNum()'>－</span>
+						<span class="num"  v-text="num"></span>
+						<span class="add" @click='incNum()'>＋</span>
+		    		</p>
+		    	</div>
+		    	
+		    	<div  class="my-col-95 container borderb">
+		    		<p class="my-col-20 ftA">{{spa_text.COMMENTS}}: </p>
+		    		<p class="my-col-70 ftC"><input type="text" maxlength="20" :placeholder="spa_text.inputMerchant" v-model="remark" class="size000 roW" /></p>
+		    	</div>
+		    	
+		    	<div  class="my-col-95 container borderb">
+		    		<p class="textR ftC my-col-95">{{spa_text.Has}}{{num}}{{spa_text.HasGood}}<span class="ftG">￥{{alltotal}} </span> ({{spa_text.freight}})</p>
+		    	    <p class="textR ftG my-col-95 size00">≈{{ alltotal |  computedNum(rdccmarket,4) }} RCRT </p>
+		    	    <p class="textR ftC my-col-95">{{spa_text.Balance}}: {{myInfo.available}} RCRT</p>
+		    	</div>
+		    	
+		    	<div class="my-col-80 button backY ft9 size1 textC" @click="openModel(parseFloat(alltotal / rdccmarket).toFixed(4))">
+		    	  		{{spa_text.submitOrder}}
+		    	</div>
+		    </article>
+		    
+		    
+		    <transition name="upCss">
+		        <!-- 显示金额 -->
+			    <article class="my-col-100 backF my_money_model"  v-if="submitModel" >
+					<div class="my-col-100 size000 ft2" >
+						<p class="title">
+							<span class="my-col-10 ft9 textC size5" @click="closeModel">×</span>
+							<span class="my-col-80 textC size1 bolds">{{spa_text.confirmPay}}</span>
+						</p>
+						
+						<p class="payMoney textC">
+							<span class="size6">{{ alltotal |  computedNum(rdccmarket,4) }}</span><span class="bolds size00"> RCRT</span>
+						</p>
+						
+						<p class="myBalance my-col-90">
+							<span class="my-col-50 ftA size1">
+								{{spa_text.MyBalance}} RCRT
+							</span>
+							<span class="my-col-50 size1 textR">
+								{{this.myInfo.available}}
+							</span>
+						</p>
+						
+						<p class="myPayButton backY ft9 my-col-80 size1" @click="openPasswordModel()">
+							{{spa_text.confirmPay}}
+						</p>
+						
+					</div>
+				</article>
+			</transition>
+			
+			<transition name="upCss" >
+			   <keyboard v-if="keyboardModel"   :show.sync="keyboardModel" @submit="payMoney"></keyboard>
+			</transition>
+		</section>
+
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="components/goodinfo.js" ></script>
+		<script src="components/keyboard.js"></script>
+		<script>"use strict";var vm=new Vue({el:"#index",components:{keyboard:Keyboard,goodinfo:Goodinfo},data:{goodDetails:{},myInfo:{user_id:0,currency_id:0,balance:0,freezing:0,available:0,wallet_address:""},myPic:"",num:0,goodPrice:0,store_count:0,alltotal:0,hasAddrType:!1,addrDetail:{},spec:"",remark:"",spa_text:{},rdccmarket:1,submitModel:!1,pay_pwd:"",orderId:0,keyboardModel:!1,userInfo:{}},created:function(){this.spa_text=language._text(),document.title=this.spa_text.ConfirmOrder,this.id=common._parseUrl("id")-0,this.num=common._parseUrl("num")-0,this.getMoRenAddr(),this.getGoodDetail(),this.getMyInfo()},watch:{num:function(t){this.alltotal=parseFloat(this.goodPrice*t).toFixed(2)}},methods:{getMoRenAddr:function(){var t=this;stroage.read("addrObj")?(this.hasAddrType=!0,this.addrDetail=stroage.read("addrObj")):this.$axios.post("address/get_auto").then(function(e){e&&0==e.code&&(e.data?(t.hasAddrType=!0,t.addrDetail=e.data):t.hasAddrType=!1)})},getGoodDetail:function(){var t=this,e={id:this.id};this.$axios.post("goods/detail",e).then(function(e){var o,d,a,i,r,s;e&&0==e.code?(o=[e.data,[e.data.price,e.data.number,e.data.quotation]],t.goodDetails=(a=(d=o[Symbol.iterator]()).next()).done?void 0:a.value,i=(a=d.next()).done?void 0:a.value,t.goodPrice=(s=(r=i[Symbol.iterator]()).next()).done?void 0:s.value,t.store_count=(s=r.next()).done?void 0:s.value,t.rdccmarket=(s=r.next()).done?void 0:s.value,t.alltotal=parseFloat(t.goodPrice*t.num).toFixed(2),t.myPic="background: url('"+t.goodDetails.cover+"') 50% 50% / cover no-repeat;height: 6.5rem;"):myalert._msg(e.msg,1,function(){history.back(-1)})})},incNum:function(){this.num<this.store_count&&(this.num+=1)},decNum:function(){this.num>1&&(this.num-=1)},openModel:function(){var t=void 0!==arguments[0]?arguments[0]:0;return this.goodDetails.shopinfo.owner==this.userInfo.id?(myalert._msg("您不能购买自己的商铺商品哦~",2),!1):this.addrDetail.id?t-0>this.myInfo.available-0?(myalert._msg(this.spa_text.insufficientBalance,2),!1):(common._formMask(),this.submitModel=!0,void this.submitOrder()):(myalert._msg(this.spa_text.selectAddress,2),!1)},closeModel:function(){location.href="myGoodOrderDetail.html?orderid="+this.orderId},getMyInfo:function(){var t=this;this.$axios.post("user/getBalance",{currency_id:1}).then(function(e){e&&0==e.code&&e.data&&(t.myInfo=e.data)}),this.$axios.post("user/getUserInfo").then(function(e){e&&0==e.code&&e.data&&(t.userInfo=e.data)})},submitOrder:function(){var t=this,e={id:this.id,number:this.num,address_id:this.addrDetail.id,remark:this.remark};this.$axios.post("shoporder/add_order",e).then(function(e){e&&0==e.code?t.orderId=e.data.order_id:myalert._msg(e.msg,2)})},openPasswordModel:function(){this.submitModel=!1,this.keyboardModel=!this.keyboardModel},payMoney:function(t){this.pay_pwd=t;var e={id:this.orderId,pay_pwd:this.pay_pwd};this.$axios.post("shoporder/pay_order",e).then(function(t){t&&0==t.code?myalert._msg(t.msg,2,function(){location.href="myGoodOrderDetail.html?&orderid="+t.data.id}):myalert._msg(t.msg,2,function(){common._formMask()})})}}});</script>
+	</body>
+
+</html>

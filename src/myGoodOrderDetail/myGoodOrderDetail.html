@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html> 
+
+	<head>
+		<meta charset="utf-8" />
+		<title>订单详情</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#171A2C">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/common.css"  />
+		<link rel="stylesheet" type="text/css" href="myGoodOrderDetail.css" inline  >
+	</head>
+
+	<body class="backB">
+		<section  id="index"  class='size000 ft9'  v-cloak>
+			<article class="my_orderType backL" >
+		    	<div class="my-col-100 textC">
+		    		<p class="size2 ft9">
+		    		    <img :src="getTypePic(myInfoDetails.status_id)"/>
+		    			<span class="status" v-text="getStatus(myInfoDetails.status_id)"></span>
+		    		</p>
+		    	</div>
+		    </article>
+		    <article class="my_head" >
+		    	<div class="my-col-90 hasAddress ftC size000">
+		    		<p>{{spa_text.aNAME}}: {{myAddressDetails.name}}</p>
+		    		<p>{{spa_text.aPHONE}}: {{myAddressDetails.mobile_number}}</p>
+		    		<p>{{spa_text.aADDRESS}}: {{myAddressDetails.address}}</p>
+		    	</div>
+		    </article>
+		    
+		    <article class="my_detail">
+		    	<div class="my-col-95 title ft6 borderb size00">
+		    		<p class="my-col-65 ">{{spa_text.ORDER_Id}}: {{myInfoDetails.order_number}}</p>
+		    		<p class="my-col-30 textR">{{myInfoDetails.create_time | coverTimeStr('YYYY-MM-DD')}}</p>
+		    	</div>
+		    	
+		    	<goodinfo :imgs="myPic" :names="myGoodDetails.goods_name"  :prices="myGoodDetails.goods_price"></goodinfo>
+		    	
+		    	<div class="my-col-95 title borderb">
+		    		<p class="my-col-65 ftA">{{spa_text.BuyNum}}</p>
+		    		<p class="my-col-30  textR ftC">{{myGoodDetails.goods_number}}</p>
+		    	</div> 
+		    	<div  class="my-col-95 container borderb ftA">
+		    		<p>{{spa_text.COMMENTS}}:  {{myInfoDetails.remark || spa_text.noComment}} </p>
+		    	</div>
+		    	<div  class="my-col-95  container borderb"  v-if="myGoodDetails">
+		    		<p class="textR my-col-95 ftC" >{{spa_text.Has}}{{myGoodDetails.goods_number}}{{spa_text.HasGood}}<span class="ftG">￥{{parseFloat(myGoodDetails.goods_price * myGoodDetails.goods_number).toFixed(2)}} </span> ({{spa_text.freight}})</p>
+		    	    <p class="textR ftG my-col-95">≈{{ myGoodDetails.goods_price * myGoodDetails.goods_number | computedNum(myInfoDetails.quotation,4) }} RCRT </p>
+		    	</div>
+		    	
+		    	
+		    	<div class="my-col-100  textC remainTime"  v-if="myInfoDetails.status_id == 1 && cancelTime == true">
+						<p class="ftF size6 ">{{remainTime}}</p>
+						<p class="tip ftR  size000">
+							{{spa_text.minuteCancel}}
+						</p>
+				</div>
+				
+		    	<div class="my-col-100  textC remainTime"  v-if="myInfoDetails.status_id == 3">
+						<p class="ftF size6 ">{{remainDelliveryTime}}</p>
+						<p class="tip ftR  size000">
+							{{spa_text.Automatic}}
+						</p>
+				</div>
+		    </article>
+		    
+		    
+		    
+		    
+		    <!--不同状态的按钮-->
+			<article class="my_button backBt ftC textC size1" >
+				<div class="my-col-100" v-if="myInfoDetails.status_id == 1">
+					<p class="my-col-20" @click="location.href = 'businessInfo.html?sid='+myInfoDetails.publisher"> 
+						<span class="my-col-100 logo">
+							<img src="img/business.png" />
+						</span>
+						<span class="my-col-100 size00">
+							{{spa_text.Shop}}
+						</span>
+					</p>
+					<p class="my-col-20">
+						<span class="my-col-100 logo" @touchstart="showPhone=true">
+							<img src="img/phone.png"  />
+						</span>
+						<span class="my-col-100 size00">
+							{{spa_text.Contact_Business}}
+						</span>
+					</p>
+					<p class="my-col-25 payCancelButton">
+						<a   @click="showCancel = !showCancel">
+							{{spa_text.cancelOrder}}
+						</a>
+					</p> 
+					<p class="my-col-25 payMountButton backY ft9">
+						<a  @click="openModel">
+							{{spa_text.PayMent}}
+						</a>
+					</p>
+				</div>
+				<div class="my-col-100" v-else>
+					<p class="my-col-25 left" @click="location.href ='businessInfo.html?sid='+myInfoDetails.publisher"> 
+						<span class="my-col-100 logo">
+							<img src="img/business.png"  />
+						</span>
+						<span class="my-col-100 size00">
+							{{spa_text.Shop}}
+						</span>
+					</p>
+					<p class="my-col-25">
+						<span class="my-col-100 logo" @touchstart="showPhone=true">
+							<img src="img/phone.png"  />
+						</span>
+						<span class="my-col-100 size00">
+							{{spa_text.Contact_Business}}
+						</span>
+					</p>
+					<p class="my-col-35">
+						<a class="deliver ftF"  @click="domOrder('shouhuo')" v-if="myInfoDetails.status_id == 3">
+							{{spa_text.DeliveryOrder}}
+						</a>
+						<a class="cancel ftF" @click="domOrder('del')"  v-if="myInfoDetails.status_id == 4 || myInfoDetails.status_id == 5">
+							{{spa_text.delOrder}}
+						</a>
+					</p>
+				</div>
+			</article>
+			
+			
+			<transition name="upCss">
+				<cancelorder v-if="showCancel" @cancelorder="domOrder('cancel')"   :show.sync="showCancel" ></cancelorder>
+	 	 	</transition>
+	 	 	 
+	 	 	 <!--联系商家-->
+			<transition name="upCss">
+				   <callphone  v-if="showPhone" :phone="myInfoDetails.mobile"  :show.sync="showPhone" ></callphone>
+			</transition>
+			
+			<transition  name="upCss">
+			   <keyboard v-if="keyboardModel"   :show.sync="keyboardModel" @submit="submit"></keyboard>
+			</transition>
+		</section>
+
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="modules/moment.js"  ></script>
+		<script src="components/keyboard.js"></script>
+		<script src="components/callphone.js"  ></script>
+		<script src="components/goodinfo.js"  ></script>
+		<script src="components/cancelorder.js"  ></script>
+		<script src="myGoodOrderDetail.js" inline></script>
+	</body>
+
+</html>

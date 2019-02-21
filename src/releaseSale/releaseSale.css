@@ -1,0 +1,53 @@
+.my_head {
+  padding: 11% 0;
+  background: -webkit-linear-gradient(top, #C2A066, #DBC594);
+  /* Safari 5.1 - 6 */
+  background: -o-linear-gradient(top, #C2A066, #DBC594);
+  /* Firefox 3.6 - 15*/
+  background: -moz-linear-gradient(top, #C2A066, #DBC594);
+  /* Firefox 3.6 - 15*/
+  background: linear-gradient(to top, #C2A066, #DBC594); }
+
+.my_head .left {
+  border-right: 1px dashed #7A7AE9;
+  box-sizing: border-box; }
+
+.my_head .title {
+  padding-bottom: 10%; }
+
+.my_info {
+  margin: 5% 2.5%;
+  padding: 7% 2.5% 0;
+  border-radius: 4pt; }
+
+.my_info div {
+  margin: 0 0 3%;
+  padding: 0 0 1%; }
+
+.my_info .saleNum {
+  width: 70%; }
+
+.my_info .numBorder {
+  border-bottom: 1px solid #1f212b; }
+
+.my_info .payInfo span {
+  padding: 0 0 3% 0; }
+
+.my_info .payInfo .checkButton {
+  padding: .1rem;
+  border: 2px solid #f0f0f0;
+  border-radius: 50%;
+  background-clip: content-box;
+  width: .5rem;
+  height: .5rem;
+  display: inline-block;
+  margin-top: 17%; }
+
+.my_info .payInfo .checkCss {
+  border: 2px solid #EFBB53;
+  background-color: #EFBB53; }
+
+.my_info .button {
+  margin: 25% 5% 8%;
+  border-radius: 2pt;
+  padding: 3.5% 0; }

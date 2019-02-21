@@ -1,0 +1,59 @@
+.my_head {
+  position: fixed;
+  z-index: 1; }
+
+.my_head .title {
+  margin: 3% 0; }
+
+.my_head .title_line {
+  transition: .5s;
+  width: 12%;
+  float: left;
+  margin-left: 6.5%;
+  border-bottom: 3px solid #EFBB53; }
+
+.my_head .line1 {
+  margin-left: 31.5%; }
+
+.my_head .line2 {
+  margin-left: 56.5%; }
+
+.my_head .line3 {
+  margin-left: 81.5%; }
+
+.my_padding {
+  padding: 7% 0;
+  float: left;
+  width: 100%;
+  border-bottom: 1px solid #EFBB53; }
+
+ul {
+  border-bottom: 10px solid #21252A; }
+
+ul .title {
+  padding: 3% 2.5%; }
+
+ul .content {
+  padding: 3% 2.5%; }
+
+ul .content .buyTime {
+  padding: 2% 0; }
+
+ul .content .money_left {
+  width: 21%;
+  float: left; }
+
+ul .content .money_right {
+  width: 79%;
+  float: left; }
+
+ul .footer {
+  padding: 3% 2.5%; }
+
+ul .footer .noMsg {
+  margin-left: 75%; }
+
+ul .footer .delivery {
+  text-align: center;
+  border-radius: 3px;
+  padding: 6% 12%; }

@@ -1,0 +1,177 @@
+.orderInfo {
+  padding: 3.5% 5% 0; }
+
+.orderInfo div {
+  padding-top: 3%; }
+
+.orderInfo .money {
+  padding: 5% 0 1% 0;
+  font-size: 2rem; }
+
+.orderInfo .tipMsg {
+  padding: 0 0 2% 0; }
+
+.orderInfo .orderid {
+  padding-bottom: 5%; }
+
+.orderInfo .phone {
+  border-top: 1px solid #282B3B;
+  padding: 3% 0; }
+
+.alipayTitle {
+  padding: 1.5% 5%; }
+
+.alipayTitle img {
+  padding-top: 5%;
+  width: 55%; }
+
+.alipayTitle .orderLogo {
+  padding-top: 0.2rem; }
+
+.alipayInfo {
+  padding: 2.5% 5%; }
+
+.alipayInfo div {
+  padding: 1% 0; }
+
+.copy {
+  padding: 0.8% 2.5%;
+  border: 1px solid #92A0AC;
+  color: #92A0AC;
+  border-radius: 2px; }
+
+.creditInfo {
+  padding: 2.5% 0;
+  margin: 0 5%;
+  border-top: 1px solid #282B3B; }
+
+.creditInfo div {
+  padding: 1% 0; }
+
+.tranTitle {
+  padding: 1.5% 5%; }
+
+.tranTitle img {
+  padding-top: 5%;
+  width: 55%; }
+
+.tranTitle .tranImg {
+  padding-top: 0.2rem; }
+
+.tranLoading {
+  padding: 5%; }
+
+.tranList {
+  padding: 0; }
+
+.tranList .borderRadius {
+  border-right: 1px solid #EFBB53;
+  min-height: 5rem;
+  position: relative; }
+
+.tranList .borderRadius::before {
+  content: '';
+  background: #EFBB53;
+  height: .8rem;
+  width: .8rem;
+  border-radius: 50%;
+  position: absolute;
+  left: 61%;
+  top: 0%; }
+
+.tranList .right {
+  padding-left: 5%; }
+
+.tranList span, .tranList strong {
+  line-height: 1rem; }
+
+.tranList:nth-child(n+2) .borderRadius {
+  border-right: 1px dashed #A4ABAD; }
+
+.tip {
+  margin: 5% 0 10%; }
+
+.tip div {
+  padding: 3% 5%;
+  background: rgba(246, 91, 59, 0.4); }
+
+.my_button {
+  margin: 0 10% 6%; }
+
+.my_button .button {
+  padding: 3% 0; }
+
+.my_dom {
+  margin: 0 5% 6%;
+  padding: 2% 0; }
+
+.my_dom .cancel {
+  padding: 3% 0;
+  margin: 0 7.5%; }
+
+.my_dom .cancelButton {
+  padding: 3% 0; }
+
+.my_dom .ensure {
+  margin-left: 10%;
+  padding: 3% 0; }
+
+.status3 {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  height: 3.5rem; }
+
+.status3 p {
+  height: 3.5rem; }
+
+.status3 p img {
+  width: 25%;
+  padding-top: 12%;
+  padding-bottom: 5%;
+  vertical-align: middle; }
+
+.status3 .shenSu {
+  padding: 1.5% 0; }
+
+.status3 .queRen {
+  padding: 4.5% 0 0; }
+
+.my_layer {
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 3% 0 0;
+  transition: 0.5s;
+  background: #F0eded;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px; }
+
+.my_layer .subtitle {
+  padding: 2% 0 3%; }
+
+.my_layer .dom {
+  padding: 3% 0;
+  border-top: 1px solid #e4e4e4; }
+
+.my_call_layer {
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  bottom: 0;
+  transition: 0.5s; }
+
+.my_call_layer .phone {
+  padding: 4.5% 0; }
+
+.my_call_layer .my_layer_button {
+  padding: 4.5% 0;
+  letter-spacing: 2px; }
+
+.my_call_layer .left {
+  padding-left: 15%; }
+
+.my_call_layer .right img {
+  width: 40%; }

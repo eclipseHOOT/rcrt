@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>众筹详情</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#111321">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/common.css"  />
+		<link rel="stylesheet" type="text/css" href="crowdfundingDetail.css"  inline>
+	</head>
+
+	<body class="backB">
+		<section class="indexPull" id="index"  v-cloak>
+				<article class="ftF my_head size000" >
+					 <div class="my-col-95 myPic">
+					 	<p class="parent" :style="myPic">
+					 	<span class="child size1" :style="getClass(detailInfo.end_time,detailInfo.start_time)" >
+					 		{{getStatus(detailInfo.end_time,detailInfo.start_time)}}
+					 	</span>
+					 	</p>
+					 </div>
+					 <div class="my-col-90  detail backBt">
+					 	<p class="one">
+					 		<span class="my-col-50">{{spa_text.tta}}:</span>
+					 		<span class="my-col-50 textR ftY">{{detailInfo.target}}</span>
+					 	</p>
+					 	<p>
+					 		<span class="my-col-50">{{spa_text.schedule}}: {{getLoading(detailInfo.raised,detailInfo.target)}}%</span>
+					 		<span class="my-col-50 textR ftY">{{detailInfo.raised}} <a class="ft6">RCRT</a></span>
+					 	</p>
+					 	<p class="schedule">
+					 		<b class="boxshell">
+						            <b class="boxBar" :style="getPadding((parseFloat(detailInfo.raised/detailInfo.target) * 100).toFixed(2))"></b>
+						    </b>
+					 	</p>
+					 	<p class="firstContent">
+					 		<span class="my-col-30">
+					 			{{spa_text.CrowdfundingRestrictions}}:
+					 		</span>
+					 		<span class="my-col-70 textR ftR">
+					 			{{spa_text.Perperson}}{{parseFloat(detailInfo.min).toFixed(2)}}~{{parseFloat(detailInfo.max).toFixed(2)}} <a class="ft6">RCRT</a>
+					 		</span>
+					 	</p>
+					 	<p class="contentMsg"> 
+					 		<span class="my-col-30">
+					 			{{spa_text.CrowdfundingTime}}:
+					 		</span>
+					 		<span class="my-col-70 textR ft6">
+					 	     {{detailInfo.start_time | coverTimeStr('YYYY-MM-DD')}}~{{detailInfo.end_time | coverTimeStr('YYYY-MM-DD')}}
+					 		</span>
+					 	</p>
+					 	<p class="contentMsg lastp">
+					 		<span class="my-col-30">
+					 			{{spa_text.CrowdfundingRules}}:
+					 		</span>
+					 		<span class="my-col-70 textR ft6">
+					 			{{detailInfo.rule}}
+					 		</span>
+					 	</p>
+					 	
+					 </div>
+				</article>
+				
+				<h3 class="textC my-col-60 coinTitle ftA size1">{{spa_text.TokenSituation}}</h3>
+				<article class="coinContent my-col-90 size000 ftF backBt">
+                    <div class="my-col-100">
+                    	<p>
+                    		<span class="my-col-50">
+                    			{{spa_text.TokenName}}:
+                    		</span>
+                    		<span class="my-col-50 textR ft6">
+                    			{{detailInfo.currency_name}}
+                    		</span>
+                    	</p>
+                    	<p>
+                    		<span class="my-col-50">
+                    			{{spa_text.TokenSymbol}}:
+                    		</span>
+                    		<span class="my-col-50 textR ft6">
+                    			{{detailInfo.currency_symbol}}
+                    		</span>
+                    	</p>
+                    	<p>
+                    		<span class="my-col-50">
+                    			{{spa_text.TotalTokens}}:
+                    		</span>
+                    		<span class="my-col-50 textR ft6">
+                    			{{detailInfo.currency_number}}
+                    		</span>
+                    	</p>
+                    </div>
+				</article>
+				
+				<h3 class="textC my-col-60 crowdTitle ftA size1">{{spa_text.Crowdfunding}}</h3>
+				<article class="crowdContent my-col-90 size000 ft6 backBt">
+                    <div class="my-col-100" v-html="detailInfo.instruction">
+                    </div>
+				</article>
+				
+				<article class="paddingBottom">
+				</article>
+				
+				<article class="my_footer  ft9">
+					 <div class="my-col-80  backY size2" @click="goToCrowd(detailInfo.id,detailInfo.end_time,detailInfo.start_time)">
+					 	{{spa_text.ParticipateCrowdfunding}}
+					 </div>
+				</article>
+		</section>
+		
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="modules/moment.js"  ></script>
+		<script src="crowdfundingDetail.js" inline></script>
+	</body>
+
+</html>

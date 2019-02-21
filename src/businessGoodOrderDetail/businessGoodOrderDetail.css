@@ -1,0 +1,93 @@
+.my_orderType {
+  background: -webkit-linear-gradient(top, #C2A066, #DBC594);
+  /* Safari 5.1 - 6 */
+  background: -o-linear-gradient(top, #C2A066, #DBC594);
+  /* Firefox 3.6 - 15*/
+  background: -moz-linear-gradient(top, #C2A066, #DBC594);
+  /* Firefox 3.6 - 15*/
+  background: linear-gradient(to top, #C2A066, #DBC594);
+  padding: 5% 0; }
+
+.my_orderType img {
+  width: 25%; }
+
+.my_orderType .status {
+  vertical-align: 1.5rem; }
+
+.my_head {
+  border-bottom: 8px solid #111321; }
+
+.my_head .hasAddress {
+  padding: 1% 5% 4% 5%; }
+
+.my_head .hasAddress p {
+  padding-top: 3%; }
+
+.my_detail {
+  padding-bottom: 20%; }
+
+.my_detail .title {
+  padding: 2% 0 2% 5%; }
+
+.my_detail .container {
+  padding: 3% 0 3% 5%; }
+
+.my_detail .remainTime {
+  margin: 10% 0 5%; }
+
+.my_detail .tip {
+  margin: 5% 0 0 0; }
+
+.my_detail .colorR {
+  color: #EA3C3C; }
+
+.my_detail .my_express {
+  padding: 2.5%;
+  background: #171A2C; }
+
+.my_detail .my_express .title {
+  margin: 1% 20% 8%;
+  padding: 2% 0; }
+
+.my_detail .my_express .name {
+  border-bottom: 1px solid #464b67;
+  padding-bottom: 3%;
+  margin: 5% 7.5% 3%; }
+
+.my_detail .my_express .number {
+  border-bottom: 1px solid #464b67;
+  padding-bottom: 3%;
+  margin: 5% 7.5% 9%; }
+
+.my_detail .my_express .my_express_button {
+  padding: 3% 0;
+  margin: 0 10% 4% 10%;
+  border-radius: 2pt; }
+
+.my_detail .my_express input {
+  padding-left: 5%; }
+
+.my_detail .contactImg {
+  padding: 5% 0; }
+
+.my_detail .contactImg .buyerphone {
+  width: 6%;
+  vertical-align: -0.5rem; }
+
+.my_button {
+  position: fixed;
+  z-index: 1;
+  bottom: 0; }
+
+.my_button div {
+  padding: 1% 0; }
+
+.my_button div .contactBuy {
+  padding: 0 25% 0 20%; }
+
+.my_button div .logo {
+  padding-top: 5%; }
+
+.my_button div img {
+  vertical-align: bottom;
+  width: 10%; }

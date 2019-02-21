@@ -1,0 +1,110 @@
+@charset "UTF-8";
+body {
+  background-color: #14171F; }
+
+.ftR {
+  color: #FF1E00; }
+
+.ft4 {
+  color: #43495A; }
+
+input:-ms-input-placeholder {
+  color: #8F959D; }
+
+/*输入表单的placeholder字体样式*/
+.backY {
+  background: #F7C52D; }
+
+.my_head {
+  margin-top: 4%; }
+
+.my_head img {
+  width: 22%; }
+
+.my_head .text {
+  background: -webkit-linear-gradient(top, #DA8C10, #FCC366);
+  /* Safari 5.1 - 6 */
+  background: -o-linear-gradient(top, #DA8C10, #FCC366);
+  /* Firefox 3.6 - 15*/
+  background: -moz-linear-gradient(top, #DA8C10, #FCC366);
+  /* Firefox 3.6 - 15*/
+  background: linear-gradient(to top, #DA8C10, #FCC366);
+  -webkit-background-clip: text;
+  color: transparent; }
+
+.my_from {
+  margin: 1% 10% 3%; }
+
+.my_from p {
+  border-bottom: 1pt solid #43495a;
+  margin-bottom: 6%;
+  padding: 4% 0; }
+
+.my_from p .phone {
+  margin-left: 10%; }
+
+.my_from p .regRight {
+  padding-top: 0.5%; }
+
+.my_from p .regRight img {
+  width: 60%; }
+
+.my_from .noborder {
+  border: none; }
+
+.my_from_button {
+  padding: 3% 0;
+  margin: 3% 10% 5%; }
+
+.xieyi {
+  margin-bottom: 7%; }
+
+input::-webkit-input-placeholder {
+  color: #92A0AC; }
+
+input {
+  width: 100%; }
+
+.backBl {
+  background: #14171F; }
+
+.my_layer {
+  position: fixed;
+  z-index: 3;
+  padding: 7% 0 5%;
+  width: 90%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 10% auto;
+  border-radius: 4pt 4pt 0 0;
+  height: 29rem !important;
+  overflow-y: scroll; }
+
+.my_layer .subtitle {
+  padding-top: 1%; }
+
+.my_layer p {
+  padding-bottom: 3%;
+  padding: 0 5% 3%;
+  width: 90%;
+  float: left; }
+
+.my_layer .layerbottom {
+  border-bottom: 1px solid #e4e4e4;
+  padding-bottom: 5%; }
+
+.my_layer .button {
+  width: 50%;
+  padding: 4% 0;
+  float: left;
+  border: none; }
+
+.my_layer .cancel {
+  background: #fff;
+  padding-top: 3%;
+  width: 50%;
+  float: left;
+  padding: 4% 0;
+  border: none; }

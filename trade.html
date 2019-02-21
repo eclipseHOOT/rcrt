@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>交易记录</title>
+		  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		  <meta name="format-detection" content="telephone=no">
+		  <meta name="msapplication-tap-highlight" content="no">
+		  <meta http-equiv="Cache-Control" content="max-age=7200">
+	      <meta http-equiv="expires" content="120">
+		  <meta name="theme-color" content="#171A2C">
+		  <meta name="apple-mobile-web-app-capable" content="yes">
+		  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<style type="text/css">.ft8{color:#8f959d}.ftY{color:#f8c42e}.ftG{color:#24bd26}.ftD{color:#d2d7de}.back14{background:#14171f}.my_head{position:fixed;z-index:1;background:#1a212b}.my_head p{padding:1% 0;margin:1.5% 0}.my_head .left{border-right:1px solid #0f141a;box-sizing:border-box}.my_head .subTitle{pointer-events:none}.my_head .line-left,.my_head .line-right{transition:.5s;margin-left:17.5%;border-bottom:3px solid #f8c42e}.my_head .line-right{margin-left:67.5%}.my_line{margin:6.5% 0;float:left;width:100%}li{padding:0 0 4%;margin:5%;border-radius:4pt}li p{padding-top:3%}li .title{margin-left:3%}li .title .priceType{line-height:.7rem}li .cancelButton{border:1px solid #e11d04;color:#e11d04;padding:1% 0;border-radius:4pt;margin-left:1%;margin-top:3.8%}li .time{border-bottom:1pt solid #2a323d;padding-bottom:3%}</style>
+	</head>
+
+	<body>
+		<section id="index" class='indexPull ftD'  v-cloak>
+			<article class="textC size1  my_head" >
+			  <div>
+			  	<p class="my-col-50 left"  :class='{"subTitle ftY": odType == 1}' @touchstart="getList(1)">{{spa_text.SellOrder}}</p>
+			  	<p class="my-col-50"  :class='{"subTitle ftY": odType == 2}' @touchstart="getList(2)">{{spa_text.BuyOrder}}</p>
+			  </div>
+		      <i class="my-col-15" :class='{"line-left": odType == 1,"line-right": odType == 2}'></i>
+			</article>
+			<i  class="my_line"></i>
+			<loadmore @loadmore="getList(odType)">
+				<ul class="listPull">
+					<li  class="my-col-90   size000" v-for="(list,index) of dataList" :key="list.id" >
+						<p class="my-col-10" v-if="langShowPic">
+							<img :src="list.type==1?'img/eacSell.png':'img/eacBuy.png'" class="roW" />
+						</p>
+						<p class="my-col-10" v-else>
+							<img :src="list.type==1?'img/engeacSell.png':'img/engeacBuy.png'" class="roW" />
+						</p>
+						<p class="my-col-65 title">
+							<span class="my-col-100 size1">EAC</span>
+							<span class="my-col-100 ft8 priceType">{{spa_text.priceType}}: {{spa_text.tradeLimit}}</span>
+						</p>
+						<p class="my-col-20 textC cancelButton" @click="openKeyboard(list.id,index)" v-if="list.status == 1">
+							{{spa_text.Cancel}}
+						</p>
+						<p>
+							<span class="my-col-50">
+							{{spa_text.entrusPrice}} 
+							</span>
+	                        <span class="my-col-50 textR">
+						     {{list.money}} USDT
+	                        </span>
+						</p>
+						<p>
+							<span class="my-col-50">
+							{{spa_text.entrustment}} 
+							</span>
+	                        <span class="my-col-50 textR">
+						     {{list.num}} EAC
+	                        </span>
+						</p>
+						<p>
+							<span class="my-col-50">
+								{{spa_text.orderstatus}}
+							</span>
+							<span class="my-col-50 textR">
+								{{getOrderStatus(list.status)}}
+							</span>
+						</p>
+						<p  class="time">
+							<span class="my-col-50">
+								{{spa_text.transaction}}
+							</span>
+							<span class="my-col-50 size2 ftY textR">
+								{{ list.money * list.num | computedFloat }} USDT
+							</span>
+						</p>
+						
+						<p>
+							<span class="my-col-50">
+								{{spa_text.trandTime}}
+							</span>
+							<span class="my-col-50 textR">
+								{{ list.create_time | coverTimeStr('YYYY/MM/DD hh:mm:ss') }}
+							</span>
+						</p>
+					</li>
+				</ul>
+			</loadmore >
+			<transition name="upCss" >
+			   <keyboard v-if="keyboardModel"  :show.sync="keyboardModel"  @submit="cancelOrder"></keyboard>
+			</transition>
+		</section>
+	    <script src="modules/vue.js" ></script> 
+	    <script src="modules/axios.js"  ></script>
+	    <script src="modules/moment.js"  ></script>
+	    <script src="components/keyboard.js" ></script>
+	    <script src="components/loadmore.js" ></script>
+		<script src="js/base.js"  ></script>
+		<script>"use strict";var vm=new Vue({el:"#index",components:{keyboard:Keyboard,loadmore:Loadmore},data:{dataList:[],page:1,odType:1,dollar:1,orderId:0,orderIndex:0,spa_text:{},symbol:"￥",coinName:"RCRT",pay_pwd:"",keyboardModel:!1,langShowPic:!0},created:function(){stroage.read("odType")&&(this.odType=stroage.read("odType"),stroage.remove("odType")),this.spa_text=language._text(),document.title=this.spa_text.TradeLog,this.langShowPic=stroage.read("lang"),"zh-hk"==this.langShowPic?this.langShowPic=!0:this.langShowPic=!1,this.getList(this.odType)},mounted:function(){this.pullUp()},filters:{coverTimeStr:function(t,e){return moment(1e3*t).format(e)}},methods:{getList:function(){var t=void 0!==arguments[0]?arguments[0]:1,e=this;this.odType!=t&&(window.scrollTo(0,0),this.dataList=[],this.page=1,this.odType=t);var o,a={page:this.page};o=1==this.odType?"Entrust/my_entrust":"Entrust/my_entrust_end",this.$axios.postList(o,a,this.page,function(t){t&&0==t.code?(e.dataList=1==e.page?t.data.data:e.dataList.concat(t.data.data),e.page++):console.log(t.msg)})},getOrderStatus:function(t){return{0:this.spa_text.FAIL,1:this.spa_text.putIn,2:this.spa_text.hasfinished}[t]},openKeyboard:function(t,e){this.orderId=t,this.orderIndex=e,this.keyboardModel=!this.keyboardModel},openModel:function(){this.keyboardModel=!this.keyboardModel},cancelOrder:function(t){var e=this,o={id:this.orderId,pay_pwd:t};this.$axios.post("Entrust/remove",o).then(function(t){t&&0==t.code?myalert._msg(t.msg,1,function(){e.keyboardModel=!e.keyboardModel,e.dataList.splice(e.orderIndex,1)}):myalert._msg(t.msg,1,function(){common._formMask()})})},pullUp:function(){var t=this,e=this;plugin.pullUpRefresh(document.querySelector("#list"),40,function(){var t=this,o=setTimeout(function(){0==window.scrollY&&(t.back.call(),e.dataList=[],e.page=1,clearTimeout(o),e.getList(e.odType))},1e3)}),plugin.goSlipping(this,"odType",function(e){t.dataList=[],t.page=1,t.getList(e)})}}});</script>
+	</body>
+
+</html>

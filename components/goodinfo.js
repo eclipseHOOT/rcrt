@@ -1,0 +1,2 @@
+"use strict";
+var Goodinfo = {template: "\n\t\t<div class=\"my-col-90 ft7 my_good_info borderb\">\n\t    \t\t<p class=\"my-col-30\" :style=\"$attrs.imgs\"></p>\n\t    \t\t<p class=\"my-col-65 right\" >\n\t    \t\t\t<span class=\"my-col-100 size1 nowraps ftC\" >{{$attrs.names}}</span>\n\t    \t\t\t<span class=\"my-col-100  number textR ftC\">×1</span>\n\t    \t\t\t<span class=\"my-col-100 ftG\">￥{{$attrs.prices}}</span>\n\t    \t\t</p>\n\t\t</div>\n\t"};

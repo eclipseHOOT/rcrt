@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>地址管理</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta http-equiv="Cache-Control" content="max-age=7200">
+		<meta http-equiv="expires" content="120">
+		<meta name="theme-color" content="#282B3B">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="addressAgent.css" inline>
+	</head>
+
+	<body class="backB">
+		<section id="index" v-cloak>
+			<ul class="ftC size000" v-if="dataList&&dataList.length!=0" v-for="(list,index) of dataList" :key="list.id">
+				<li class="my-col-95 borderb">
+					<p class="my-col-50 name size1">{{spa_text.aNAME}}: {{list.name}}</p>
+					<p class="my-col-50 textR phone size1">{{list.tel}}</p>
+					<p class="addr ftY">
+						{{spa_text.aADDRESS}}: {{list.address}}
+					</p>
+				</li>
+				<li class="my-col-95">
+					<p class="my-col-10 checkIcon">
+						<img src="img/goodCheckFalse.png" @click="changeMoRen(list.id)" v-show="list.is_auto == 0" />
+						<img src="img/goodCheckTrue.png" v-show="list.is_auto == 1" />
+					</p>
+					<p class="my-col-30">{{spa_text.setDefaultAddress}}</p>
+					<p class="my-col-10 textC blackPD" @click="editAdr(list.id)"><img src="img/editAdr.png"  /></p>
+					<p class="my-col-10" @click="editAdr(list.id)">{{spa_text.edit}}</p>
+					<p class="my-col-10 textC" @click="delAdr(list.id,index)"><img src="img/deleteAdr.png"  /></p>
+					<p class="my-col-10" @click="delAdr(list.id,index)">{{spa_text.delete}}</p>
+				</li>
+			</ul>
+			<article v-if="dataList.length==0">
+				<div class="textC size1 ftC nodatalist">
+					{{spa_text.noAddress}}
+				</div>
+			</article>
+
+			<article class="my_button">
+				<div class="my-col-90 textC backY size1 ft9" @click="addAddress">
+					{{spa_text.ADD_ADDRESS}}
+				</div>
+			</article>
+		</section>
+
+		<script src="modules/vue.js"></script>
+		<script src="modules/axios.js"></script>
+		<script src="js/base.js"></script>
+		<script src="addressAgent.js" inline></script>
+
+	</body>
+
+</html>

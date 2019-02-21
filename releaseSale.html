@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>发布出售</title>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#4e8ef7">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="Cache-Control" content="max-age=7200">
+    <meta http-equiv="expires" content="120">
+    <meta name="theme-color" content="#171A2C">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <style type="text/css">.my_head{padding:11% 0;background:-webkit-linear-gradient(top,#c2a066,#dbc594);background:-o-linear-gradient(top,#c2a066,#dbc594);background:-moz-linear-gradient(top,#c2a066,#dbc594);background:linear-gradient(to top,#c2a066,#dbc594)}.my_head .left{border-right:1px dashed #7a7ae9;box-sizing:border-box}.my_head .title{padding-bottom:10%}.my_info{margin:5% 2.5%;padding:7% 2.5% 0;border-radius:4pt}.my_info div{margin:0 0 3%;padding:0 0 1%}.my_info .saleNum{width:70%}.my_info .numBorder{border-bottom:1px solid #1f212b}.my_info .payInfo span{padding:0 0 3%}.my_info .payInfo .checkButton{padding:.1rem;border:2px solid #f0f0f0;border-radius:50%;background-clip:content-box;width:.5rem;height:.5rem;display:inline-block;margin-top:17%}.my_info .payInfo .checkCss{border:2px solid #efbb53;background-color:#efbb53}.my_info .button{margin:25% 5% 8%;border-radius:2pt;padding:3.5% 0}</style>
+</head>
+
+<body class="backB">
+    <section id="index" class="size000 ftA"  v-cloak>
+    	 <myassets :available="myInfo.available" :freezing="myInfo.freezing"></myassets>
+		 
+		<article class="my_info my-col-90 backBt">
+			<div class="my-col-100">
+				<p class="my-col-50"><span>{{spa_text.CurrentPrice}} :</span></p>
+				<p class="my-col-50 textR">
+					<strong class="size000 ftY">
+						{{currentMoney| symbolCoin(symbol,dollar) }}
+					</strong>
+				</p>
+			</div>
+			<div class="my-col-100">
+				<p class="my-col-30">
+					<span>{{spa_text.SellPrice}} :</span>
+				</p>
+				<p class="my-col-70 textR">
+					<strong class="size000 ftY" >{{money| symbolCoin(symbol,dollar) }}</strong>
+				</p>
+			</div>
+			<div class="my-col-100">
+				<p class="my-col-25">
+					<span>{{spa_text.SellNum}} :</span>
+				</p>
+				<p class="my-col-75  numBorder">
+					<span class="my-col-65 textR">
+						<input type="number" autofocus v-model="num" @keyup="getNum()"  class="size1 bolds textR ftY  saleNum" />
+						<a class="b5 size00 ft6" >RCRT</a>
+					</span>
+					<span class="my-col-35 ftR textR">{{spa_text.poundage}}: {{(currentService)*100 || 0}}%</span>
+				</p>
+			</div>
+			
+			<div class="my-col-100">
+				<p class="my-col-50"><span>{{spa_text.SellAll}} :</span></p>
+				<p class="my-col-50  textR bolds ftY size1">
+					<span>{{money*num| symbolCoin(symbol,dollar) }}</span>
+				</p>
+			</div>
+			
+			<div class="payInfo my-col-100">
+				<p class="my-col-20"><span>{{spa_text.PAYMENT}}{{spa_text.METHOD}}</span></p>
+				<p class="my-col-80 textR size00">
+					<span class="my-col-100" v-if="gatherAddr.zhifu_id" @click="selectGather('alipay')">
+						<a class="my-col-90 ft6">{{spa_text.ALIPAY}}: {{gatherAddr.zhifu_id}}</a>
+						<a class="my-col-10">
+							<i class="checkButton" :class="{'checkCss': pay.includes('alipay')}"></i>
+						</a>
+					</span>
+					<span class="my-col-100" v-if="gatherAddr.yh_id" @click="selectGather('credit')">
+						<a class="my-col-90 ft6">{{spa_text.bankCard}}: {{gatherAddr.yh_id}}</a>
+						<a class="my-col-10">
+							<i class="checkButton" :class="{'checkCss': pay.includes('credit')}"></i>
+						</a>
+					</span>
+				</p>
+			</div>
+			
+			<div class="my-col-100"> 
+				<p class="my-col-50"><span>{{spa_text.CONTACT}}</span></p>
+				<p class="my-col-50 ft6 textR"><span>{{gatherAddr.mobile_number}}</span></p>
+			</div>
+			
+            <div class="button size1 my-col-90 ft9 backY textC" @click="openModel">{{spa_text.SellPublished}}</div>
+			
+		</article>
+		
+		
+		<transition name="upCss" >
+		   <keyboard v-if="keyboardModel"   :show.sync="keyboardModel" @submit="submit"></keyboard>
+		</transition>
+    </section>
+    <script src="modules/vue.js" ></script> 
+    <script src="modules/axios.js"  ></script>
+	<script src="js/base.js"  ></script>
+	<script src="components/keyboard.js" async="true" ></script>
+	<script src="components/myassets.js" ></script>
+    <script>"use strict";var vm=new Vue({el:"#index",components:{keyboard:Keyboard,myassets:Myassets},data:{currentMoney:0,currentService:{},gatherAddr:{},num:100,money:0,pay:[],pay_pwd:"",spa_text:{},myInfo:{available:0,freezing:0},minNum:0,keyboardModel:!1,dollar:1,symbol:"￥"},created:function(){this.spa_text=language._text(),document.title=this.spa_text.Sell,this.getIndexInfo(),this.getMyInfo(),this.getServiceData(),this.getHL()},methods:{getNum:function(){var t=this.num+"";if(t.includes(".")){var e=t.split(".");if(e.length>1)(e[1]+"").length>2&&(this.num=Math.floor(100*this.num)/100)}},getMyInfo:function(){var t=this;this.$axios.post("user/getBalance",{currency_id:1}).then(function(e){e&&0==e.code&&e.data&&(t.myInfo=e.data)})},getIndexInfo:function(){var t=this;this.$axios.post("common/get_quotation",{id:1}).then(function(e){e&&0==e.code&&(t.money=t.currentMoney=e.data)}),this.$axios.post("user/getPayInfo").then(function(e){e&&0==e.code&&(t.gatherAddr=e.data)})},selectGather:function(){var t=void 0!==arguments[0]?arguments[0]:"alipay";if(this.pay.includes(t)){var e=this.pay.indexOf(t);this.pay.splice(e,1)}else this.pay.push(t)},openModel:function(){return this.pay.length<=0?(myalert._msg(this.spa_text.PUBLISHED_RULE1,1),!1):this.num-0<this.minNum-0?(myalert._msg(this.spa_text.PUBLISHED_RULE3+this.minNum,2),!1):void(this.keyboardModel=!this.keyboardModel)},submit:function(t){this.pay_pwd=t;var e={type:2,num:this.num,money:this.money,pay:this.pay,pay_pwd:this.pay_pwd};this.$axios.post("c2c/add",e).then(function(t){t&&0==t.code?myalert._msg(t.msg,1,function(){webview._goBack()}):myalert._msg(t.msg,1,function(){common._formMask()})})},getServiceData:function(){var t=this;this.$axios.post("common/getConfig").then(function(e){e&&0==e.code?(t.currentService=e.data.pay_rdcc_fee,t.minNum=e.data.min_charge_key):myalert._msg(e.msg,1)})},getHL:function(){var t=this,e=common._parseUrl("hlId");e&&this.$axios.post("common/getTenderCategory").then(function(n){var a,i,o;if(0==n.code){var s=n.data.data;for(var r in s)if(s[r].id==e){a=[s[r].short,s[r].quotation],t.symbol=(o=(i=a[Symbol.iterator]()).next()).done?void 0:o.value,t.dollar=(o=i.next()).done?void 0:o.value;break}}})}}});</script>
+</body>
+
+</html>

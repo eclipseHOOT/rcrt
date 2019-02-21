@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>众筹详情</title>
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="Cache-Control" content="max-age=7200">
+        <meta http-equiv="expires" content="120">
+        <meta name="theme-color" content="#111321">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="crowdfundingPay.css"  inline>
+	</head>
+
+	<body class="backB">
+		<section  id="index"  v-cloak>
+				<article class="size000 my-col-95 ft6">
+					<div class="header backBt  my-col-100">
+						<p class="my-col-60 textC title  size1 ftA">{{detailInfo.currency_symbol}}{{spa_text.Crowdfund}}</p>
+						<p class="crowdText  my-col-90">
+						   	<span class="my-col-100">
+								{{spa_text.CrowdfundingNum}}
+							</span>
+					    </p>
+					    <p  class="crowdInput  my-col-90">
+						   	<span class="my-col-100 size2 crowdnumber">
+								<input type="number" class="roW ftY" v-model="donateNum" placeholder="请输入众筹的数量"  />
+							</span>
+					    </p>
+					    <p  class="crowdBa  my-col-90">
+						   	<span class="my-col-30">
+								{{spa_text.Balance}}
+							</span>
+							<strong class="my-col-70 textR ftG">
+									{{myInfo.available || 0}} RCRT 
+							</strong>
+					    </p>
+					     <p  class="crowdRe  my-col-90">
+						   	<span class="my-col-30">
+								{{spa_text.CrowdfundingRestrictions}}
+							</span>
+							<strong class="my-col-70 ftR textR">
+								{{parseFloat(detailInfo.min).toFixed(2)}}~{{parseFloat(detailInfo.max).toFixed(2)}} RCRT/{{spa_text.Perperson}}
+							</strong>
+					    </p>
+					</div>
+					
+					<div class="backBt content my-col-95">
+					    <p>
+						   	<span class="my-col-100">
+								{{spa_text.PaymentPassword}}
+							</span>
+					    </p> 
+					    <p>
+					    	<input type="password" autofocus class="roW password size6" v-model="password" maxlength="6"  />
+					    </p>
+					    <p class="footer textC size1 my-col-85 backY ft9" @click="submit">
+					    	{{spa_text.determine}}
+					    </p>
+					</div>
+				</article>
+		</section>
+		
+		<script src="modules/vue.js" ></script> 
+        <script src="modules/axios.js"  ></script>
+		<script src="js/base.js"  ></script>
+		<script src="crowdfundingPay.js" inline></script>
+	</body>
+
+</html>

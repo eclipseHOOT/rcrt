@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>注册</title>
+    <meta name="viewport" content="viewport-fit=cover, target-densitydpi=high-dpi,width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#4e8ef7">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="Cache-Control" content="max-age=7200">
+    <meta http-equiv="expires" content="120">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" type="text/css" href="css/common.css"  />
+    <link rel="stylesheet" type="text/css" href="registered.css" inline >
+</head>
+
+<body>
+    <section id="index" class="size000 ftF"  v-cloak>
+        <article>
+        	<div class="my-col-100 textC my_head">
+        		<img src="img/eacLogo.png" />
+        		<p class="text size2 bolds"><span>EAC Plans</span></p>
+        	</div>
+      	     <div class="my-col-80 my_from">
+      	     	<p>
+      	     		<input type="text" :placeholder="spa_text.registerName" maxlength="9" v-model="name" />
+      	     	</p>
+      	     	
+      	     	<p>
+      	     		<input type="email" :placeholder="spa_text.registerEmail" maxlength="25" v-model="email" />
+      	     	</p>
+      	     	
+      	     	
+      	     	<p>
+      	     		<span class="my-col-70">
+      	     		   <input type="text" v-model="code" :placeholder="spa_text.registerInput" /></span>
+      	     		<span class="my-col-30 ftR textR size00" @click="sendCode()" v-if="sendStatus" v-text="spa_text.sendCode"></span>
+      	     		<span  class="my-col-30 ft9 textC" v-else v-text="countdownTime+'s'"></span>
+      	     	</p>
+      	     	
+      	     	<p>
+      	     	    <input type="password" maxlength="16" v-model="password" :placeholder="spa_text.registerAccountTip" />
+      	     	</p>
+      	     	
+      	     	<p>
+      	     		<input type="password" maxlength="6" @input="handlePassword" v-model="payPassword" :placeholder="spa_text.registerTradePassword" />
+      	     	</p>
+      	     	
+      	     	<p>
+      	     		<input type="text" v-model="inviteCode" :placeholder="spa_text.invitedCode" />
+      	     	</p>
+      	     </div>
+      	     
+      	     
+      	     <div class="my-col-80 my_from_button ftF backY size1 textC" @click="submitForm()" v-text="spa_text.goToregister">
+      	     </div>
+      	     
+      	     <div class="my-col-100 textC size1 xieyi"  style="color:#24BD26">
+      	     	<span @click="openXieYi">《EAC Plans用戶協議》</span>
+      	     </div>
+        </article>
+    </section>
+    <script src="modules/vue.js"  ></script>
+    <script src="modules/axios.js"  ></script>
+	<script src="js/base.js"  ></script>
+    <script src="registered.js" inline></script>
+</body>
+
+</html>

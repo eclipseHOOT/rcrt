@@ -1,0 +1,72 @@
+.ft8 {
+  color: #8F959D; }
+
+.ftY {
+  color: #F8C42E; }
+
+.ftG {
+  color: #24BD26; }
+
+.ftD {
+  color: #D2D7DE; }
+
+.back14 {
+  background: #14171F; }
+
+.my_head {
+  position: fixed;
+  z-index: 1;
+  background: #1A212B;
+  /* Safari 5.1 - 6 */ }
+
+.my_head p {
+  padding: 1% 0;
+  margin: 1.5% 0; }
+
+.my_head .left {
+  border-right: 1px solid #0F141A;
+  box-sizing: border-box; }
+
+.my_head .subTitle {
+  pointer-events: none; }
+
+.my_head .line-left {
+  transition: .5s;
+  margin-left: 17.5%;
+  border-bottom: 3px solid #F8C42E; }
+
+.my_head .line-right {
+  transition: .5s;
+  margin-left: 67.5%;
+  border-bottom: 3px solid #F8C42E; }
+
+.my_line {
+  margin: 6.5% 0;
+  float: left;
+  width: 100%; }
+
+li {
+  padding: 0 0 4%;
+  margin: 5%;
+  border-radius: 4pt; }
+
+li p {
+  padding-top: 3%; }
+
+li .title {
+  margin-left: 3%; }
+
+li .title .priceType {
+  line-height: 0.7rem; }
+
+li .cancelButton {
+  border: 1px solid #e11d04;
+  color: #e11d04;
+  padding: 1% 0;
+  border-radius: 4pt;
+  margin-left: 1%;
+  margin-top: 3.8%; }
+
+li .time {
+  border-bottom: 1pt solid #2A323D;
+  padding-bottom: 3%; }

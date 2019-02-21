@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>交易详情</title>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="max-age=7200">
+    <meta http-equiv="expires" content="120">
+    <meta name="theme-color" content="#171A2C">
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <style type="text/css">.orderInfo{padding:3.5% 5% 0}.orderInfo div{padding-top:3%}.orderInfo .money{padding:5% 0 1%;font-size:2rem}.orderInfo .tipMsg{padding:0 0 2%}.orderInfo .orderid{padding-bottom:5%}.orderInfo .phone{border-top:1px solid #282b3b;padding:3% 0}.alipayTitle{padding:1.5% 5%}.alipayTitle img,.tranTitle img{padding-top:5%;width:55%}.alipayTitle .orderLogo,.tranTitle .tranImg{padding-top:.2rem}.alipayInfo{padding:2.5% 5%}.alipayInfo div,.creditInfo div{padding:1% 0}.copy{padding:.8% 2.5%;border:1px solid #92a0ac;color:#92a0ac;border-radius:2px}.creditInfo{padding:2.5% 0;margin:0 5%;border-top:1px solid #282b3b}.tranTitle{padding:1.5% 5%}.tranLoading{padding:5%}.tranList{padding:0}.tranList .borderRadius{border-right:1px solid #efbb53;min-height:5rem;position:relative}.tranList .borderRadius::before{content:'';background:#efbb53;height:.8rem;width:.8rem;border-radius:50%;position:absolute;left:61%;top:0}.tranList .right{padding-left:5%}.tranList span,.tranList strong{line-height:1rem}.tranList:nth-child(n+2) .borderRadius{border-right:1px dashed #a4abad}.tip{margin:5% 0 10%}.tip div{padding:3% 5%;background:rgba(246,91,59,.4)}.my_button{margin:0 10% 6%}.my_button .button{padding:3% 0}.my_dom{margin:0 5% 6%;padding:2% 0}.my_dom .cancel{padding:3% 0;margin:0 7.5%}.my_dom .cancelButton{padding:3% 0}.my_dom .ensure{margin-left:10%;padding:3% 0}.status3{position:fixed;z-index:1;bottom:0}.status3,.status3 p{height:3.5rem}.status3 p img{width:25%;padding-top:12%;padding-bottom:5%;vertical-align:middle}.status3 .shenSu{padding:1.5% 0}.status3 .queRen{padding:4.5% 0 0}.my_layer{right:0;padding:3% 0 0;background:#f0eded;border-top-left-radius:8px;border-top-right-radius:8px}.my_layer .subtitle{padding:2% 0 3%}.my_layer .dom{padding:3% 0;border-top:1px solid #e4e4e4}.my_call_layer,.my_layer{position:fixed;z-index:3;left:0;bottom:0;transition:.5s}.my_call_layer .phone{padding:4.5% 0}.my_call_layer .my_layer_button{padding:4.5% 0;letter-spacing:2px}.my_call_layer .left{padding-left:15%}.my_call_layer .right img{width:40%}</style>
+</head>
+
+<body class="backB">
+    <section id="index" class="ftA size000" v-cloak >
+        <!-- type==2 是正常出售 , type==1 是别人求购  -->
+       <template v-if="orderData.type == 2">
+       	<!-- isSale是判断用户是谁？ isSale==1是买家 isSale==2是卖家 -->
+       	   <article class="orderInfo my-col-90">
+	        	<div class="money textC my-col-100 ftY">
+	        		<span>{{orderData.total_money | symbolCoin(symbol,dollar) }}</span>
+	        	</div>
+	        	<div class="time textC my-col-100">
+	        		<span :class="{'ftR':orderData.code==0 || orderData.code==5 || orderData.code==6 ,'ftH':orderData.code == 2 || orderData.code == 3 }" class="ftR" >
+	                 <a>{{isSale==1?getSpaText(orderData.code):getBuySpaText(orderData.code)}}</a> 
+	                 <a v-if="orderData.code == 2 || orderData.code == 3">{{remainTime}}</a>
+	                </span>
+	        	</div>
+	        	
+	        	<div class="textC my-col-100 tipMsg" >
+	        		<template v-if="isSale==1">
+	        			<span v-if="orderData.code == 2">
+		        			{{spa_text.tip}}：{{spa_text.Order_Rule0}}
+		        		</span>
+	        		</template>
+		        		<span v-if="orderData.code == 6">
+			        	            {{spa_text.Order_Rule1}}
+			        	</span>
+	        		
+	        	</div>
+	        	<div class="my-col-100">
+	        		<p class="my-col-30">
+	        			<strong>{{isSale==1?spa_text.SellerName:spa_text.BuyerName}}</strong>
+	        		</p>
+	        		<p class="textR my-col-70 ft6">
+	        			<span>{{isSale==1?orderData.name:orderData.pay_name}}</span>
+	        		</p>
+	            </div>
+	            <div class="my-col-100">
+	        		<p class="my-col-30"><strong>{{spa_text.One_PRICE}}</strong></p>
+	        		<p class="textR my-col-70 ft6">
+	        			<span>{{orderData.money | symbolCoin(symbol,dollar) }}</span>
+	        		</p>
+	            </div>
+	            <div class="my-col-100">
+	        		<p class="my-col-30"><strong>{{spa_text.Number}}</strong></p>
+	        		<p class="textR my-col-70 ft6"><span>{{orderData.num}} {{coinName}}</span></p>
+	            </div>
+	            <div class="my-col-100">
+	        		<p class="my-col-30"><strong>{{spa_text.ALL_PRICE}}</strong></p>
+	        		<p class="textR my-col-70 ft6">
+	        			<span>{{orderData.total_money | symbolCoin(symbol,dollar) }}</span>
+	        		</p>
+	            </div>
+	            <div class="voucher my-col-100" v-if="orderData.code == 3 || orderData.code == 5 || orderData.code == 6">
+	        		<p class="my-col-30"><strong>{{spa_text.VOUCHER}}</strong></p>
+	        		<p class="textR my-col-70 ftL"><span  @click="plugin._openImg(orderData.pay_pic);">{{spa_text.open_Voucher}}</span></p>
+	            </div>
+	            <div class="orderid my-col-100">
+	        		<p class="my-col-30"><strong>{{spa_text.ORDER_Id}}</strong></p>
+	        		<p class="textR my-col-70 ft6"><span>{{orderData.cid}}</span></p>
+	            </div> 
+	            
+	            <div  class="phone my-col-100" v-if="orderData.code == 2 || orderData.code == 3 ||  orderData.code == 6">
+	        		<template>
+	        			<p class="my-col-30"><strong>{{isSale == 1?spa_text.Seller_Contact:spa_text.Buyer_Contact}}</strong></p>
+	        		    <p class="textR my-col-70 ft6"><span>{{isSale == 1?orderData.phone:orderData.pay_phone}}</span></p>
+	        		</template>
+	            </div>
+	        </article>
+       </template>
+        
+        <!-- type==1 是正常求购,isSale==1 是求购者，也就是高价收-->
+        <template v-else>
+       	   <article class="orderInfo my-col-90">
+	        	<div class="money textC my-col-100 ft6">
+	        		<span>{{orderData.total_money | symbolCoin(symbol,dollar) }}</span>
+	        	</div>
+	        	<div class="time textC my-col-100">
+	        		<span :class="{'ftR':orderData.code==0 || orderData.code==5 || orderData.code==6 ,'ftH':orderData.code == 2 || orderData.code == 3 }" class="ftR" >
+	                 <a>{{isSale==2?getSeek1Text(orderData.code):getSeek2Text(orderData.code)}}</a> 
+	                 <a v-if="orderData.code == 2 || orderData.code == 3">{{remainTime}}</a>
+	                </span>
+	        	</div>
+	        	<div class="textC my-col-100 tipMsg" >
+	        		<template v-if="isSale==2">
+	        			<span v-if="orderData.code == 2">
+		        			{{spa_text.tip}}：{{spa_text.Order_Rule0}}
+		        		</span>
+	        		</template>
+	        		<span v-if="orderData.code == 6">
+		        	    {{spa_text.Order_Rule1}}
+		        	</span>
+	        	</div>
+	        	
+	        	<div class="my-col-100">
+	        		<p class="my-col-30">
+	        			<strong>{{isSale==1?spa_text.BuyerName:spa_text.SellerName}}</strong>
+	        		</p>
+	        		<p class="textR my-col-70 ft6">
+	        			<span>{{isSale==1?orderData.name:orderData.pay_name}}</span>
+	        		</p>
+	            </div>
+	            
+	            <div class="my-col-100">
+	        		<p class="my-col-30"><strong>{{spa_text.One_PRICE}}</strong></p>
+	        		<p class="textR my-col-70 ft6">
+	        			<span>{{orderData.money | symbolCoin(symbol,dollar) }}</span>
+	        		</p>
+	            </div>
+	            <div class="my-col-100">
+	        		<p class="my-col-30"><strong>{{spa_text.Number}}</strong></p>
+	        		<p class="textR my-col-70 ft6"><span>{{orderData.num}} {{coinName}}</span></p>
+	            </div>
+	            <div class="my-col-100">
+	        		<p class="my-col-30"><strong>{{spa_text.ALL_PRICE}}</strong></p>
+	        		<p class="textR my-col-70 ft6">
+	        			<span>{{orderData.total_money | symbolCoin(symbol,dollar) }}</span>
+	        		</p>
+	            </div>
+	            <div class="voucher my-col-100" v-if="orderData.code == 3 || orderData.code == 5 || orderData.code == 6">
+	        		<p class="my-col-30"><strong>{{spa_text.VOUCHER}}</strong></p>
+	        		<p class="textR my-col-70 ftL"><span  @click="plugin._openImg(orderData.pay_pic);">{{spa_text.open_Voucher}}</span></p>
+	            </div>
+	            <div class="orderid my-col-100">
+	        		<p class="my-col-30"><strong>{{spa_text.ORDER_Id}}</strong></p>
+	        		<p class="textR my-col-70 ft6"><span>{{orderData.cid}}</span></p>
+	            </div>
+	            <div  class="phone my-col-100" v-if="orderData.code == 2 || orderData.code == 3 ||  orderData.code == 6">
+        			<p class="my-col-30"><strong>{{isSale == 1?spa_text.Buyer_Contact:spa_text.Seller_Contact}}</strong></p>
+        		    <p class="textR my-col-70 ft6"><span>{{isSale == 1?orderData.phone:orderData.pay_phone}}</span></p>
+	            </div>
+	        </article>
+       </template>
+        
+        <!--收款信息-->
+        <template v-if="orderData.code == 2 || orderData.code == 3 ||  orderData.code == 6">
+        	<article class="alipayTitle backB my-col-90">
+		        	<div class="my-col-100">
+		        		<p class="my-col-10"><img src="img/orderLogo.png" class="roW orderLogo"  /></p>
+		        		<p class="my-col-85 size1"><strong>{{spa_text.SellerInfo}}</strong></p>
+		        	</div>
+		    </article>
+        	<article class="alipayInfo my-col-90"  v-if="orderData.zhifu_id">
+	               <div  class="my-col-100">
+	                	<p class="my-col-30"><strong>{{spa_text.ALIPAY}}</strong></p>
+	        		    <p class="textR my-col-70 ft6">
+	        		    	<span v-text="orderData.zhifu_id"></span>
+	        		    	<span class="copy size00" @click='copy("alipay")' id="alipay" :data-clipboard-text="orderData.zhifu_id" >{{this.spa_text.COPY}}</span>
+	        		    </p>
+	                </div>
+	                <div  class="my-col-100">
+		        		<p class="my-col-30"><strong>{{spa_text.NAME}}</strong></p>
+		        		<p class="textR my-col-70 ft6">{{orderData.zhifu_name}}</p>
+		            </div>
+	        </article>
+	        <article  class="creditInfo my-col-90"  v-if="orderData.yh_id">
+	                <div  class="my-col-100">
+	                	<p class="my-col-30"><strong>{{spa_text.BANK}}</strong></p>
+	        		    <p class="textR my-col-70 ft6">
+	        		    	<span v-text="orderData.yh_add"></span>
+	        		    </p>
+	                </div>
+	                <div  class="my-col-100">
+		        		<p class="my-col-30"><strong>{{spa_text.BANKCard}}</strong></p>
+		        		<p class="textR my-col-70 ft6">{{orderData.yh_id}}
+	        		    	<span class="copy size00 ft6" @click='copy("cerdit")' id="cerdit" :data-clipboard-text="orderData.yh_id" >复制</span>
+		        		</p>
+		            </div>
+		            <div  class="my-col-100">
+		        		<p class="my-col-30"><strong>{{spa_text.NAME}}</strong></p>
+		        		<p class="textR my-col-70 ft6">{{orderData.yh_name}}</p>
+		            </div>
+	        </article>
+        </template>
+        
+        <!--进度标题-->
+        <article  class="tranTitle backB my-col-90">
+        	<div  class="my-col-100">
+        		<p class="my-col-10"><img src="img/tranLogo.png" class="roW tranImg" /></p>
+        		<p class="my-col-85 size1"><strong>{{spa_text.TradeProcess}}</strong></p>
+        	</div>
+        </article>
+        
+        <!--进度内容-->
+        <ul class="ftF tranLoading my-col-90">
+            <li  class="my-col-95 tranList" v-for="(list,index) of tranList"  :key="list.id"  >
+	    		<p class="my-col-30">
+	    			<strong class="my-col-100 textC ft6">{{list.create_time | coverTime }}</strong>
+	    		</p>
+	    		<p class="my-col-5 borderRadius"></p>
+	    		<p class="my-col-55 right">
+	    			<strong class="my-col-100 ftA">{{list.uid}}</strong>
+	    			<span class="my-col-100 size00 status ft6">{{list.content}}</span>
+	    		</p>
+		    </li>
+        </ul>
+        
+        
+        <!--正常出售的提示-->
+        <template v-if="orderData.type == 2">
+        	<article class="tip ftF my-col-100" v-if="isSale == 2" >
+	        	<div  class="my-col-90 message textC" v-if="orderData.code == 2">
+	        		<p>
+	        		    {{spa_text.TIPS0}}{{remainTime}};
+	        		</p>
+	        	</div>
+	        	<div  class="my-col-90 message" v-if="orderData.code == 3 || orderData.code == 6">
+	        		<p>{{spa_text.tip}}</p>
+	        		<p>{{spa_text.TIPS1}}</p>
+	        		<p v-if="orderData.code == 3">{{spa_text.TIPS2}}</p>
+	        		<p v-if="orderData.code == 6">
+		        		{{spa_text.TIPS4}} 
+		        		<br />
+		        		{{spa_text.TIPS5}}
+	        		</p>
+	        		<p>{{spa_text.TIPS3}}</p>
+	        	</div>
+	        </article> 
+	        
+	         <article class="status3 ftF my-col-100" v-if="isSale == 2 && orderData.code == 3" >
+	    		<div  class="my-col-100 textC">
+	        		<p class="my-col-20 backBt ftC" @click="openPhone(orderData.pay_phone)">
+	        			<img src="img/Icon4.png"  />
+	        			<span class=" size00 my-col-100">{{spa_text.Buyer}}</span>
+	        		</p>
+	        		
+
+	        		<p class="my-col-45 size000 ftF backG shenSu" @click="location.href ='Appeal.html?id='+orderData.id+'&&oid='+orderData.cid" :class="{'banClick':frozen > 0}">
+	        		    <span  class="my-col-100" >{{spa_text.FROZEN_ORDER}}</span>
+	        			<span  class="my-col-100">{{frozen > 0 ?frozenTime:spa_text.GoFrozen}}</span>
+	        		</p>
+	        		<p class="my-col-35 ftF backY queRen">
+	        			<span  class="my-col-100 size1" @click="confirmReceipt">{{spa_text.ConfirmOrder}}</span>
+	        		</p>
+	        	</div>
+	        </article> 
+	        
+	        
+	        <article class="my_button size1 ftF textC  my-col-80" v-if="isSale == 2&& orderData.code != 5">
+	        	<div  class="my-col-100 backY ft9 button" v-if="orderData.code == 2">
+	        		<a :href="'tel:'+orderData.pay_phone"  >{{spa_text.ContactBuyer}}</a>
+	        	</div>
+	        </article> 
+	        
+	        <article class="tip ftF my-col-100"  v-if="isSale == 1&& orderData.code != 5" >
+	        	<div  class="my-col-90 message" v-if="orderData.code == 2">
+	        		<p>{{spa_text.tip}}</p>
+	        		<p>{{spa_text.TIPS7}}</p>
+	        		<p>{{spa_text.TIPS8}}{{orderData.cid.toString().substr(orderData.cid.toString().length - 6)}}{{spa_text.TIPS9}}</p>
+	        		<p>{{spa_text.TIPS10}}</p>
+	        	</div>
+	        	<div  class="my-col-90 message" v-if="orderData.code == 3">
+	        		<p>{{spa_text.tip}}</p>
+	        		<p>{{spa_text.TIPS11}}{{remainTime}}</p>
+	        		<p>{{spa_text.TIPS12}}</p>
+	        		<p>{{spa_text.TIPS13}}</p>
+	        	</div>
+	        </article>
+	        <article class="my_dom size1 ftF textC my-col-90" v-if="isSale == 1">
+	        	<div  class="my-col-100" v-if="orderData.code == 2">
+	        		<p class="my-col-45 backG ftF cancelButton" @click="cancel">
+	        			{{spa_text.OrderNo}}
+	        		</p>
+	        		<p  class="my-col-45 backY ftF ensure" @click="pay" >
+	        			{{spa_text.OrderYes}}
+	        		</p>
+	        	</div>
+	        	<div  class="my-col-100" v-if="orderData.code == 3 || orderData.code == 6">
+		        		<p class="my-col-85 backY ft9 cancel " >
+		        			<span>
+		        				<a :href="'tel:'+orderData.phone" >{{spa_text.ContactSeller}}</a>
+		        			</span>
+		        		</p>
+	        	</div>
+	        </article> 
+	        
+	        
+	         <!--已冻结，卖家视野-->
+	        <article class="my_dom size1 ftF textC my-col-90" v-else>
+	        	<div  class="my-col-100" v-if="orderData.code == 6">
+	        		<p class="my-col-85 backY ft9 cancel" >
+	        			<a :href="'tel:'+orderData.pay_phone" >{{spa_text.ContactBuyer}}</a>
+	        		</p>
+	        	</div>
+	        </article> 
+        </template>
+        
+        <!-- 正常求购提示-->
+        <template v-else>
+         	<article class="tip ftF my-col-100" v-if="isSale == 1" >
+	        	<div  class="my-col-90 message textC" v-if="orderData.code == 2">
+	        		<p>
+	        		      {{spa_text.TIPS0}}{{remainTime}};
+	        		</p>
+	        	</div>
+	    		<div  class="my-col-90 message" v-if="orderData.code == 3 || orderData.code == 6">
+	        		<p>{{spa_text.tip}}</p>
+	        		<p>{{spa_text.TIPS1}}</p>
+	        		<p v-if="orderData.code == 3">{{spa_text.TIPS2}}</p>
+	        		<p v-if="orderData.code == 6">
+	        			{{spa_text.TIPS4}} 
+	        			<br />
+	        			{{spa_text.TIPS5}}
+	        		</p>
+	        		<p>{{spa_text.TIPS3}}</p>
+	        		<!--<p>{{spa_text.SERVICE}} <span v-html="'qq: '+stroage.read('serviceData').service_qq"></span></p>-->
+	        	</div>
+	        </article> 
+	        
+	         <article class="status3 my-col-100" v-if="isSale == 1 && orderData.code == 3" >
+	    		<div  class="my-col-100 textC">
+	        		<p class="my-col-20 backBt ftC" @click="openPhone(orderData.phone)">
+	        			<img src="img/Icon4.png"  />
+	        			<span class="size00 my-col-100">{{spa_text.Buyer}}</span>
+	        		</p>
+	        		
+	        		<p class="my-col-45  backG ftF shenSu" @click="location.href ='Appeal.html?id='+orderData.id+'&&oid='+orderData.cid" :class="{'banClick':frozen > 0}">
+	        		    <span  class="my-col-100 size1" >{{spa_text.FROZEN_ORDER}}</span>
+	        			<span  class="my-col-100">{{frozen > 0?frozenTime:spa_text.GoFrozen}}</span>
+	        		</p>
+	        		<p class="my-col-35 backY ft9 queRen">
+	        			<span  class="my-col-100 size1" @click="confirmReceipt">{{spa_text.ConfirmOrder}}</span>
+	        		</p>
+	        	</div>
+	        </article> 
+	        
+	        
+	        <article class="my_button size1 textC  my-col-80" v-if="isSale == 1&& orderData.code != 5">
+	        	<div  class="my-col-100 backY ft9 button" v-if="orderData.code == 2">
+	        		<a :href="'tel:'+orderData.phone" >{{spa_text.ContactBuyer}}</a>
+	        	</div>
+	        </article> 
+	        
+	        <article class="tip ftF my-col-100"  v-if="isSale == 2&& orderData.code != 5" >
+	        	<div  class="my-col-90 message" v-if="orderData.code == 2">
+	        		<p>{{spa_text.tip}}</p> 
+	        		<p>{{spa_text.TIPS7}}</p>
+	        		<p>{{spa_text.TIPS8}}{{orderData.cid.toString().substr(orderData.cid.toString().length - 6)}}{{spa_text.TIPS9}}</p>
+	        		<p>{{spa_text.TIPS10}}</p>
+	        	</div>
+	        	<div  class="my-col-90 message" v-if="orderData.code == 3">
+	        		<p>{{spa_text.tip}}</p>
+	        		<p>{{spa_text.TIPS11}}{{remainTime}}</p>
+	        		<p>{{spa_text.TIPS12}}</p>
+	        		<p>{{spa_text.TIPS13}}</p>
+	        	</div>
+	        </article>
+	        <article class="my_dom size1 ftF textC my-col-90" v-if="isSale == 2">
+	        	<div  class="my-col-100" v-if="orderData.code == 2">
+	        		<p class="my-col-45 backG ftF cancelButton" @click="cancel">
+	        			{{spa_text.OrderNo}}
+	        		</p>
+	        		<p  class="my-col-45 backY ftF ensure" @click="pay" >
+	        			{{spa_text.OrderYes}}
+	        		</p>
+	        	</div>
+	        	<div  class="my-col-100" v-if="orderData.code == 3 || orderData.code == 6">
+	        		<p class="my-col-90 backY ft9 cancel" >
+	        			<span><a :href="'tel:'+orderData.pay_phone">{{spa_text.ContactSeller}}</a></span>
+	        		</p>
+	        	</div>
+	        </article> 
+	        
+	        
+	          <!--已冻结，卖家视野-->
+		    <article class="my_dom size1 ftF textC my-col-90" v-else>
+		    	<div  class="my-col-100" v-if="orderData.code == 6">
+		    		<p class="my-col-90 backY ft9 cancel" >
+		    			<a :href="'tel:'+orderData.phone"   >{{spa_text.ContactBuyer}}</a>
+		    		</p>
+		    	</div>
+		    </article> 
+	        
+        </template>	
+        
+        <!--选择文件上传--> 
+        <transition name="upCss">
+	        <article class="my_layer backF ft3"  v-if="uploadModel" >
+				<div class="my-col-100 textC  bold size1" >
+					<p>{{spa_text.tip}}</p>
+					<p :style='getUpload()' class="textC">{{rate}}%</p>
+					<p class="ftA b5 subtitle">{{spa_text.uploadVocher}}</p>
+					<p class="dom" @click="document.getElementById('voucher').click();" v-if="rate<=0">{{spa_text.uploadPhotos}}</p>
+					<input class="myHide" id="voucher"  type="file" accept="image/*" capture="camera" onchange="vm.uploadFile(this.files[0]);" />
+					<p class="dom" @click="cancelUpload();cancelTokens = true" v-if="rate>0&&!cancelTokens">取消上传</p>
+					<p class="dom" @click="resumeUpload('resume');cancelTokens = false" v-if="rate>0&&cancelTokens">继续上传</p>
+					<p class="dom" @click="domCancel">{{spa_text.Cancel}}</p>
+
+				</div>
+			</article>
+		</transition>
+        
+        <transition name="upCss">
+				   <callphone  v-if="showPhone" :phone="callPhone"  :show.sync="showPhone"></callphone>
+		</transition>
+        
+    </section>
+    <script src="modules/vue.js" ></script> 
+    <script src="modules/axios.js"  ></script>
+	<script src="js/base.js"  ></script>
+	<script src="components/callphone.js"  ></script>
+    <script src="modules/clipboard.js" ></script>
+    <script src="modules/moment.js"  ></script>
+    <script>"use strict";var vm=new Vue({el:"#index",components:{callphone:Callphone},data:{orderId:0,orderData:{},isConfirmWaitingPay:!1,remainTime:"",orderNumber:"",domTime:0,status:-1,uploadModel:!1,dollar:1,spa_text:{},showPhone:!1,callPhone:"",userId:"",tranList:[],frozen:1,frozenTime:"",symbol:"￥",coinName:"RCRT",intervalid:"",intervalid2:"",rate:0,loaded:0,source:null,bl:null,cancelTokens:!1},beforeCreate:function(){stroage.remove("labelLayer")},created:function(){this.orderId=common._parseUrl("id"),this.orderId||myalert._msg("订单不存在",2,function(){history.back()}),this.spa_text=language._text(),document.title=this.spa_text.TradeDetail,moment.lang(common._parseUrl("lang")||stroage.read("lang")||"zh-cn"),this.getUserInfo(),this.getOrderDetail(),this.getHL()},beforeDestory:function(){this.intervalid&&clearInterval(this.intervalid),this.intervalid2&&clearInterval(this.intervalid2)},computed:{isSale:function(){return this.orderData.payid==this.userId?1:this.orderData.uid==this.userId?2:void 0}},mounted:function(){this.$nextTick(function(){webview._checkDevice("voucher")})},filters:{coverTime:function(t){return moment(1e3*t).toNow(!0)}},methods:{getUserInfo:function(){var t=this;this.$axios.post("user/getUserInfo").then(function(e){e&&0==e.code&&(stroage.write("userInfo",e.data),t.userId=e.data.id)})},getSpaText:function(){var t=void 0!==arguments[0]?arguments[0]:0;return{0:this.spa_text.Order_Fail,2:this.spa_text.Wait_Pay,3:this.spa_text.WaitSellPay,5:this.spa_text.COMPLETED,6:this.spa_text.Frozen,7:this.spa_text.underReview}[t]},getBuySpaText:function(){var t=void 0!==arguments[0]?arguments[0]:0;return{0:this.spa_text.Order_Fail,2:this.spa_text.WaitBuyPay,3:this.spa_text.Wait_Gather,5:this.spa_text.COMPLETED,6:this.spa_text.Frozen,7:this.spa_text.underReview}[t]},getSeek1Text:function(){var t=void 0!==arguments[0]?arguments[0]:0;return{0:this.spa_text.Order_Fail,2:this.spa_text.WaitBuyPay,3:this.spa_text.WaitSellPay,5:this.spa_text.COMPLETED,6:this.spa_text.Frozen,7:this.spa_text.underReview}[t]},getSeek2Text:function(){var t=void 0!==arguments[0]?arguments[0]:0;return{0:this.spa_text.Order_Fail,2:this.spa_text.WaitBuyPay,3:this.spa_text.Wait_Gather,5:this.spa_text.COMPLETED,6:this.spa_text.Frozen,7:this.spa_text.underReview}[t]},getOrderDetail:function(){var t=this,e={id:this.orderId};this.$axios.post("c2c/getDet",e).then(function(e){var i,o,a;if(e&&0==e.code){i=[e.data.info,e.data.tips.reverse()],t.orderData=(a=(o=i[Symbol.iterator]()).next()).done?void 0:a.value,t.tranList=(a=o.next()).done?void 0:a.value;var n=(new Date).getTime();2==t.orderData.code?t.getDomTime(Math.floor((1e3*t.orderData.action_time-n)/1e3)):3==t.orderData.code&&(t.getFrozenTime(Math.floor((1e3*t.orderData.update_time+6e5-n)/1e3)),t.getDomTime(Math.floor((1e3*t.orderData.action_time-n)/1e3)))}else myalert._msg(e.msg,2)})},copy:function(t){var e=this;new Clipboard("#"+t).on("success",function(t){myalert._msg(e.spa_text.copyYes,1),t.clearSelection()})},cancel:function(){myalert._confirm({myClass:"confirmLayer ft2 wrapper",content:"<p class='size1 title'><strong>"+this.spa_text.tip+"</strong></p>\n\t\t\t\t      <p class='bold size000'>"+this.spa_text.CancelOrder+"</p>\n\t\t\t\t      <p class='ftH size00 subtitle'>"+this.spa_text.CancelContent+"</p>\n\t\t\t\t      <p class='my-col-50  button no size000' id='_confirmClose'>"+this.spa_text.no+"</p>\n\t\t\t\t      <p class='my-col-50  button  size000' onclick='vm.handleOrder(1)'>"+this.spa_text.yes+"</p>"})},confirmReceipt:function(){myalert._confirm({myClass:"confirmLayer ft2 wrapper",content:"<p class='size1 title'><strong>"+this.spa_text.tip+"</strong></p>\n\t\t\t\t      <p class='ft8 bold size000'>"+this.spa_text.confirmReceipt+"</p>\n\t\t\t\t      <p class='ftH size00 subtitle'>"+this.spa_text.confirmContent+"</p>\n\t\t\t\t      <p class='my-col-50  button no size000' id='_confirmClose'>"+this.spa_text.no+"</p>\n\t\t\t\t      <p class='my-col-50  button size000' onclick='vm.handleOrder(2)'>"+this.spa_text.yes+"</p>"})},handleOrder:function(t){var e;e=1==t?"c2c/cancel":"c2c/end";var i={id:this.orderId};this.$axios.post(e,i).then(function(e){myalert._msg(e.msg,2,function(){1==t?location.reload():2==t&&location.reload()})})},pay:function(){common._formMask(),this.uploadModel=!0},domCancel:function(){common._removeMask(),this.uploadModel=!1},uploadFile:function(t){var e=this;t&&(this.source=this.$axios.CancelToken.source(),plugin.photoCompress(t,{quality:.7},function(t){e.bl=plugin.convertBase64UrlToBlob(t),e.resumeUpload()}))},cancelUpload:function(){http.delloading(),this.source.cancel("取消上传成功,您可以继续上传")},resumeUpload:function(t){var e=this;if("resume"==t){this.bl=this.bl.slice(this.loaded+1,this.bl.size);var i=100-this.rate,o=this.rate}var a=this.$axios.CancelToken.source();this.source=a,this.$axios.post("common/uploadImg",{img:this.bl},{cancelToken:a.token,onUploadProgress:function(a){e.loaded=a.loaded,e.rate="resume"==t?o+a.loaded/a.total*i:a.loaded/a.total*100}}).then(function(t){if(t&&0==t.code){var i={id:e.orderId,pay_pic:t.data.id};e.$axios.post("c2c/pay",i).then(function(t){t&&0==t.code?myalert._msg(t.msg,2,function(){location.reload()}):myalert._msg(t.msg,1)})}else myalert._msg(t.msg,1)}).catch(function(t){console.log(t.message)})},getUpload:function(){return"background:#EFBB53;width:"+this.rate+"%;height:2rem;"},getDomTime:function(){var t=void 0!==arguments[0]?arguments[0]:0,e=this;this.intervalid=setInterval(function(){if(t<=0)return e.domTime=0,clearInterval(e.intervalid),!1;var i=Math.floor(t/3600),o=Math.floor(t/60%60),a=t%60;e.remainTime=a<10?o<10?i+" : 0"+o+" : 0"+a:i+" : "+o+" : 0"+a:o<10?i+" : 0"+o+" : "+a:i+" : "+o+" : "+a,t--},1e3)},getFrozenTime:function(){var t=void 0!==arguments[0]?arguments[0]:0,e=this;this.intervalid2=setInterval(function(){if(t<=0)return e.frozen=0,clearInterval(e.intervalid2),!1;var i=Math.floor(t/60),o=Math.floor(60*(t/60-i));e.frozenTime=o<10?i<10?"0"+i+" : 0"+o:i+" : 0"+o:i<10?"0"+i+" : "+o:i+" : "+o,t--},1e3)},openPhone:function(t){this.showPhone=!0,this.callPhone=t},getHL:function(){var t=this;if(common._parseUrl("hlId")){var e=common._parseUrl("hlId");this.$axios.post("common/getTenderCategory").then(function(i){var o,a,n;if(i&&0==i.code){var s=i.data.data;for(var r in s)if(s[r].id==e){o=[s[r].short,s[r].quotation],t.symbol=(n=(a=o[Symbol.iterator]()).next()).done?void 0:n.value,t.dollar=(n=a.next()).done?void 0:n.value;break}}})}}}});</script>
+</body>
+
+</html>
